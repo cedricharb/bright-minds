@@ -2,7 +2,11 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-
+//add contoller paths
+/**use Illuminate\Http\Request;
+use App\Models\User;
+use Validator;
+use Auth; for admin controllers */
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -14,6 +18,29 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+Route::group(['prefix' => 'v1'], function () {
+    Route::group([
+     'middleware' => 'api',
+     'prefix' => 'auth'
+ ], function () {
+     /* Authentication Routes */
+    
+ 
+     Route::post('/login', [AuthController::class,'login']);
+     
+ //api worker becuase :
+ /**
+  * http://127.0.0.1:8000/api/
+  * using jwt token allows the website to be :
+  * Secure? ✓
+  * Scalable? ✓
+  * Compact? ✓
+  * JSON? ✓
+  */
+     
+ 
+     /* Middleware for authentication */
+     
+    });      
+ 
+  });
