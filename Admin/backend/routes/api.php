@@ -2,11 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-//add contoller paths
-/**use Illuminate\Http\Request;
-use App\Models\User;
-use Validator;
-use Auth; for admin controllers */
+use App\Http\Controllers\AuthController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -19,6 +15,7 @@ use Auth; for admin controllers */
 */
 
 Route::group(['prefix' => 'v1'], function () {
+    Route::group(['prefix' => 'admin'], function () {
     Route::group([
      'middleware' => 'api',
      'prefix' => 'auth'
@@ -38,5 +35,5 @@ Route::group(['prefix' => 'v1'], function () {
   */
     });   
     
- 
+    });
   });
