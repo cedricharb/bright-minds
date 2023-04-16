@@ -21,8 +21,8 @@ Route::group(['prefix' => 'v1'], function () {
         Route::post('/deleteCamp', [CampController::class,'deleteCamp']);
         Route::post('/setCampTimings', [CampController::class,'setCampTimings']); //get id 
         Route::post('/editCampVisibility', [CampController::class,'editCampVisibility']); //allow reg for camps
-        Route::get('/viewregisteredCampers', [CampController::class,'viewregisteredCamperss']);//get id 
-        Route::get('/sendEmailTocampers', [CampController::class,'sendEmailTocampers']);//get id 
+        Route::get('/viewRegisteredCampers', [CampController::class,'viewRegisteredCamperss']);//get id 
+        Route::get('/sendEmailToCampers', [CampController::class,'sendEmailToCampers']);//get id 
         Route::get('/viewCampReviews', [CampController::class,'viewCampReviews']); //get id
         });   
     
