@@ -20,13 +20,15 @@ Route::group(['prefix' => 'v1'], function () {
             Route::get('/viewTutoringSubjects', [TutoringController::class,'viewTutoringSubjects']);
             Route::post('/addTutoringSubject', [TutoringController::class,'addTutoringSubject']);
             Route::post('/deleteTutoringSubject', [TutoringController::class,'deleteTutoringSubject']);
-            Route::post('/setTutoringSubject', [TutoringController::class,'setTutoringSubject']); //get id of class
+            
  
         });   
         Route::group(['prefix' => 'session'], function () {
             Route::get('/viewTutoringSessions', [TutoringController::class,'viewTutoringSessions']);
             Route::post('/addTutoringSession', [TutoringController::class,'addTutoringSession']);
             Route::post('/deleteTutoringSession', [TutoringController::class,'deleteTutoringSession']);
+            Route::post('/setTutoringSession', [TutoringController::class,'setTutoringSession']); 
+            //get id of session to edit
             //confirm tutoring session ??
     
  
