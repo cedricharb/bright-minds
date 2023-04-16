@@ -25,6 +25,7 @@ Route::group(['prefix' => 'v1'], function () {
  ], function () {
      /* Authentication Routes */
      Route::post('/login', [AuthController::class,'login']);
+     Route::post('/logout', [AuthController::class,'logout']);
      Route::post('/changePassword', [AuthController::class,'changePassword']);
  //api worker becuase :
  /**
