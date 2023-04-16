@@ -24,10 +24,8 @@ Route::group(['prefix' => 'v1'], function () {
      'prefix' => 'auth'
  ], function () {
      /* Authentication Routes */
-    
- 
      Route::post('/login', [AuthController::class,'login']);
-     
+     Route::post('/changePassword', [AuthController::class,'changePassword']);
  //api worker becuase :
  /**
   * http://127.0.0.1:8000/api/
@@ -37,10 +35,7 @@ Route::group(['prefix' => 'v1'], function () {
   * Compact? ✓
   * JSON? ✓
   */
-     
- 
-     /* Middleware for authentication */
-     
-    });      
+    });   
+    
  
   });

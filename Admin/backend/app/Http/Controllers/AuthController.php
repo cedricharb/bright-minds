@@ -9,8 +9,8 @@ use Auth;
 
 class adminController extends Controller
 {
-    //
-    function login_admin(Request $request) {
+    //login
+    private function login(Request $request) {
 
         $validator = Validator::make($request->all(), [
             'email' => 'required|email',
@@ -43,17 +43,32 @@ class adminController extends Controller
      *   "created_at": "2022-12-13T22:36:44.000000Z",
       *  "updated_at": "2022-12-13T22:36:44.000000Z"
      */
-    /*
-      return response()->json([
-                'success' => true,
-                'message' => 'Success',
-                'data' => $user
-            ], 201);
-        }else{
+    private function changePassword(Request $request){
+        $user = User::where('email', $request->email)->first();
+        
+        if (!$user) { //Email doesn\'t found on our database\
             return response()->json([
                 'success' => false,
-                'message' => 'Fail',
+                'message' => 'error',
             ], 400);
-        }
-    */
+        } else {
+        /**
+         * req new password
+         * update db
+         * verification email
+         */
+        $request->validate([
+            'password' => 'required|string',
+        ]);
+        
+            $new_password= $request->input('new_password');
+            $user->password = bcrypt($new_password); 
+            $user->save();
+            return response()->json([
+                'success' => true,
+                'message' => 'Success: password is changed.',
+            ], 201);
+
+    }}
+    
 }
