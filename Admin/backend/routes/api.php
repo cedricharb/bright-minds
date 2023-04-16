@@ -16,6 +16,7 @@ use App\Http\Controllers\ClassController;
 */
 
 Route::group(['prefix' => 'v1'], function () {
+    Route::group(['prefix' => 'admin'], function () {
     Route::group(['prefix' => 'classes'], function () {
      /* Authentication Routes */
      Route::get('/viewClasses', [ClassController::class,'viewClasses']);
@@ -25,5 +26,5 @@ Route::group(['prefix' => 'v1'], function () {
  
     });   
     
- 
+  });
   });
