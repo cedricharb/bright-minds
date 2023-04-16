@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::group(['prefix' => 'v1'], function () {
+    Route::group(['prefix' => 'admin'], function () {
     Route::group(['prefix' => 'tutoring'], function () {
         Route::group(['prefix' => 'subject'], function () {   
             Route::get('/viewTutoringSubjects', [TutoringController::class,'viewTutoringSubjects']);
@@ -34,4 +35,5 @@ Route::group(['prefix' => 'v1'], function () {
  
         });
     });
+});
 });
