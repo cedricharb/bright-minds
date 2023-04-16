@@ -2,7 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\CampController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -13,7 +13,19 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "api" middleware group. Make something great!
 |
 */
-
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::group(['prefix' => 'v1'], function () {
+    Route::group(['prefix' => 'admin'], function () {
+        Route::group(['prefix' => 'camp'], function () {
+        Route::get('/viewCamps', [CampController::class,'viewCamps']);
+        Route::post('/addCamp', [CampController::class,'addCamp']);
+        Route::post('/deleteCamp', [CampController::class,'deleteCamp']);
+        Route::post('/setCampTimings', [CampController::class,'setCampTimings']); //get id 
+        Route::post('/editCampVisibility', [CampController::class,'editCampVisibility']); //allow reg for camps
+        Route::get('/viewregisteredCampers', [CampController::class,'viewregisteredCamperss']);//get id 
+        Route::get('/sendEmailTocampers', [CampController::class,'sendEmailTocampers']);//get id 
+        Route::get('/viewCampReviews', [CampController::class,'viewCampReviews']); //get id
+        });   
+    
+ 
+    });
 });
