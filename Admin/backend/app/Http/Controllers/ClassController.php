@@ -56,7 +56,7 @@ class ClassController extends Controller
               }
             
       }
-      public function deleteClass(Request $request) {
+      public function deleteClass(Request $request) { 
          //delete class from db
          $class = EduClass::where('title', $request->title)->first();
     
@@ -76,7 +76,7 @@ class ClassController extends Controller
     }
         
       }
-      public function editClass(Request $request) {
+      public function editClass(Request $request) { //test
          //edit class from db
          /**
           * req info to edit
@@ -97,7 +97,7 @@ class ClassController extends Controller
             ], 400);
         } else {
         $class=EduClass::find($class_id); 
-         
+
         $new_title= $request->input('title'); //take input
         $new_d= $request->input('discreption'); //take input
         $new_a= $request->input('age_range'); //take input
