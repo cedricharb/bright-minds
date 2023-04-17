@@ -41,7 +41,14 @@ class ClassController extends Controller
         $class->description=$request->description;
         $class->age_range=$request->age_range;
         
-        if ($class->save()) {
+        $class_check = EduClass::where('title', $request->title)->first();
+    
+        if ($class_check) { //class is in our database\
+            return response()->json([
+                'success' => false,
+                'message' => 'error ,class already exist',
+            ], 400);
+        }elseif ($class->save()) {
             return response()->json([
                       'success' => true,
                       'message' => 'Success',
