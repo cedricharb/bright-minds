@@ -58,12 +58,59 @@ class ClassController extends Controller
       }
       public function deleteClass(Request $request) {
          //delete class from db
-         
+         $class = EduClass::where('title', $request->title)->first();
+    
+        if (!$class) { //class isn't found in our database\
+            return response()->json([
+                'success' => false,
+                'message' => 'error ,class does not exist',
+            ], 400);
+        } else {
+        
+        $class->delete();
+        return response()->json([
+            'success' => true,
+            'message' => 'Success',
+        ], 201);
+    
+    }
         
       }
-      public function editClass() {
+      public function editClass(Request $request) {
          //edit class from db
+         /**
+          * req info to edit
+          * update db
+          */
+          $request->validate([
+            'tile'=>'required',
+            'description'=>'required',
+            'age_range'=>'required', 
+        ]);
         
+        $class = EduClass::where('title', $request->title)->first();
+        $class_id = $class->id;
+        if (!$class) { //class isn't found in our database\
+            return response()->json([
+                'success' => false,
+                'message' => 'error ,class does not exist',
+            ], 400);
+        } else {
+        $class=EduClass::find($class_id); 
+         
+        $new_title= $request->input('title'); //take input
+        $new_d= $request->input('discreption'); //take input
+        $new_a= $request->input('age_range'); //take input
+        $class->title=$new_title;
+        $class->description=$new_d;
+        $class->age_range=$new_a;
+        $class->save();
+        return response()->json([
+            'success' => true,
+            'message' => 'Success',
+        ], 201);
+    
+    }
       }
 
 }
