@@ -26,10 +26,11 @@ class AuthController extends Controller
     
         ]);
         if ($validator->fails()) { //test each input to specify
-            RateLimiter::hit(request()->ip(), 60);//if invalid cred
+            RateLimiter::hit(request()->ip(), 60);
             return response()->json($validator->errors(), 202); 
         }
         if (!$token = auth()->attempt($validator->validated())) { 
+            RateLimiter::hit(request()->ip(), 60);
             return response()->json(['error' => 'Unauthorized'], 200);
         }
         RateLimiter::clear(request()->ip());
@@ -41,7 +42,7 @@ class AuthController extends Controller
 }
      protected function respondWithToken($token) {
         return response()->json([
-            'access_token' => $token, //user details
+            'access_token' => $token, 
             'user' => Auth::user(),
             'token_type' => 'bearer',
             'expires_in' => auth()->factory()->getTTL() * 60
@@ -57,13 +58,13 @@ class AuthController extends Controller
       *  "updated_at": "2022-12-13T22:36:44.000000Z"
      */
     public function logout(Request $request) {
-        Auth::logout();
-        return redirect('/login');
+        auth()->logout();
+        return response()->json(['message' => 'Successfully logged out']);
       }
-    private function changePassword(Request $request){
+    public function changePassword(Request $request){
         $user = User::where('email', $request->email)->first();
-        
-        if (!$user) { //Email doesn\'t found on our database\
+    
+        if (!$user) { //Email isn't found in our database\
             return response()->json([
                 'success' => false,
                 'message' => 'error',
@@ -74,20 +75,19 @@ class AuthController extends Controller
          * update db
          * verification email
          */
-        $validator = Validator::make($request->all()([
+        $request->validate([
             'password' => 'required|string',
-        ]));
-        if (!$token = auth()->attempt($validator->validated())) { 
-            return response()->json(['error' => 'Unauthorized'], 200);
-        }
-        $new_password= $request->input('new_password');
+        ]);
+        //if (!$token = auth()->attempt($validator->validated())) { 
+        //    return response()->json(['error' => 'Unauthorized'], 200);
+        //}
+        $new_password= $request->input('password'); //take input
         $user->password = bcrypt($new_password); 
         $user->save();
         return response()->json([
             'success' => true,
             'message' => 'Success: password is changed.',
         ], 201);
-
-    }}
     
+    }}
 }
