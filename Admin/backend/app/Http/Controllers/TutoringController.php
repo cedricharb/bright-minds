@@ -179,17 +179,104 @@ class TutoringController extends Controller
      } 
      
     /*************sessions**************/
+    public function get_subject_name($id){
+        $subject = Subject::find($id);
+        $name = $subject->subject_name;
+        return $name;
+    }
+    public function get_subject_id($name){
+        $subject = Subject::where('subject_name',$name);
+        $subject_number= $subject->id;
+        return $subject_number;
+    }
     public function viewTutoringSessions() {
-     // list tutoring sessions
-       
+     // list 
+     /**
+      * subject nb(fk)
+      * dtae_time
+      * more_infromation
+      * isAccepted
+      * student name
+      *         age
+      *         class
+      *         ->gaurdians
+      *            nb gardian
+      *             name
+      *             email
+      *              number
+      *             ->grd names(list)
+      */
+
+     $session = Session::get();
+        $subset = $session->map(function ($session) {
+            return collect($session->toArray())
+                ->only(['subject_name','date_time','more_information','isAccepted'])
+                ->all();
+        });//add student and gaurdian arrays
+        if ($session->save()) {
+            return response()->json([
+                      'success' => true,
+                      'message' => 'Success',
+                      'data' => $subset
+                  ], 201);
+              } else {
+                  return response()->json([
+                      'success' => false,
+                      'message' => 'Fail',
+                  ], 400);
+          
+              }  
      }
-    public function addTutoringSession() {
+    public function addTutoringSession(Request $request) {
      //add tutoring Session
+     $request->validate([
+        'subject_name'=>'required',
+        'date_time'=>'required',
+        'more_information'=>'required',
+        'isAccepted'=>'required'
+        //add student and gaurdian arrays
        
+
+    ]);
+    $session = new Session ;
+    $session ->subject_name=get_subject_id($request->subject_name);
+    $session ->date_time=$request->date_time;
+    $session ->more_information->more_information;
+    $session ->more_information=$request->more_information;
+    //student and gaurdians input depends on frontend
+
+    if ($session ->save()) {
+        return response()->json([
+                  'success' => true,
+                  'message' => 'Success',
+                  'data' => $session 
+              ], 201);
+          } else {
+              return response()->json([
+                  'success' => false,
+                  'message' => 'Fail',
+              ], 400);
+      
+          }     
      }
-    public function deleteTutoringSession() {
+    public function deleteTutoringSession(Request $request) {
      //delete tutoring Session
-       
+     $session = Session::where('subject_nb', $request->subject_nb)->first();
+    
+     if (!$session) { //session isn't found in our database\
+         return response()->json([
+             'success' => false,
+             'message' => 'error ,session does not exist',
+         ], 400);
+     } else {
+     
+     $session->delete();
+     return response()->json([
+         'success' => true,
+         'message' => 'Success',
+     ], 201);
+ 
+ }    
      } 
     public function setTutoringSession() {
      //edit tutoring Session
