@@ -6,8 +6,9 @@ use Illuminate\Http\Request;
 
 class InfoController extends Controller
 {
-    public function getInfo() {
-        $about = About::find('643eeae3ed89046e426aa1bf'); //to-do: _id is an object idk if this will work
+    public function getInfo() 
+    {
+        $about = About::find('643ef5c7ed89046e426aa1c2');
         return response()->json([
             "result" => true,
             "general" => $about->general,
