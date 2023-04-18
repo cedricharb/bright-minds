@@ -8,7 +8,7 @@ class ClassController extends Controller
 {
     //
     public function viewFAQ() {
-     // list camps
+     // list
      $faq = FAQ::get();
      $subset = $faq->map(function ($faq) {
          return collect($faq->toArray())
@@ -30,12 +30,57 @@ class ClassController extends Controller
            }
     }   
      
-    public function addFAQ() {
-     //add camp
-       
+    public function addFAQ(Request $request) {
+     //add 
+     $request->validate([
+        'question'=>'required',
+        'answer'=>'required',
+        'keywords'=>'required', 
+    ]);
+    $faq = new FAQ;
+    $faq->question=$request->question;
+    $faq->answer=$request->answer;
+    $faq->keywords=$request->keywords;
+    
+    $faq_check = FAQ::where('question', $request->question)->first();
+
+    if ($faq_check) { //faq is in our database\
+        return response()->json([
+            'success' => false,
+            'message' => 'error ,FAQ already exist',
+        ], 400);
+    }elseif ($faq->save()) {
+        return response()->json([
+                  'success' => true,
+                  'message' => 'Success',
+                  'data' => $faq
+              ], 201);
+          } else {
+              return response()->json([
+                  'success' => false,
+                  'message' => 'Fail',
+              ], 400);
+      
+          }   
      }
-    public function deleteFAQ() {
-     //delete camp
+    public function deleteFAQ(Request $request) {
+     //delete 
+     $faq = FAQ::where('question', $request->question)->first();
+    
+        if (!$faq) { //class isn't found in our database\
+            return response()->json([
+                'success' => false,
+                'message' => 'error ,faq does not exist',
+            ], 400);
+        } else {
+        
+        $faq->delete();
+        return response()->json([
+            'success' => true,
+            'message' => 'Success',
+        ], 201);
+    
+    }
     }
 
     /********about****** */
