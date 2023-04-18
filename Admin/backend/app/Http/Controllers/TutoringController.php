@@ -210,7 +210,7 @@ class TutoringController extends Controller
      $session = Session::get();
         $subset = $session->map(function ($session) {
             return collect($session->toArray())
-                ->only(['subject_name','date_time','more_information','isAccepted'])
+                ->only(['id','subject_name','date_time','more_information','isAccepted'])
                 ->all();
         });//add student and gaurdian arrays
         if ($session->save()) {
@@ -259,8 +259,8 @@ class TutoringController extends Controller
       
           }     
      }
-    public function deleteTutoringSession(Request $request) {
-     //delete tutoring Session
+    public function deleteTutoringSession(Request $request,$id=null) {
+     //delete tutoring Session , takes id from frontend
      $session = Session::where('subject_nb', $request->subject_nb)->first();
     
      if (!$session) { //session isn't found in our database\
