@@ -7,6 +7,6 @@ use Jenssegers\Mongodb\Eloquent\Model;
 
 class About extends Model
 {
-    protected $collection = 'About';
+    protected $collection = 'about';
     use HasFactory;
 }

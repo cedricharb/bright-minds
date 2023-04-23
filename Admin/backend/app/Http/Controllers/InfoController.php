@@ -9,7 +9,7 @@ class InfoController extends Controller
 {
     public function getInfo()
     {
-        $about = About::find('64450d4499ee761f6b035ede');
+        $about = About::all()->firstOrFail();
         return response()->json([
             "result" => true,
             "general" => $about->general,
@@ -20,22 +20,22 @@ class InfoController extends Controller
 
     public function updateInfo(Request $request)
     {
-        $about = About::find('64450d4499ee761f6b035ede');
+        $about = About::all()->firstOrFail();
         $result = false;
-        switch ($request) {
+        switch ($request->section) {
             case 1:
                 $about->general = $request->editedText;
-                $about->save;
+                $about->save();
                 $result = true;
                 break;
             case 2:
                 $about->mission = $request->editedText;
-                $about->save;
+                $about->save();
                 $result = true;
                 break;
             case 3:
                 $about->vision = $request->editedText;
-                $about->save;
+                $about->save();
                 $result = true;
                 break;
             default:

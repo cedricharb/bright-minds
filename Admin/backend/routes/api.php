@@ -21,5 +21,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::prefix('about')->group(function () {
     Route::get('/', [InfoController::class, 'getInfo']);
-    Route::post('/edit', [InfoController::class, 'updateInfo']);
+    Route::put('/edit', [InfoController::class, 'updateInfo']);
 });
