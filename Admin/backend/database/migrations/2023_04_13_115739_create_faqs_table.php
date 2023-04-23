@@ -13,8 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('faqs', function ($collections) {
+        Schema::create('schedules', function ($collections) {
             $collections->id();
+            $collections->string('weekday');
+            $collections->boolean('avaialable');
+            $collections->json('timings');
             $collections->timestamps();
         });
     }
@@ -26,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('faqs');
+        Schema::dropIfExists('_schedules_');
     }
 };

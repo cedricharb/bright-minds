@@ -13,11 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('chatbots', function ($collections) {
+        Schema::create('subjects', function ($collections) {
             $collections->id();
-            $collections->string('question');
-            $collections->text('answer');
-            $collections->integer('review');
+            $collections->string('subjectTitle');
+            $collections->text('description')->nullable();
             $collections->timestamps();
         });
     }
@@ -29,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('chatbots');
+        Schema::dropIfExists('subjects');
     }
 };

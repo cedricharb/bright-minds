@@ -15,6 +15,9 @@ return new class extends Migration
     {
         Schema::create('chatbots', function ($collections) {
             $collections->id();
+            $collections->string('question');
+            $collections->text('answer');
+            $collections->integer('review');
             $collections->timestamps();
         });
     }

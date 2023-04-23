@@ -13,8 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('_schedules_', function ($collections) {
+        Schema::create('schedules', function ($collections) {
             $collections->id();
+            $collections->string('weekday');
+            $collections->boolean('avaialable');
+            $collections->json('timings');
             $collections->timestamps();
         });
     }

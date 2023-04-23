@@ -15,10 +15,12 @@ return new class extends Migration
     {
         Schema::create('sessions', function ($collections) {
             $collections->id();
-            $collections->subject_nb();
-            $collections->date_time();
-            $collections->more_info();
-            $collections->is_accepted();
+            $collections->string('subject');
+            $collections->dateTime('dateTime');
+            $collections->text('moreInfo')->nullable();
+            $collections->boolean('is_accepted');
+            $collections->json('studentDetails');
+            $collections->json('guardianDetails');
             $collections->timestamps();
         });
     }

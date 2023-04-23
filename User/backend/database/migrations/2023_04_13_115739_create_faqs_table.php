@@ -15,6 +15,9 @@ return new class extends Migration
     {
         Schema::create('faqs', function ($collections) {
             $collections->id();
+            $collections->string('question');
+            $collections->text('answer');
+            $collections->json('keywords');
             $collections->timestamps();
         });
     }
