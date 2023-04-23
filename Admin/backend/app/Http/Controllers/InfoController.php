@@ -9,20 +9,19 @@ class InfoController extends Controller
 {
     public function getInfo()
     {
-        $about = About::find('643ef5c7ed89046e426aa1c2');
+        $about = About::find('64450d4499ee761f6b035ede');
         return response()->json([
             "result" => true,
             "general" => $about->general,
             "mission" => $about->mission,
             "vision" => $about->vision
         ]);
-
     }
 
     public function updateInfo(Request $request)
     {
-        $about = About::find('643ef5c7ed89046e426aa1c2');
-        $result;
+        $about = About::find('64450d4499ee761f6b035ede');
+        $result = false;
         switch ($request) {
             case 1:
                 $about->general = $request->editedText;
@@ -47,3 +46,4 @@ class InfoController extends Controller
             "result" => $result
         ]);
     }
+}
