@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('password_change_tokens', function ($collection) {
+        Schema::create('password_reset_tokens', function ($collection) {
             $collection->string('email')->primary();
             $collection->string('token');
             $collection->timestamp('created_at')->nullable();
@@ -23,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('password_change_tokens');
+        Schema::dropIfExists('password_reset_tokens');
     }
 };
