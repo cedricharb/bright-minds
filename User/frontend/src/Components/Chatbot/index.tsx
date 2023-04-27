@@ -10,7 +10,7 @@ const Chatbot = () => {
   const [inputValue, setInputValue] = useState<string>("");
   const [selectedStars, setSelectedStars] = useState<number>(0);
   const theme = useMantineTheme();
-
+  const [enableflag, setEnableFlag] = useState<boolean>(false);
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(event.target.value);
@@ -32,22 +32,29 @@ const Chatbot = () => {
         if (keyword === "hello" || keyword === "hi" || keyword === "hey") {
           setMessages([
             ...messages,
-            inputValue+"Hi there! How can I help you today?",
+            inputValue,
+            "Hi there! How can I help you today?",
           ]);
         } else if (keyword === "bye" || keyword === "goodbye") {
           setMessages([
             ...messages,
+            inputValue,
             "Goodbye! Let me know if you need anything else.",
           ]);
         }
+        setSelectedStars(0);
+        setEnableFlag(true);
         return;
       }
     }
 
     setMessages([
       ...messages,
+      inputValue,
       "I'm sorry, I didn't understand what you said.",
     ]);
+    setSelectedStars(0);
+    setEnableFlag(true);
   };
 
   const handleStarClick = (starIndex: number) => {
@@ -56,15 +63,25 @@ const Chatbot = () => {
       ...messages,
       `Thank you for your ${starIndex + 1}-star review!`,
     ]);
+    setEnableFlag(false);
   };
 
   const renderStarIcon = (index: number) => {
-      return (
-        <ActionIcon key={index} color={index<selectedStars? 'yellow' : 'dark'} justify-content="flex-start" onClick={() => handleStarClick(index)}>
-          <IconStar />
-        </ActionIcon>
-      );
-  };
+    if(enableflag){
+        return (
+          <ActionIcon 
+            key={index} 
+            color={index<selectedStars? 'yellow' : 'dark'}
+            onMouseOver={({target})=>setSelectedStars(index+1)}
+            justify-content="flex-start" 
+            onClick={() => handleStarClick(index)}>
+            <IconStar />
+          </ActionIcon>
+        );
+    };
+    return <></>;
+  }
+  
 
   return (
     <div>
