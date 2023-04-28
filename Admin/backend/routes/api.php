@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CampController;
+use App\Http\Controllers\InfoController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -74,5 +75,25 @@ Route::group(['prefix' => 'v1'], function () {
     
  
   });
+  Route::group(['prefix' => 'FAQ'], function () {
+    Route::get('/viewFAQ', [InfoController::class,'viewFAQ']);
+    Route::post('/addFAQ', [InfoController::class,'addFAQ']);
+    Route::post('/deleteFAQ', [InfoController::class,'deleteFAQ']);
+
+   });   
+   Route::group(['prefix' => 'about'], function () {
+     Route::get('/viewAbout', [InfoController::class,'viewAbout']);
+     Route::post('/editAbout', [InfoController::class,'editAbout']);
+     
+ 
+    });
+    Route::group(['prefix' => 'chatbot'], function () {
+     Route::post('/addChatbotFAQ', [InfoController::class,'addChatbotFAQ']);
+     
+
+   });
+ });
 });
-});
+
+    
+  
