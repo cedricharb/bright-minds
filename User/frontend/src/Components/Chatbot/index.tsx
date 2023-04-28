@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { ActionIcon, useMantineTheme } from "@mantine/core";
-import { Button, TextInput, Paper, Card } from "@mantine/core";
+import { Button, TextInput, Paper, Card, Flex } from "@mantine/core";
 import { IconStar } from "@tabler/icons-react";
 import { keywords } from '../../data/backendFodder'
 
@@ -86,6 +86,7 @@ const Chatbot = () => {
   
 
   return (
+    <Flex align="end" justify="flex-end" h="100vh">
     <Card
       shadow="sm"
       
@@ -122,6 +123,7 @@ const Chatbot = () => {
         </div>
       </div>
     </Card>
+    </Flex>
   );
 };
 

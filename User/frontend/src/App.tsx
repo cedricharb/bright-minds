@@ -1,9 +1,9 @@
 import './App.css';
-import Chatbot from './components/Chatbot';
+import Demo from './components/Demos';
 
 function App() {
   return (
-    <Chatbot/>
+    <Demo/>
   );
 }
 
