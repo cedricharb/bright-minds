@@ -17,6 +17,25 @@ use App\Http\Controllers\AuthController;use App\Http\Controllers\ClassController
 
 Route::group(['prefix' => 'v1'], function () {
     Route::group(['prefix' => 'admin'], function () {
+      Route::group([
+        'middleware' => 'api',
+        'prefix' => 'auth'
+    ], function () {
+        /* Authentication Routes */
+        Route::post('/refresh', [AuthController::class,'refresh']);
+        Route::post('/login', [AuthController::class,'login']);
+        Route::post('/logout', [AuthController::class,'logout']);
+        Route::post('/changePassword', [AuthController::class,'changePassword']);
+    //api worker becuase :
+    /**
+     * http://127.0.0.1:8000/api/
+     * using jwt token allows the website to be :
+     * Secure? ✓
+     * Scalable? ✓
+     * Compact? ✓
+     * JSON? ✓
+     */
+       });   
     Route::group(['prefix' => 'classes'], function () {
      Route::get('/viewClasses', [ClassController::class,'viewClasses']);
      Route::post('/addClass', [ClassController::class,'addClass']);
@@ -26,28 +45,4 @@ Route::group(['prefix' => 'v1'], function () {
     });   
     
   });
-  });
-Route::group(['prefix' => 'v1'], function () {
-    Route::group(['prefix' => 'admin'], function () {
-    Route::group([
-     'middleware' => 'api',
-     'prefix' => 'auth'
- ], function () {
-     /* Authentication Routes */
-     Route::post('/refresh', [AuthController::class,'refresh']);
-     Route::post('/login', [AuthController::class,'login']);
-     Route::post('/logout', [AuthController::class,'logout']);
-     Route::post('/changePassword', [AuthController::class,'changePassword']);
- //api worker becuase :
- /**
-  * http://127.0.0.1:8000/api/
-  * using jwt token allows the website to be :
-  * Secure? ✓
-  * Scalable? ✓
-  * Compact? ✓
-  * JSON? ✓
-  */
-    });   
-    
-    });
   });
