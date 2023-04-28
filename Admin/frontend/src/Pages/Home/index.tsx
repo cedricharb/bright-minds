@@ -7,7 +7,6 @@ import {
   IconBrandYoutube,
   IconBrandLinkedin,
 } from "@tabler/icons-react";
-import { Link } from "react-router-dom";
 
 const Home = () => {
   const theme = useMantineTheme();
