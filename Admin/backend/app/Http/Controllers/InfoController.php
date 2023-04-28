@@ -9,7 +9,7 @@ use App\Models\Chatbot;
 
 class InfoController extends Controller
 {
-    public function getInfo()
+   /* public function getInfo()
     {
         $about = About::find('643ef5c7ed89046e426aa1c2');
         return response()->json([
@@ -48,7 +48,7 @@ class InfoController extends Controller
         return response()->json([
             "result" => $result
         ]);
-    }
+    }*/
     //
     public function viewFAQ() {
         // list
@@ -58,19 +58,13 @@ class InfoController extends Controller
                 ->only(['question', 'answer', 'keywords'])
                 ->all();
         });
-        if ($faq->save()) {
+        
             return response()->json([
                       'result' => true,
-                      'message' => 'result',
+                      'message' => 'FAQ Listed',
                       'data' => $subset
                   ], 201);
-              } else {
-                  return response()->json([
-                      'result' => false,
-                      'message' => 'Fail',
-                  ], 400);
-          
-              }
+              
        }   
         
        public function addFAQ(Request $request) {
@@ -84,7 +78,17 @@ class InfoController extends Controller
        $faq->question=$request->question;
        $faq->answer=$request->answer;
        $faq->keywords=$request->keywords;
-       
+       //adds a list of keywords
+       /** front end should return
+        * {
+            *"question": "q_3",
+            *"answer": "a",
+            *"keywords": {
+            *    "key1": "education",
+            *    "key3": "center"
+            *}
+        *       }
+        */
        $faq_check = FAQ::where('question', $request->question)->first();
    
        if ($faq_check) { //faq is in our database\
@@ -95,8 +99,7 @@ class InfoController extends Controller
        }elseif ($faq->save()) {
            return response()->json([
                      'result' => true,
-                     'message' => 'result',
-                     'data' => $faq
+                     'message' => 'FAQ added'
                  ], 400);
              } else {
                  return response()->json([
@@ -120,7 +123,7 @@ class InfoController extends Controller
            $faq->delete();
            return response()->json([
                'result' => true,
-               'message' => 'result',
+               'message' => 'FAQ deleted',
            ], 201);
        
        }
@@ -145,6 +148,7 @@ class InfoController extends Controller
               
        }     
         
+
        public function editAbout(Request $request) {
         //edit general info
         $request->validate([
@@ -155,11 +159,11 @@ class InfoController extends Controller
        $about = About::all()->firstorFail(); 
    
        $new_general_information= $request->input('general'); //take input
-       $about->title=$new_general_information;
+       $about->general=$new_general_information;
        $about->save();
        return response()->json([
            'result' => true,
-           'message' => 'done',
+           'message' => 'general information has been edited',
        ], 201);
         }
    

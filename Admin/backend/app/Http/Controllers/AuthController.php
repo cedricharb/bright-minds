@@ -8,7 +8,7 @@ use App\Models\User;
 use Validator;
 use Auth;
 
-
+use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Auth\Middleware\Authenticate as Middleware;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use PHPOpenSourceSaver\JWTAuth\Contracts\JWTSubject;
@@ -26,30 +26,26 @@ class AuthController extends Controller
                 );
                 }
         $validator = Validator::make($request->all(), [
-           // 'email' => 'required|string',
+           'email' => 'required|string',
             'password' => 'required|string',
             
     
         ]);
+        $credentials = $request->only('email', 'password');
         if ($validator->fails()) { //test each input to specify
             RateLimiter::hit(request()->ip(), 60);
             return response()->json(["message"=>"missing field/s"], 202); 
         }
-     if (!$token = JWTAuth::attempt($validator->validated())) { 
-       // $token = JWTAuth::attempt($validator->validated());
-        //return response()->json(['token' => $token]);
-           RateLimiter::hit(request()->ip(), 60);
-            return response()->json(['message' => 'Unauthorized'], 200);
+        $credentials = $request->only('email', 'password');
+        if (!$token = auth()->attempt($credentials)) { //if not registered
+            //RateLimiter::hit(request()->ip(), 60);//if invalid cred
+            return response()->json(["message"=>"unAuthorized"], 202); 
         }
-        //$token ="45ttref";
-       // RateLimiter::clear(request()->ip());
-        //update database
-        //$token = bin2hex(random_bytes(32)); //helps save the token in db
-        //token must not be in the database 
-        //$user = User::where('email', $request->email)->first();
-        //$user->remember_token = $token;  
-       // $user->save();
+       // $token = JWTAuth::getToken();
 
+      //  $user = User::where('email', $request->email)->first();
+       //$user->save();
+       
         return $this->respondWithToken($token);
         
     }catch (\Throwable $th) {

@@ -14,8 +14,7 @@ use Jenssegers\Mongodb\Eloquent\Model as Eloquent;
 class User extends Authenticatable implements JWTSubject
 {
     use HasApiTokens, HasFactory, Notifiable;
-    // Rest omitted for brevity
-    protected $collection = "users";
+    protected $collection = "user";
 
     /**
      * Get the identifier that will be stored in the subject claim of the JWT.
