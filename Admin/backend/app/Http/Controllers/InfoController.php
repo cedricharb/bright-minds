@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\About;
+use App\Models\FAQ;
 
 class InfoController extends Controller
 {
@@ -58,13 +59,13 @@ class InfoController extends Controller
         });
         if ($faq->save()) {
             return response()->json([
-                      'success' => true,
-                      'message' => 'Success',
+                      'result' => true,
+                      'message' => 'result',
                       'data' => $subset
                   ], 201);
               } else {
                   return response()->json([
-                      'success' => false,
+                      'result' => false,
                       'message' => 'Fail',
                   ], 400);
           
@@ -76,7 +77,7 @@ class InfoController extends Controller
         $request->validate([
            'question'=>'required',
            'answer'=>'required',
-           'keywords'=>'required', 
+          // 'keywords'=>'required', 
        ]);
        $faq = new FAQ;
        $faq->question=$request->question;
@@ -87,18 +88,18 @@ class InfoController extends Controller
    
        if ($faq_check) { //faq is in our database\
            return response()->json([
-               'success' => false,
+               'result' => false,
                'message' => 'error ,FAQ already exist',
-           ], 400);
+           ], 201);
        }elseif ($faq->save()) {
            return response()->json([
-                     'success' => true,
-                     'message' => 'Success',
+                     'result' => true,
+                     'message' => 'result',
                      'data' => $faq
-                 ], 201);
+                 ], 400);
              } else {
                  return response()->json([
-                     'success' => false,
+                     'result' => false,
                      'message' => 'Fail',
                  ], 400);
          
@@ -110,15 +111,15 @@ class InfoController extends Controller
        
            if (!$faq) { //class isn't found in our database\
                return response()->json([
-                   'success' => false,
+                   'result' => false,
                    'message' => 'error ,faq does not exist',
                ], 400);
            } else {
            
            $faq->delete();
            return response()->json([
-               'success' => true,
-               'message' => 'Success',
+               'result' => true,
+               'message' => 'result',
            ], 201);
        
        }
@@ -127,45 +128,37 @@ class InfoController extends Controller
        /********about****** */
        public function viewAbout() {
         // view about content
-        $about = About::get();
-        $subset = $about->map(function ($about) {
-            return collect($about->toArray())
-                ->only(['general_information', 'mission', 'vision'])
-                ->all();
-        });
-        if ($about->save()) {
+        $about = About::all()->firstorFail();
+        
+           // $data->$general =$about->general;
+            //$data->$mission =$about->mission;
+            //$data->$vision =$about->vision;
+            //$myData = json_encode($data);
+        
             return response()->json([
-                      'success' => true,
-                      'message' => 'Success',
-                      'data' => $subset
+                      'result' => true,
+                      'general' => $about->general,
+                      'mission' => $about->mission,
+                      'vision' => $about->vision,
                   ], 201);
-              } else {
-                  return response()->json([
-                      'success' => false,
-                      'message' => 'Fail',
-                  ], 400);
-          
-              }
+              
        }     
         
        public function editAbout(Request $request) {
         //edit general info
         $request->validate([
-           'general_information'=>'required',
+           'general'=>'required',
            
        ]);
        
-       $about = About::where('general_information', $request->title)->first();
-       $about_id = $about->id;
-       
-       $about=About::find($about_id); 
+       $about = About::all()->firstorFail(); 
    
-       $new_general_information= $request->input('general_information'); //take input
+       $new_general_information= $request->input('general'); //take input
        $about->title=$new_general_information;
        $about->save();
        return response()->json([
-           'success' => true,
-           'message' => 'Success',
+           'result' => true,
+           'message' => 'done',
        ], 201);
         }
    

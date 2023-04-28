@@ -1,4 +1,6 @@
-const axios = require('axios');
+//const axios = require('axios');
+import axios from 'axios';
+
 interface Response {
 	token: string;
 }

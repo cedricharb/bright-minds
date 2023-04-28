@@ -8,6 +8,12 @@ use App\Models\User;
 use Validator;
 use Auth;
 
+
+use Illuminate\Auth\Middleware\Authenticate as Middleware;
+use Tymon\JWTAuth\Exceptions\JWTException;
+use PHPOpenSourceSaver\JWTAuth\Contracts\JWTSubject;
+use Tymon\JWTAuth\Facades\JWTAuth;
+
 class AuthController extends Controller
 {
     //login
@@ -20,38 +26,42 @@ class AuthController extends Controller
                 );
                 }
         $validator = Validator::make($request->all(), [
-            'email' => 'required|email',
+           // 'email' => 'required|string',
             'password' => 'required|string',
             
     
         ]);
         if ($validator->fails()) { //test each input to specify
             RateLimiter::hit(request()->ip(), 60);
-            return response()->json($validator->errors(), 202); 
+            return response()->json(["message"=>"missing field/s"], 202); 
         }
-        if (!$token = auth()->attempt($validator->validated())) { 
-            RateLimiter::hit(request()->ip(), 60);
-            return response()->json(['error' => 'Unauthorized'], 200);
+     if (!$token = JWTAuth::attempt($validator->validated())) { 
+       // $token = JWTAuth::attempt($validator->validated());
+        //return response()->json(['token' => $token]);
+           RateLimiter::hit(request()->ip(), 60);
+            return response()->json(['message' => 'Unauthorized'], 200);
         }
-        RateLimiter::clear(request()->ip());
+        //$token ="45ttref";
+       // RateLimiter::clear(request()->ip());
         //update database
-        $token = bin2hex(random_bytes(32)); //helps save the token in db
+        //$token = bin2hex(random_bytes(32)); //helps save the token in db
         //token must not be in the database 
-        $user = User::where('email', $request->email)->first();
-        $user->remember_token = $token;  
-        $user->save();
+        //$user = User::where('email', $request->email)->first();
+        //$user->remember_token = $token;  
+       // $user->save();
+
         return $this->respondWithToken($token);
         
     }catch (\Throwable $th) {
         throw $th;
     }
 }
-     protected function respondWithToken($token) {
+     public function respondWithToken($token) {
         return response()->json([
             'access_token' => $token, 
             'user' => Auth::user(),
             'token_type' => 'bearer',
-            'expires_in' => auth()->factory()->getTTL() * 60
+            'expires_in' =>  auth('api')->factory()->getTTL() * 60
         ]);
     }
     /**

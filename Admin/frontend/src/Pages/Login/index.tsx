@@ -1,13 +1,16 @@
 import { Card, TextInput, PasswordInput, Button, Flex } from "@mantine/core";
 import { useState } from "react";
 import { login } from '../../API/loginAPI';
+import React from 'react';
+const axios = require('axios');
+
 const Login = () => {
   const [submitted, setSubmitted] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const login = () => {
+  const loginButton = () => {
     if (!email || !password) {
       setSubmitted(true);
     } else {
@@ -16,6 +19,7 @@ const Login = () => {
       login();
       console.log(email);
       console.log(password);
+      setLoading(false);
     }
   };
 
@@ -54,7 +58,7 @@ const Login = () => {
             size="md"
             uppercase
             loading={loading}
-            onClick={login}
+            onClick={loginButton}
           >
             Log in
           </Button>
