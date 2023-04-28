@@ -85,7 +85,8 @@ class TutoringController extends Controller
         $timings = array($from, $to);
         return $timings;
     }*/
-     public function addTutoringSchedule(Request $request) {
+    
+    public function addTutoringSchedule(Request $request) {
      //add 
      /**example
       * Moday: { //day 

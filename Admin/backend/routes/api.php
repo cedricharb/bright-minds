@@ -25,6 +25,7 @@ Route::group(['prefix' => 'v1'], function () {
         'prefix' => 'auth'], function () {
         /* Authentication Routes */
         Route::post('/refresh', [AuthController::class,'refresh']);
+        
         Route::post('/login', [AuthController::class,'login']);
         Route::post('/logout', [AuthController::class,'logout']);
         Route::post('/changePassword', [AuthController::class,'changePassword']);

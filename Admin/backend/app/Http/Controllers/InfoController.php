@@ -172,7 +172,11 @@ class InfoController extends Controller
         /******chatbot ***** */
         public function addChatbotFAQ() {
         //record chatbot answer/question to be added to faq section
-          
+          /**
+           * return keywords as a list
+           * obtain keyword as a list 
+           */
+
         }
 
 }
