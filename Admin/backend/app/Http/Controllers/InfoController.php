@@ -47,3 +47,5 @@ class InfoController extends Controller
             "result" => $result
         ]);
     }
+
+}
