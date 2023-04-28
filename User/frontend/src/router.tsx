@@ -37,6 +37,9 @@ const router = createBrowserRouter(
     <Route path="" element={<Layout />}>
       <Route path="" element={<Navigate to="/landing-page" replace />} />
       <Route path="/landing-page" element={<LandingPage />} />
+      <Route path="/classes" element={<span>Classes</span>} />
+      <Route path="/tutoring" element={<span>Tutoring</span>} />
+      <Route path="/camps" element={<span>Camps</span>} />
       <Route path="*" element={<>Oops</>} />
     </Route>
   )
