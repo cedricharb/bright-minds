@@ -6,9 +6,11 @@ import { useNavigate } from "react-router-dom";
 type Props = {
   description: string;
   destination: string;
+  title: string;
+  image?: string;
 };
 
-const CircleComponent = ({ description, destination }: Props) => {
+const CircleComponent = ({ description, destination, title, image }: Props) => {
   const navigate = useNavigate();
   const theme = useMantineTheme();
   const [isHovered, setIsHovered] = useState(false);
@@ -29,6 +31,7 @@ const CircleComponent = ({ description, destination }: Props) => {
     <UnstyledButton onClick={() => goTo(destination)}>
       <div
         style={{
+          width: "300px",
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
@@ -54,7 +57,10 @@ const CircleComponent = ({ description, destination }: Props) => {
             marginBottom: 8,
           }}
         />
-        <Text>{description}</Text>
+        <Text weight="bold">{title}</Text>
+        <Text pt="sm" align="center">
+          {description}
+        </Text>
       </div>
     </UnstyledButton>
   );
