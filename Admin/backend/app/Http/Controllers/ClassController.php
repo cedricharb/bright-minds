@@ -95,7 +95,7 @@ class ClassController extends Controller
             'age_range'=>'required', 
         ]);
         
-        $class = EduClass::where('title', $request->title)->first();
+        $class = EduClass::where('title', $request->title)->first(); //obain class based on title
         $class_id = $class->id;
         if (!$class) { //class isn't found in our database\
             return response()->json([
