@@ -1,5 +1,6 @@
 import { Paper, Text, UnstyledButton } from "@mantine/core";
 import { useMantineTheme } from "@mantine/core";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 type Props = {
@@ -10,9 +11,18 @@ type Props = {
 const CircleComponent = ({ description, destination }: Props) => {
   const navigate = useNavigate();
   const theme = useMantineTheme();
+  const [isHovered, setIsHovered] = useState(false);
 
   const goTo = (destination: string) => {
     navigate(destination);
+  };
+
+  const handleMouseEnter = () => {
+    setIsHovered(true);
+  };
+
+  const handleMouseLeave = () => {
+    setIsHovered(false);
   };
 
   return (
@@ -22,7 +32,14 @@ const CircleComponent = ({ description, destination }: Props) => {
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
+          backgroundColor: isHovered
+            ? theme.colors.yellow[3]
+            : theme.colors.yellow[4],
+          borderRadius: "30px",
+          padding: "40px",
         }}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
       >
         <Paper
           style={{
@@ -30,9 +47,7 @@ const CircleComponent = ({ description, destination }: Props) => {
             height: 240,
             borderRadius: "50%",
             backgroundColor:
-              theme.colorScheme === "dark"
-                ? theme.colors.dark[9]
-                : theme.colors.gray[3],
+              theme.colorScheme === "dark" ? theme.colors.dark[9] : "white",
             display: "flex",
             justifyContent: "center",
             alignItems: "center",

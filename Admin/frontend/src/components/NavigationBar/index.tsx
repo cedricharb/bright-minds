@@ -1,7 +1,14 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { IconNotebook } from "@tabler/icons-react";
-import { Group, Text, Flex, Button, UnstyledButton } from "@mantine/core";
+import {
+  Group,
+  Text,
+  Flex,
+  Button,
+  UnstyledButton,
+  useMantineTheme,
+} from "@mantine/core";
 
 const links = [{ link: "/Home", label: "Home Page" }];
 
@@ -10,9 +17,10 @@ const Navbar = () => {
     links.findIndex((element) => element.link === window.location.pathname)
   );
   const navigate = useNavigate();
+  const theme = useMantineTheme();
 
   return (
-    <Flex gap={5} direction="column">
+    <Flex gap={5} direction="column" bg={theme.colors.gray[4]} w="100%">
       <UnstyledButton onClick={() => navigate("/home")}>
         <Group h={60} mb={20} pl={5}>
           <IconNotebook />
