@@ -120,11 +120,18 @@ class InfoController extends Controller
                ], 400);
            } else {
            
-           $faq->delete();
-           return response()->json([
-               'result' => true,
-               'message' => 'FAQ deleted',
-           ], 201);
+           if ($faq->delete())
+            { return response()->json([
+                    'result' => true,
+                    'message' => 'camp is deleted',
+                ], 201);
+            } else {
+                return response()->json([
+                    'result' => false,
+                    'message' => 'Fail',
+                ], 400);
+
+        } 
        
        }
        }

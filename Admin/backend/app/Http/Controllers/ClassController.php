@@ -63,11 +63,18 @@ class ClassController extends Controller
             ], 400);
         } else {
         
-        $class->delete();
-        return response()->json([
-            'result' => true,
-            'message' => 'class is deleted',
-        ], 201);
+         if ($class->delete())
+        { return response()->json([
+                'result' => true,
+                'message' => 'camp is deleted',
+            ], 201);
+        } else {
+            return response()->json([
+                'result' => false,
+                'message' => 'Fail',
+            ], 400);
+
+        } 
     
     }
         
