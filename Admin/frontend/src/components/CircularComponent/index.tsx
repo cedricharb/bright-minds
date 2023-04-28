@@ -1,5 +1,6 @@
 import { Paper, Text, UnstyledButton } from "@mantine/core";
 import { useMantineTheme } from "@mantine/core";
+import { useNavigate } from "react-router-dom";
 
 type Props = {
   description: string;
@@ -7,11 +8,11 @@ type Props = {
 };
 
 const CircleComponent = ({ description, destination }: Props) => {
+  const navigate = useNavigate();
   const theme = useMantineTheme();
 
   const goTo = (destination: string) => {
-    //goes to /<destination> once the router is implemented
-    console.log(destination);
+    navigate(destination);
   };
 
   return (

@@ -27,9 +27,9 @@ const Layout = () => (
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="" element={<Layout />}>
-      <Route path="" element={<Navigate to="/Login" replace />} />
-      <Route path="/Login" element={<Login />} />
-      <Route path="/Home" element={<Home />} />
+      <Route path="" element={<Navigate to="/login" replace />} />
+      <Route path="/login" element={<Login />} />
+      <Route path="/home" element={<Home />} />
       <Route path="*" element={<>Oops</>} />
     </Route>
   )
