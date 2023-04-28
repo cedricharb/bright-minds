@@ -15,6 +15,8 @@ return new class extends Migration
     {
         Schema::create('_schedules_', function ($collections) {
             $collections->id();
+            $collections->day_of_the_week();
+            
             $collections->timestamps();
         });
     }

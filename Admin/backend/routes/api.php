@@ -19,8 +19,7 @@ Route::group(['prefix' => 'v1'], function () {
     Route::group(['prefix' => 'admin'], function () {
       Route::group([
         'middleware' => 'api',
-        'prefix' => 'auth'
-    ], function () {
+        'prefix' => 'auth'], function () {
         /* Authentication Routes */
         Route::post('/refresh', [AuthController::class,'refresh']);
         Route::post('/login', [AuthController::class,'login']);
