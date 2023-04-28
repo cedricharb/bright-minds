@@ -1,5 +1,5 @@
 import { Flex, Text } from "@mantine/core";
-import CircleComponent from "../../Components/CircularComponent";
+import CircleComponent from "../../components/CircularComponent";
 import { mainDesc } from "../../data/backendFodder";
 
 const MainPage = () => {

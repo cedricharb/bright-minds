@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { ActionIcon, useMantineTheme } from "@mantine/core";
-import { Button, TextInput, Paper } from "@mantine/core";
+import { Button, TextInput, Paper, Card } from "@mantine/core";
 import { IconStar } from "@tabler/icons-react";
 import { keywords } from '../../data/backendFodder'
 
@@ -86,34 +86,42 @@ const Chatbot = () => {
   
 
   return (
-    <div>
-      <Paper style={{ marginBottom: theme.spacing.xs }}>
-        {messages.map((message, index) => (
-          <div key={index}>{message}</div>
-        ))}
-        
-      </Paper>
-      <div style={{ display: "flex" }}>
-        
-        <TextInput
-          value={inputValue}
-          onChange={handleInputChange}
-          onKeyPress={(event) => {
-            if (event.key === "Enter") {
-              handleInputSubmit();
-            }
-          }}
-          placeholder="Type your message here..."
-          size="lg"
-          variant="filled"
-          style={{ marginRight: theme.spacing.xs }}
-        />
-        <Button onClick={handleInputSubmit}>Send</Button>
-        <div style={{ display: "flex", justifyContent: "flex-start" }}>
-          {[...Array(5)].map((_, index) => renderStarIcon(index))}
+    <Card
+      shadow="sm"
+      
+      radius="md" 
+      withBorder
+      w="30%">
+      <div>
+        <Paper style={{ marginBottom: theme.spacing.xs }}>
+          {messages.map((message, index) => (
+            <div key={index}>{message}</div>
+          ))}
+          
+        </Paper>
+        <div style={{ display: "flex" }}>
+          
+          <TextInput
+          
+            value={inputValue}
+            onChange={handleInputChange}
+            onKeyPress={(event) => {
+              if (event.key === "Enter") {
+                handleInputSubmit();
+              }
+            }}
+            placeholder="Type your message here..."
+            size="lg"
+            variant="filled"
+            style={{ marginRight: theme.spacing.xs }}
+          />
+          <Button onClick={handleInputSubmit}>Send</Button>
+          <div style={{ display: "flex", justifyContent: "flex-start" }}>
+            {[...Array(5)].map((_, index) => renderStarIcon(index))}
+          </div>
         </div>
       </div>
-    </div>
+    </Card>
   );
 };
 
