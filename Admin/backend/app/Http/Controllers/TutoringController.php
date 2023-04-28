@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Schedule;
+use App\Models\Subject;
+use App\Models\Session;
 
 class TutoringController extends Controller
 {
