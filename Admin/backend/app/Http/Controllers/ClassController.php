@@ -102,7 +102,7 @@ class ClassController extends Controller
         if ($class->save()) {
         return response()->json([
             'result' => true,
-            'message' => 'Success',
+            'message' => 'Class edited',
         ], 201);
        } else {
         return response()->json([
