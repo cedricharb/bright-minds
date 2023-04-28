@@ -1,6 +1,6 @@
 import { Card, TextInput, PasswordInput, Button, Flex } from "@mantine/core";
 import { useState } from "react";
-
+import { login } from '../../API/loginAPI';
 const Login = () => {
   const [submitted, setSubmitted] = useState(false);
   const [email, setEmail] = useState("");
@@ -13,6 +13,7 @@ const Login = () => {
     } else {
       setSubmitted(false);
       setLoading(true);
+      login();
       console.log(email);
       console.log(password);
     }
