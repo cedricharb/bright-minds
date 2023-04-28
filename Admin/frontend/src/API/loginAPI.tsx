@@ -2,7 +2,7 @@ const axios = require('axios');
 interface Response {
 	token: string;
 }
-function getQuotes() {
+export function login() {
 	const options = {
 		method: 'POST',
 		url: 'http://127.0.0.1:8000/api/v1/admin/auth/login',
