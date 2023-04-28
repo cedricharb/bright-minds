@@ -34,6 +34,12 @@ class AuthController extends Controller
             return response()->json(['error' => 'Unauthorized'], 200);
         }
         RateLimiter::clear(request()->ip());
+        //update database
+        $token = bin2hex(random_bytes(32)); //helps save the token in db
+        //token must not be in the database 
+        $user = User::where('email', $request->email)->first();
+        $user->remember_token = $token;  
+        $user->save();
         return $this->respondWithToken($token);
         
     }catch (\Throwable $th) {
@@ -58,8 +64,12 @@ class AuthController extends Controller
       *  "updated_at": "2022-12-13T22:36:44.000000Z"
      */
     public function logout(Request $request) {
-        auth()->logout();
-        return response()->json(['message' => 'Successfully logged out']);
+        //auth()->logout();
+        Auth::logout();
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Successfully logged out',
+        ]);
       }
     public function changePassword(Request $request){
         $user = User::where('email', $request->email)->first();
@@ -90,4 +100,15 @@ class AuthController extends Controller
         ], 201);
     
     }}
+    public function refresh()
+    {
+        return response()->json([
+            'status' => 'success',
+            'user' => Auth::user(),
+            'authorisation' => [
+                'token' => Auth::refresh(),
+                'type' => 'bearer',
+            ]
+        ]);
+    }
 }
