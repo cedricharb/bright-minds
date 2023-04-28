@@ -42,8 +42,8 @@ Route::group(['prefix' => 'v1'], function () {
     Route::group(['prefix' => 'classes'], function () {
      Route::get('/viewClasses', [ClassController::class,'viewClasses']);
      Route::post('/addClass', [ClassController::class,'addClass']);
-     Route::post('/deleteClass', [ClassController::class,'deleteClass']);
-     Route::post('/editClass', [ClassController::class,'editClass']); //get id of class
+     Route::get('/deleteClass/{id}', [ClassController::class,'deleteClass']);
+     Route::post('/editClass/{id}', [ClassController::class,'editClass']); //get id of class
  
     });
     Route::group(['prefix' => 'tutoring'], function () {
