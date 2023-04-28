@@ -65,20 +65,19 @@ Route::group(['prefix' => 'v1'], function () {
  
         });
     });
-        Route::group(['prefix' => 'admin'], function () {
+        
             Route::group(['prefix' => 'camp'], function () {
             Route::get('/viewCamps', [CampController::class,'viewCamps']);
             Route::post('/addCamp', [CampController::class,'addCamp']);
-            Route::post('/deleteCamp', [CampController::class,'deleteCamp']);
-            Route::post('/setCampTimings', [CampController::class,'setCampTimings']); //get id 
-            Route::post('/editCampVisibility', [CampController::class,'editCampVisibility']); //allow reg for camps
-            Route::get('/viewRegisteredCampers', [CampController::class,'viewRegisteredCamperss']);//get id 
-            Route::get('/sendEmailToCampers', [CampController::class,'sendEmailToCampers']);//get id 
-            Route::get('/viewCampReviews', [CampController::class,'viewCampReviews']); //get id
+            Route::post('/deleteCamp/{id}', [CampController::class,'deleteCamp']);
+            Route::post('/setCampTimings', [CampController::class,'setCampTimings']); 
+            Route::post('/editCampVisibility/{id}', [CampController::class,'editCampVisisbility']); //allow reg for camps
+            Route::get('/viewRegisteredCampers', [CampController::class,'viewRegisteredCamperss']); 
+            Route::get('/getEmailOFCampers', [CampController::class,'getEmailOFCampers']); 
+           // Route::get('/viewUpcommingCamps', [CampController::class,'upCommingCamps']);
             });      
     
- 
-  });
+
   Route::group(['prefix' => 'FAQ'], function () {
     Route::get('/viewFAQ', [InfoController::class,'viewFAQ']);
     Route::post('/addFAQ', [InfoController::class,'addFAQ']);
