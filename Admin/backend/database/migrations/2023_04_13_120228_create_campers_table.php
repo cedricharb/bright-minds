@@ -15,6 +15,12 @@ return new class extends Migration
     {
         Schema::create('campers', function ($collections) {
             $collections->id();
+            $collections->student_name();
+            $collections->student_email();
+            $collections->student_age();
+            $collections->student_class();
+            $collections->guardian_number();
+            $collections->guardiant_details();
             $collections->timestamps();
         });
     }

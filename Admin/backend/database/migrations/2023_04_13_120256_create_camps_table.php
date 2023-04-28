@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('camps', function ($collections) {
             $collections->id();
+            
             $collections->timestamps();
         });
     }
