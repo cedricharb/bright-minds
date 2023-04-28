@@ -4,6 +4,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CampController;
 use App\Http\Controllers\InfoController;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ClassController;
+use App\Http\Controllers\TutoringController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -93,6 +96,7 @@ Route::group(['prefix' => 'v1'], function () {
 
    });
  });
+  
 });
 
     
