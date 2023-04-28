@@ -51,7 +51,8 @@ const Chatbot = () => {
     setMessages([
       ...messages,
       inputValue,
-      "I'm sorry, I didn't understand what you said.",
+      "I'm sorry, I am not qualified to answer this question",
+      "For an answer send your question to the following email: cederic.harb@lau.edu"
     ]);
     setSelectedStars(0);
     setEnableFlag(true);
@@ -59,6 +60,7 @@ const Chatbot = () => {
 
   const handleStarClick = (starIndex: number) => {
     setSelectedStars(starIndex + 1);
+    
     setMessages([
       ...messages,
       `Thank you for your ${starIndex + 1}-star review!`,
@@ -69,11 +71,11 @@ const Chatbot = () => {
   const renderStarIcon = (index: number) => {
     if(enableflag){
         return (
-          <ActionIcon 
-            key={index} 
+          <ActionIcon
+            key={index}
             color={index<selectedStars? 'yellow' : 'dark'}
             onMouseOver={({target})=>setSelectedStars(index+1)}
-            justify-content="flex-start" 
+            justify-content="flex-start"
             onClick={() => handleStarClick(index)}>
             <IconStar />
           </ActionIcon>
