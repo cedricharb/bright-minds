@@ -8,4 +8,6 @@ use Jenssegers\Mongodb\Eloquent\Model;
 class Chatbot extends Model
 {
     use HasFactory;
+    protected $collection = "chatbots";
+    
 }
