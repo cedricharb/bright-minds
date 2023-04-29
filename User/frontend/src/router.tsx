@@ -40,6 +40,7 @@ const router = createBrowserRouter(
       <Route path="/classes" element={<ClassesPage />} />
       <Route path="/tutoring" element={<span>Tutoring</span>} />
       <Route path="/camps" element={<span>Camps</span>} />
+      <Route path="/faq" element={<span>FAQ</span>} />
       <Route path="*" element={<>Oops</>} />
     </Route>
   )
