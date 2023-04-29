@@ -1,0 +1,37 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create('campers', function ($collections) {
+            $collections->id();
+            $collections->student_name();
+            $collections->student_email();
+            $collections->student_age();
+            $collections->student_class();
+            $collections->guardian_number();
+            $collections->guardiant_details();
+            $collections->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::dropIfExists('campers');
+    }
+};
