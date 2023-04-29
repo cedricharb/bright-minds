@@ -55,7 +55,7 @@ class AuthController extends Controller
                 return response()->json(["message" => "unAuthorized"], 200);
             }
 
-
+            RateLimiter::clear(request()->ip());
             return $this->respondWithToken($token);
 
         } catch (\Throwable $th) {
@@ -113,7 +113,7 @@ class AuthController extends Controller
             ]);
 
             if (!Hash::check($request->old_password, $user->password)) {
-                return back()->with("error", "Old Password Doesn't match!");
+                return back()->with("message", "Old Password Doesn't match!");
             }
             #Update the new Password
             User::whereId($user->id)->update([
@@ -141,7 +141,7 @@ class AuthController extends Controller
         ]);
     }
     /***********testting registration for login not***** */
-    /***********not used in website only for adding the amdin information porperly rather than manualy***** */
+    /*********** adding the amdin information porperly rather than manualy :IT Job***** */
     function register(Request $request)
     {
         $request->validate([

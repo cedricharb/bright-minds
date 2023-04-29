@@ -1,8 +1,9 @@
 import axios from "axios";
+import {} from "../Pages/Login"
 interface Response {
   token: string;
 }
-export function login() {
+export function login(){
   const options = {
     method: "POST",
     url: "http://127.0.0.1:8000/api/v1/admin/auth/login",

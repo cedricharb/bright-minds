@@ -1,14 +1,18 @@
 import { Card, TextInput, PasswordInput, Button, Flex } from "@mantine/core";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { login } from "../../API/loginAPI";
-
+//import { login } from "../../API/loginAPI";
+import axios from "axios";
+interface Response {
+  access_token: string;
+  
+}
 const Login = () => {
   const [submitted, setSubmitted] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
-
+  
   const navigate = useNavigate();
 
   const loginButton = async () => {
@@ -17,8 +21,26 @@ const Login = () => {
     } else {
       setSubmitted(false);
       setLoading(true);
-      login();
-      navigate("/Home");
+      
+      //console.log(login());
+      
+        const options = {
+          method: "POST",
+          url: "http://127.0.0.1:8000/api/v1/admin/auth/login",
+          params: { email: ""+email, password: ""+password },
+          headers: {},
+        };
+        axios
+          .request(options)
+          .then(function ({ data }: { data: Response }) {
+            console.log(data);
+            console.log(data.access_token)
+          })
+          .catch(function (error: any) {
+            console.error(error);
+          });
+      
+      //navigate("/Home");
       setSubmitted(true);
       setLoading(false);
     }
@@ -59,7 +81,6 @@ const Login = () => {
             size="md"
             uppercase
             loading={loading}
-            onClick={loginButton}
             onClick={loginButton}
           >
             Log in
