@@ -1,10 +1,17 @@
 import React, { useState } from "react";
 import { ActionIcon, useMantineTheme } from "@mantine/core";
-import { Button, TextInput, Paper, Card, Flex, Drawer, Group } from "@mantine/core";
+import {
+  Button,
+  TextInput,
+  Card,
+  Flex,
+  Drawer,
+  Group,
+} from "@mantine/core";
 import { IconStar, IconMessage } from "@tabler/icons-react";
 import { keywords } from "../../data/backendFodder";
-import "../../styles/bottomRight.css";
-import { useDisclosure } from '@mantine/hooks';
+import "../../styles/chatbot.css";
+import { useDisclosure } from "@mantine/hooks";
 
 const Chatbot = () => {
   const [messages, setMessages] = useState<string[]>([]);
@@ -78,6 +85,7 @@ const Chatbot = () => {
           onMouseOver={({ target }) => setSelectedStars(index + 1)}
           justify-content="flex-start"
           onClick={() => handleStarClick(index)}
+          size="xl"
         >
           <IconStar />
         </ActionIcon>
@@ -88,50 +96,63 @@ const Chatbot = () => {
   const [opened, { open, close }] = useDisclosure(false);
   return (
     <Flex className="bottom-right-container">
-    <Drawer opened={opened} onClose={close} title="ChatBot: Ask a question">
-          {
-            <Flex className="bottom-right-container">
+      <Drawer
+        opened={opened}
+        onClose={close}
+        title="ChatBot: Ask a question"
+        size="lg"
+      >
+        {
+          <Flex className="bottom-right-container">
+            <div>
+              <Card shadow="sm" radius="md" withBorder
+                style={{ marginBottom: theme.spacing.xs, overflowY: "auto" }}
+              >
+                {messages.map((message, index) => (
+                  <div key={index}>{message}</div>
+                ))}
+              </Card>
               <Card shadow="sm" radius="md" withBorder>
-                <div>
-                  <Paper style={{ marginBottom: theme.spacing.xs }}>
-                    {messages.map((message, index) => (
-                      <div key={index}>{message}</div>
-                    ))}
-                  </Paper>
-                  <div style={{ display: "flex" }}>
-                    <TextInput
-                      value={inputValue}
-                      onChange={handleInputChange}
-                      onKeyPress={(event) => {
-                        if (event.key === "Enter") {
-                          handleInputSubmit();
-                        }
-                      }}
-                      placeholder="Type your message here..."
-                      size="lg"
-                      variant="filled"
-                      style={{ marginRight: theme.spacing.xs }}
-                    />
-                    <Button onClick={handleInputSubmit}>Send</Button>
-                    <div
-                      style={{ display: "flex", justifyContent: "flex-start" }}
-                    >
-                      {[...Array(5)].map((_, index) => renderStarIcon(index))}
-                    </div>
+                <div style={{ display: "flex" }}>
+                  <TextInput
+                    w="120%"
+                    value={inputValue}
+                    onChange={handleInputChange}
+                    onKeyPress={(event) => {
+                      if (event.key === "Enter") {
+                        handleInputSubmit();
+                      }
+                    }}
+                    placeholder="Type your message here..."
+                    size="lg"
+                    variant="filled"
+                    style={{ marginRight: theme.spacing.xs }}
+                  />
+                  <Button
+                    onClick={handleInputSubmit}
+                    size="lg"
+                    style={{ color: "black", backgroundColor: "yellow" }}
+                  >
+                    Send
+                  </Button>
+                  <div
+                    style={{ display: "flex", justifyContent: "flex-start" }}
+                  >
+                    {[...Array(5)].map((_, index) => renderStarIcon(index))}
                   </div>
                 </div>
               </Card>
-            </Flex>
-          }
-        </Drawer>
+            </div>
+          </Flex>
+        }
+      </Drawer>
 
-        <Group position="center">
-          <Button onClick={open} className = "chatbot-button">
-
-            <IconMessage/>
-          </Button>
-        </Group>
-        </Flex>
+      <Group position="center">
+        <Button onClick={open} className="chatbot-button">
+          <IconMessage />
+        </Button>
+      </Group>
+    </Flex>
   );
 };
 
