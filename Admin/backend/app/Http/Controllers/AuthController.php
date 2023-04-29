@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Http\Request;
 use App\Models\User;
@@ -17,10 +18,10 @@ use Tymon\JWTAuth\Facades\JWTAuth;
 class AuthController extends Controller
 {
 
-    public function __construct()
+    /* public function __construct()
     {
     $this->middleware('auth:api', ['except' => ['login']]);
-    }
+    }*/
 
     /**
      * Get a JWT via given credentials.
@@ -91,13 +92,14 @@ class AuthController extends Controller
     }
 
     public function changePassword(Request $request)
-    {
+    { //check token
+
         $user = User::where('email', $request->email)->first();
 
         if (!$user) { //Email isn't found in our database\
             return response()->json([
                 'success' => false,
-                'message' => 'error',
+                'message' => 'unAuthorized',
             ], 400);
         } else {
             /**
@@ -106,13 +108,19 @@ class AuthController extends Controller
              * verification email
              */
             $request->validate([
-                'password' => 'required|string',
+                'old_password' => 'required', //to check if it matches
+                'password' => 'required|string', //new password to updated
             ]);
-            //if (!$token = auth()->attempt($validator->validated())) { 
-            //    return response()->json(['error' => 'Unauthorized'], 200);
-            //}
-            $new_password = $request->input('password'); //take input
-            $user->password = bcrypt($new_password);
+
+            if (!Hash::check($request->old_password, $user->password)) {
+                return back()->with("error", "Old Password Doesn't match!");
+            }
+            #Update the new Password
+            User::whereId($user->id)->update([
+                'password' => Hash::make($request->new_password)
+            ]);
+            /*  $new_password = $request->input('password'); //take input
+            $user->password = bcrypt($new_password);*/
             $user->save();
             return response()->json([
                 'success' => true,
@@ -132,7 +140,8 @@ class AuthController extends Controller
             ]
         ]);
     }
-    /***********testting registration for login***** */
+    /***********testting registration for login not***** */
+    /***********not used in website only for adding the amdin information porperly rather than manualy***** */
     function register(Request $request)
     {
         $request->validate([
@@ -158,5 +167,12 @@ class AuthController extends Controller
                 'message' => 'Fail',
             ], 400);
         }
+    }
+    public function check_test(Request $request){
+        return response()->json([
+            'result' => true,
+            'message' => 'admin added',
+            'data' =>auth()->user()
+        ], 201);
     }
 }
