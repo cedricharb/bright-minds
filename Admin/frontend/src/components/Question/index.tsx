@@ -20,7 +20,12 @@ const Question = ({ isQuestion, question, answer }: Props) => {
       <Flex direction="column">
         {!isQuestion && (
           <UnstyledButton w="100%" h="100%">
-            <Text color={theme.colors.yellow[4]} size={30} align="center">
+            <Text
+              color={theme.colors.yellow[4]}
+              size={30}
+              align="center"
+              weight="bold"
+            >
               Add an FAQ +
             </Text>
           </UnstyledButton>
