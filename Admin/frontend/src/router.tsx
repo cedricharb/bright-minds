@@ -34,13 +34,15 @@ const Layout = () => {
 
 const router = createBrowserRouter(
   createRoutesFromElements(
-    <Route path="" element={<Layout />}>
-      <Route path="" element={<Navigate to="/login" replace />} />
+    <>
       <Route path="/login" element={<Login />} />
-      <Route path="/home" element={<Home />} />
-      <Route path="/classes" element={<Classes />} />
-      <Route path="*" element={<>Oops</>} />
-    </Route>
+      <Route path="" element={<Layout />}>
+        <Route path="" element={<Navigate to="/login" replace />} />
+        <Route path="/home" element={<Home />} />
+        <Route path="/classes" element={<Classes />} />
+        <Route path="*" element={<>Oops</>} />
+      </Route>
+    </>
   )
 );
 
