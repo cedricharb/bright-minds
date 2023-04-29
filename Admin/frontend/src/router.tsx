@@ -1,6 +1,7 @@
 import { AppShell, Navbar, useMantineTheme } from "@mantine/core";
 import Login from "./Pages/Login";
 import Home from "./Pages/Home";
+import Classes from "./Pages/Classes";
 import {
   Route,
   Outlet,
@@ -37,6 +38,7 @@ const router = createBrowserRouter(
       <Route path="" element={<Navigate to="/login" replace />} />
       <Route path="/login" element={<Login />} />
       <Route path="/home" element={<Home />} />
+      <Route path="/classes" element={<Classes />} />
       <Route path="*" element={<>Oops</>} />
     </Route>
   )
