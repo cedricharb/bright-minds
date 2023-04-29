@@ -18,7 +18,7 @@ return new class extends Migration
             $collections->string('subject');
             $collections->dateTime('dateTime');
             $collections->text('moreInfo')->nullable();
-            $collections->boolean('is_accepted');
+            $collections->boolean('isAccepted');
             $collections->json('studentDetails');
             $collections->json('guardianDetails');
             $collections->timestamps();

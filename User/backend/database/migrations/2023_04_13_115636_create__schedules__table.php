@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('schedules', function ($collections) {
             $collections->id();
             $collections->string('weekday');
-            $collections->boolean('avaialable');
+            $collections->boolean('available');
             $collections->json('timings');
             $collections->timestamps();
         });

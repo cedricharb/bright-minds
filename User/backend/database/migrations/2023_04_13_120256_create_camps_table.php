@@ -20,6 +20,7 @@ return new class extends Migration
             $collections->date('endDate');
             $collections->text('description');
             $collections->string('ageRange');
+            $collections->json('reviews');
             $collections->timestamps();
         });
     }

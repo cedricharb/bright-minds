@@ -18,8 +18,8 @@ return new class extends Migration
             $collections->text('general');
             $collections->text('mission');
             $collections->text('vision');
-            $collections->timestamps('updated_on');
-            $collections->timestamps('created_on');
+            $collections->timestamps('updatedOn');
+            $collections->timestamps('createdOn');
         });
     }
 
