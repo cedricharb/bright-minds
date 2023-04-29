@@ -7,14 +7,15 @@ import {
   IconBrandYoutube,
   IconBrandLinkedin,
 } from "@tabler/icons-react";
+import Chatbot from "../../components/Chatbot";
 
 const LandingPage = () => {
   const theme = useMantineTheme();
 
-  
   return (
-    
+        
     <Flex
+    
       direction="column"
       h="200vh"
       justify="space-between"
@@ -25,6 +26,7 @@ const LandingPage = () => {
           : theme.colors.gray[4]
       }
     >
+      <Chatbot/>
       <Flex direction="column" align="center" gap="xl" pl="xl" pr="xl" h="100%">
         <Flex
           bg={
@@ -106,6 +108,7 @@ const LandingPage = () => {
           </a>
         </Flex>
       </Flex>
+      
     </Flex>
     
   );
