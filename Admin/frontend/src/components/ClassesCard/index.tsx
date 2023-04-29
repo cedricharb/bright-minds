@@ -19,7 +19,7 @@ const ClassesCard = ({ name, description }: Props) => {
 
   return (
     <>
-      <Modal opened={opened} onClose={close} radius="30px" size="md">
+      <Modal opened={opened} onClose={close} radius="30px" size="md" centered>
         <Card w="100%" h="100%">
           <Text>This is an example demo</Text>
         </Card>
