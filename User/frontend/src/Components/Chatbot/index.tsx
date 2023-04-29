@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import { ActionIcon, useMantineTheme } from "@mantine/core";
-import { Button, TextInput, Paper, Card, Flex } from "@mantine/core";
-import { IconStar } from "@tabler/icons-react";
+import { Button, TextInput, Paper, Card, Flex, Drawer, Group } from "@mantine/core";
+import { IconStar, IconMessage } from "@tabler/icons-react";
 import { keywords } from "../../data/backendFodder";
-import "../../styles/bottomRight.css"
+import "../../styles/bottomRight.css";
+import { useDisclosure } from '@mantine/hooks';
 
 const Chatbot = () => {
   const [messages, setMessages] = useState<string[]>([]);
@@ -84,38 +85,53 @@ const Chatbot = () => {
     }
     return <></>;
   };
-
+  const [opened, { open, close }] = useDisclosure(false);
   return (
-    <Flex className = "bottom-right-container">
-      <Card shadow="sm" radius="md" withBorder >
-        <div>
-          <Paper style={{ marginBottom: theme.spacing.xs }}>
-            {messages.map((message, index) => (
-              <div key={index}>{message}</div>
-            ))}
-          </Paper>
-          <div style={{ display: "flex" }}>
-            <TextInput
-              value={inputValue}
-              onChange={handleInputChange}
-              onKeyPress={(event) => {
-                if (event.key === "Enter") {
-                  handleInputSubmit();
-                }
-              }}
-              placeholder="Type your message here..."
-              size="lg"
-              variant="filled"
-              style={{ marginRight: theme.spacing.xs }}
-            />
-            <Button onClick={handleInputSubmit}>Send</Button>
-            <div style={{ display: "flex", justifyContent: "flex-start" }}>
-              {[...Array(5)].map((_, index) => renderStarIcon(index))}
-            </div>
-          </div>
-        </div>
-      </Card>
-    </Flex>
+    <Flex className="bottom-right-container">
+    <Drawer opened={opened} onClose={close} title="ChatBot: Ask a question">
+          {
+            <Flex className="bottom-right-container">
+              <Card shadow="sm" radius="md" withBorder>
+                <div>
+                  <Paper style={{ marginBottom: theme.spacing.xs }}>
+                    {messages.map((message, index) => (
+                      <div key={index}>{message}</div>
+                    ))}
+                  </Paper>
+                  <div style={{ display: "flex" }}>
+                    <TextInput
+                      value={inputValue}
+                      onChange={handleInputChange}
+                      onKeyPress={(event) => {
+                        if (event.key === "Enter") {
+                          handleInputSubmit();
+                        }
+                      }}
+                      placeholder="Type your message here..."
+                      size="lg"
+                      variant="filled"
+                      style={{ marginRight: theme.spacing.xs }}
+                    />
+                    <Button onClick={handleInputSubmit}>Send</Button>
+                    <div
+                      style={{ display: "flex", justifyContent: "flex-start" }}
+                    >
+                      {[...Array(5)].map((_, index) => renderStarIcon(index))}
+                    </div>
+                  </div>
+                </div>
+              </Card>
+            </Flex>
+          }
+        </Drawer>
+
+        <Group position="center">
+          <Button onClick={open} className = "chatbot-button">
+
+            <IconMessage/>
+          </Button>
+        </Group>
+        </Flex>
   );
 };
 
