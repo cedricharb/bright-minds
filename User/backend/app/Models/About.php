@@ -8,4 +8,5 @@ use Jenssegers\Mongodb\Eloquent\Model;
 class About extends Model
 {
     use HasFactory;
+    protected $collection = 'about';
 }
