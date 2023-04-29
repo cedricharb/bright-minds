@@ -11,7 +11,7 @@ import {
 } from "@mantine/core";
 
 const links = [
-  { link: "/Home", label: "Home Page" },
+  { link: "/landing-page", label: "Landing Page" },
   { link: "/classes", label: "Classes" },
 ];
 
