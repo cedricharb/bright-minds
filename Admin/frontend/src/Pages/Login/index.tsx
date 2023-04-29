@@ -1,8 +1,7 @@
 import { Card, TextInput, PasswordInput, Button, Flex } from "@mantine/core";
 import { useState } from "react";
-import { login } from '../../API/loginAPI';
-import React from 'react';
-const axios = require('axios');
+import { useNavigate } from "react-router-dom";
+import { login } from "../../API/loginAPI";
 
 const Login = () => {
   const [submitted, setSubmitted] = useState(false);
@@ -10,15 +9,17 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const loginButton = () => {
+  const navigate = useNavigate();
+
+  const loginButton = async () => {
     if (!email || !password) {
       setSubmitted(true);
     } else {
       setSubmitted(false);
       setLoading(true);
       login();
-      console.log(email);
-      console.log(password);
+      navigate("/Home");
+      setSubmitted(true);
       setLoading(false);
     }
   };
@@ -58,6 +59,7 @@ const Login = () => {
             size="md"
             uppercase
             loading={loading}
+            onClick={loginButton}
             onClick={loginButton}
           >
             Log in
