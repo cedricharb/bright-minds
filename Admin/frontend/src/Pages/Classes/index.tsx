@@ -1,35 +1,19 @@
-import { Card, Flex, List, Text, useMantineTheme } from "@mantine/core";
+import { Divider, Flex, Text, useMantineTheme } from "@mantine/core";
 import ClassesCard from "../../components/ClassesCard";
-
-interface Class {
-  id: number;
-  name: string;
-  description: string;
-  exercises: string[];
-}
-
-const classes: Class[] = [
-  {
-    id: 1,
-    name: "Mathematics",
-    description: "Learn the basics of mathematics.",
-    exercises: ["Algebra", "Geometry", "Calculus"],
-  },
-  {
-    id: 2,
-    name: "English",
-    description: "Improve your English skills.",
-    exercises: ["Reading", "Writing", "Listening"],
-  },
-];
+import { classes } from "../../data/backendFodder";
 
 const ClassesPage = () => {
   const theme = useMantineTheme();
 
   return (
-    <Flex bg={theme.colors.gray[4]} p="lg" direction="column" gap="md">
-      <Text size="xl">Classes</Text>
-      <Flex gap="lg" justify="space-around">
+    <Flex bg={theme.colors.gray[4]} p="lg" direction="column" gap="md" h="100%">
+      <Flex direction="column">
+        <Text size="xl" weight="bold" color={theme.colors.yellow[4]}>
+          Classes
+        </Text>
+        <Divider my="md" color="dark" />
+      </Flex>
+      <Flex gap="lg" justify="space-around" wrap="wrap">
         {classes.map((cls) => (
           <ClassesCard
             key={cls.id}
