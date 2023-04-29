@@ -12,5 +12,15 @@ class ChatbotController extends Controller
         $faqs = FAQ::all();
         return response()->json($faqs);
     }
-    
+    public function recieveFeedback(Request $request) {
+        $faq = FAQ::find($request->id);
+        $new_chat = new Chatbot;
+        $new_chat->id = $faq->id;
+        $new_chat->question = $request->question;
+        $new_chat->review = $request->review;
+        if ($new_chat->save())
+            return response()->json([result=>true]);
+        else
+            return response()->json([result=>false]);
+    }
 }
