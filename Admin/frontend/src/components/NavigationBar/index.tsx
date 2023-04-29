@@ -10,7 +10,10 @@ import {
   useMantineTheme,
 } from "@mantine/core";
 
-const links = [{ link: "/Home", label: "Home Page" }];
+const links = [
+  { link: "/Home", label: "Home Page" },
+  { link: "/classes", label: "Classes" },
+];
 
 const Navbar = () => {
   const [active, setActive] = useState(
@@ -31,7 +34,7 @@ const Navbar = () => {
         <Link to={item.link} key={index} style={{ textDecoration: "none" }}>
           <Button
             fullWidth
-            color="gray"
+            color="yellow"
             onClick={() => setActive(index)}
             variant={index === active ? "filled" : "subtle"}
             style={{ borderRadius: 5 }}
