@@ -24,7 +24,7 @@ const Navbar = () => {
 
   return (
     <Flex gap={5} direction="column" bg={theme.colors.gray[4]} w="100%">
-      <UnstyledButton onClick={() => navigate("/home")}>
+      <UnstyledButton onClick={() => navigate("/landing-page")}>
         <Group h={60} mb={20} pl={5}>
           <IconNotebook color={theme.colors.yellow[4]} />
           <Text weight="bolder" color={theme.colors.yellow[4]}>

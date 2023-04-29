@@ -1,5 +1,4 @@
 import { AppShell, Navbar, useMantineTheme } from "@mantine/core";
-import "./App.css";
 import LandingPage from "./pages/LandingPage";
 import {
   Route,
