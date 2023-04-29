@@ -1,4 +1,11 @@
-import { AppShell, Navbar, useMantineTheme } from "@mantine/core";
+import {
+  AppShell,
+  ColorScheme,
+  ColorSchemeProvider,
+  MantineProvider,
+  Navbar,
+  useMantineTheme,
+} from "@mantine/core";
 import Login from "./Pages/Login";
 import Home from "./Pages/Home";
 import {
@@ -9,25 +16,37 @@ import {
   createRoutesFromElements,
 } from "react-router-dom";
 import NavigationBar from "./components/NavigationBar";
+import { useState } from "react";
 
 const Layout = () => {
+  const [colorScheme, setColorScheme] = useState<ColorScheme>("light");
+  const toggleColorScheme = (value?: ColorScheme) =>
+    setColorScheme(value || (colorScheme === "dark" ? "light" : "dark"));
   const theme = useMantineTheme();
+
   return (
-    <AppShell
-      padding={0}
-      navbar={
-        <Navbar
-          width={{ base: 250 }}
-          h="100vh"
-          p="xs"
-          bg={theme.colors.gray[4]}
+    <MantineProvider>
+      <ColorSchemeProvider
+        colorScheme={colorScheme}
+        toggleColorScheme={toggleColorScheme}
+      >
+        <AppShell
+          padding={0}
+          navbar={
+            <Navbar
+              width={{ base: 250 }}
+              h="100vh"
+              p="xs"
+              bg={theme.colors.gray[4]}
+            >
+              <NavigationBar />
+            </Navbar>
+          }
         >
-          <NavigationBar />
-        </Navbar>
-      }
-    >
-      <Outlet />
-    </AppShell>
+          <Outlet />
+        </AppShell>
+      </ColorSchemeProvider>
+    </MantineProvider>
   );
 };
 

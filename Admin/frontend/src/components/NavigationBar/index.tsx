@@ -9,6 +9,7 @@ import {
   UnstyledButton,
   useMantineTheme,
 } from "@mantine/core";
+import ThemeButton from "../ThemeButton";
 
 const links = [{ link: "/Home", label: "Home Page" }];
 
@@ -20,28 +21,31 @@ const Navbar = () => {
   const theme = useMantineTheme();
 
   return (
-    <Flex gap={5} direction="column" bg={theme.colors.gray[4]} w="100%">
-      <UnstyledButton onClick={() => navigate("/home")}>
-        <Group h={60} mb={20} pl={5}>
-          <IconNotebook />
-          <Text weight="bolder">Bright Minds</Text>
-        </Group>
-      </UnstyledButton>
-      {links.map((item, index) => (
-        <Link to={item.link} key={index} style={{ textDecoration: "none" }}>
-          <Button
-            fullWidth
-            color="gray"
-            onClick={() => setActive(index)}
-            variant={index === active ? "filled" : "subtle"}
-            style={{ borderRadius: 5 }}
-          >
-            <Text component="p" w={180}>
-              {item.label}
-            </Text>
-          </Button>
-        </Link>
-      ))}
+    <Flex direction="column" justify="space-between">
+      <Flex gap={5} direction="column" bg={theme.colors.gray[4]} w="100%">
+        <UnstyledButton onClick={() => navigate("/home")}>
+          <Group h={60} mb={20} pl={5}>
+            <IconNotebook />
+            <Text weight="bolder">Bright Minds</Text>
+          </Group>
+        </UnstyledButton>
+        {links.map((item, index) => (
+          <Link to={item.link} key={index} style={{ textDecoration: "none" }}>
+            <Button
+              fullWidth
+              color="gray"
+              onClick={() => setActive(index)}
+              variant={index === active ? "filled" : "subtle"}
+              style={{ borderRadius: 5 }}
+            >
+              <Text component="p" w={180}>
+                {item.label}
+              </Text>
+            </Button>
+          </Link>
+        ))}
+      </Flex>
+      <ThemeButton />
     </Flex>
   );
 };
