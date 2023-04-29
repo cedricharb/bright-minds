@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\EduClass;
+use App\Models\User;
 
 class ClassController extends Controller
 {
@@ -120,6 +121,6 @@ class ClassController extends Controller
     
     }
       }
-
+     
     
 }

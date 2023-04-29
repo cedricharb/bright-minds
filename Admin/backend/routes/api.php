@@ -21,11 +21,12 @@ use App\Http\Controllers\TutoringController;
 Route::group(['prefix' => 'v1'], function () {
     Route::group(['prefix' => 'admin'], function () {
       Route::group([
-        'middleware' => 'api',
+       // 'middleware' => 'api',
         'prefix' => 'auth'], function () {
         /* Authentication Routes */
         Route::post('/refresh', [AuthController::class,'refresh']);
         
+        Route::post('/register', [AuthController::class,'register']);
         Route::post('/login', [AuthController::class,'login']);
         Route::post('/logout', [AuthController::class,'logout']);
         Route::post('/changePassword', [AuthController::class,'changePassword']);
@@ -44,6 +45,7 @@ Route::group(['prefix' => 'v1'], function () {
      Route::post('/addClass', [ClassController::class,'addClass']);
      Route::get('/deleteClass/{id}', [ClassController::class,'deleteClass']);
      Route::post('/editClass/{id}', [ClassController::class,'editClass']); //get id of class
+     
  
     });
     Route::group(['prefix' => 'tutoring'], function () {

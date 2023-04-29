@@ -2,31 +2,39 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Foundation\Auth\User as Authenticatable;
+//use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
-//use PHPOpenSourceSaver\JWTAuth\Contracts\JWTSubject;
-use Jenssegers\Mongodb\Eloquent\Model as Eloquent;
+use Jenssegers\Mongodb\Eloquent\Model;
+use Jenssegers\Mongodb\Auth\User as Authenticatable;
+//use Illuminate\Foundation\Auth\User as Authenticatable;
 class User extends Authenticatable implements JWTSubject
 {
-    use HasApiTokens, HasFactory, Notifiable;
-    protected $collection = "user";
+    use  HasFactory;
 
-    /**
+    protected $collection ="users";
+/***
+ * notes concerning jwt auth and monogo db
+ * using this package https://github.com/jenssegers/laravel-mongodb
+ * changed the use table to use collections
+ * added specified authenticatable for jenssegers
+ * specificed table 
+ * 
+ */
+   /**
      * Get the identifier that will be stored in the subject claim of the JWT.
      *
      * @return mixed
      */
+ 
     public function getJWTIdentifier()
     {
         return $this->getKey();
     }
 
-    /**
+     /**
      * Return a key value array, containing any custom claims to be added to the JWT.
      *
      * @return array
@@ -35,14 +43,12 @@ class User extends Authenticatable implements JWTSubject
     {
         return [];
     }
-
     /**
      * The attributes that are mass assignable.
      *
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
         'email',
         'password',
     ];
