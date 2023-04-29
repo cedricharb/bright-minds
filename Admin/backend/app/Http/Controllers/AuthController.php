@@ -17,10 +17,10 @@ use Tymon\JWTAuth\Facades\JWTAuth;
 class AuthController extends Controller
 {
 
-    /* public function __construct()
+    public function __construct()
     {
     $this->middleware('auth:api', ['except' => ['login']]);
-    }*/
+    }
 
     /**
      * Get a JWT via given credentials.
@@ -83,7 +83,6 @@ class AuthController extends Controller
      */
     public function logout(Request $request)
     {
-        //auth()->logout();
         Auth::logout();
         return response()->json([
             'status' => 'success',
