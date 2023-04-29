@@ -11,7 +11,9 @@ import {
 const LandingPage = () => {
   const theme = useMantineTheme();
 
+  
   return (
+    
     <Flex
       direction="column"
       h="200vh"
@@ -105,6 +107,7 @@ const LandingPage = () => {
         </Flex>
       </Flex>
     </Flex>
+    
   );
 };
 
