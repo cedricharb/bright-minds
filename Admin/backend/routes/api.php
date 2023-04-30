@@ -3,7 +3,11 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CampController;
+use App\Http\Controllers\CampController;
 use App\Http\Controllers\InfoController;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ClassController;
+use App\Http\Controllers\TutoringController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ClassController;
 use App\Http\Controllers\TutoringController;
@@ -21,11 +25,12 @@ use App\Http\Controllers\TutoringController;
 Route::group(['prefix' => 'v1'], function () {
     Route::group(['prefix' => 'admin'], function () {
       Route::group([
-        'middleware' => 'api',
+       // 'middleware' => 'api',
         'prefix' => 'auth'], function () {
         /* Authentication Routes */
         Route::post('/refresh', [AuthController::class,'refresh']);
-        
+        Route::post('/check', [AuthController::class,'refresh']);
+        Route::post('/register', [AuthController::class,'register']);
         Route::post('/login', [AuthController::class,'login']);
         Route::post('/logout', [AuthController::class,'logout']);
         Route::post('/changePassword', [AuthController::class,'changePassword']);
@@ -42,8 +47,9 @@ Route::group(['prefix' => 'v1'], function () {
     Route::group(['prefix' => 'classes'], function () {
      Route::get('/viewClasses', [ClassController::class,'viewClasses']);
      Route::post('/addClass', [ClassController::class,'addClass']);
-     Route::post('/deleteClass', [ClassController::class,'deleteClass']);
-     Route::post('/editClass', [ClassController::class,'editClass']); //get id of class
+     Route::get('/deleteClass/{id}', [ClassController::class,'deleteClass']);
+     Route::post('/editClass/{id}', [ClassController::class,'editClass']); //get id of class
+     
  
     });
     Route::group(['prefix' => 'tutoring'], function () {
@@ -65,20 +71,19 @@ Route::group(['prefix' => 'v1'], function () {
  
         });
     });
-        Route::group(['prefix' => 'admin'], function () {
+        
             Route::group(['prefix' => 'camp'], function () {
             Route::get('/viewCamps', [CampController::class,'viewCamps']);
             Route::post('/addCamp', [CampController::class,'addCamp']);
-            Route::post('/deleteCamp', [CampController::class,'deleteCamp']);
-            Route::post('/setCampTimings', [CampController::class,'setCampTimings']); //get id 
-            Route::post('/editCampVisibility', [CampController::class,'editCampVisibility']); //allow reg for camps
-            Route::get('/viewRegisteredCampers', [CampController::class,'viewRegisteredCamperss']);//get id 
-            Route::get('/sendEmailToCampers', [CampController::class,'sendEmailToCampers']);//get id 
-            Route::get('/viewCampReviews', [CampController::class,'viewCampReviews']); //get id
+            Route::post('/deleteCamp/{id}', [CampController::class,'deleteCamp']);
+            Route::post('/setCampTimings/{id}', [CampController::class,'setCampTimings']); 
+            Route::post('/editCampVisibility/{id}', [CampController::class,'editCampVisisbility']); //allow reg for camps
+            Route::get('/viewRegisteredCampers', [CampController::class,'viewRegisteredCamperss']); 
+            Route::get('/getEmailOFCampers', [CampController::class,'getEmailOFCampers']); 
+           // Route::get('/viewUpcommingCamps', [CampController::class,'upCommingCamps']);
             });      
     
- 
-  });
+
   Route::group(['prefix' => 'FAQ'], function () {
     Route::get('/viewFAQ', [InfoController::class,'viewFAQ']);
     Route::post('/addFAQ', [InfoController::class,'addFAQ']);
