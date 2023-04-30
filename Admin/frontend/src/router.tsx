@@ -23,7 +23,6 @@ const Layout = () => {
   const toggleColorScheme = (value?: ColorScheme) =>
     setColorScheme(value || (colorScheme === "dark" ? "light" : "dark"));
   const theme = useMantineTheme();
-  console.log(colorScheme);
 
   return (
     <ColorSchemeProvider

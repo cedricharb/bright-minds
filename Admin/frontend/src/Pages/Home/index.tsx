@@ -10,7 +10,6 @@ import {
 
 const Home = () => {
   const theme = useMantineTheme();
-  console.log(theme.colorScheme);
 
   return (
     <Flex
