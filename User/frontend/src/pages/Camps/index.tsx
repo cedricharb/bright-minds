@@ -13,7 +13,7 @@ const Camps = () => {
     camps.filter((camp) => !camp.isUpcoming === true)
   );
 
-  console.log(upcomingCamps);
+  const hasUpcomingCamps = upcomingCamps.length > 0;
 
   return (
     <Flex direction="column" bg={theme.colors.gray[4]}>
@@ -30,7 +30,7 @@ const Camps = () => {
             Take a look at our camps!
           </Text>
         </Flex>
-        {upcomingCamps.length > 0 && (
+        {hasUpcomingCamps && (
           <>
             <Flex direction="column">
               <Text weight="bold" size="xl" p="md">
