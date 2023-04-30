@@ -1,4 +1,4 @@
-import { Paper, Text, UnstyledButton } from "@mantine/core";
+import { BackgroundImage, Paper, Text, UnstyledButton } from "@mantine/core";
 import { useMantineTheme } from "@mantine/core";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -50,13 +50,21 @@ const CircleComponent = ({ description, destination, title, image }: Props) => {
             height: 240,
             borderRadius: "50%",
             backgroundColor:
-              theme.colorScheme === "dark" ? theme.colors.dark[9] : "white",
+              theme.colorScheme === "dark" ? theme.colors.dark[3] : "white",
+            backgroundImage: `${image ? image : ""}`,
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
             marginBottom: 8,
           }}
-        />
+        >
+          <BackgroundImage
+            src={image ? image : ""}
+            radius="50%"
+            w="100%"
+            h="100%"
+          />
+        </Paper>
         <Text weight="bold">{title}</Text>
         <Text pt="sm" align="center">
           {description}

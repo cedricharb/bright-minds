@@ -54,16 +54,19 @@ const Home = () => {
             title="Our Camps"
             destination="/camps"
             description="Join one of our camps or check out previous camps!"
+            image="/images/camps.jpg"
           />
           <CircleComponent
             title="Enroll in a Class"
             destination="/classes"
             description="Check the classes we offer and request to enroll!"
+            image="/images/classes.jpg"
           />
           <CircleComponent
             title="Book a tutoring session"
             destination="/tutoring"
             description="Check out our many tutoring subjects and book a tutoring session!"
+            image="/images/tutoring.jpg"
           />
         </Flex>
       </Flex>

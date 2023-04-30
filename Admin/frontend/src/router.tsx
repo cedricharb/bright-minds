@@ -11,6 +11,7 @@ import {
 } from "react-router-dom";
 import NavigationBar from "./components/NavigationBar";
 import FAQ from "./Pages/FAQ";
+import Camps from "./Pages/Camps";
 
 const Layout = () => {
   const theme = useMantineTheme();
@@ -42,6 +43,7 @@ const router = createBrowserRouter(
         <Route path="/home" element={<Home />} />
         <Route path="/classes" element={<Classes />} />
         <Route path="/faq" element={<FAQ />} />
+        <Route path="/camps" element={<Camps />} />
         <Route path="*" element={<>Oops</>} />
       </Route>
     </>

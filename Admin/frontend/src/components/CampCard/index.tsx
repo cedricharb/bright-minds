@@ -1,9 +1,7 @@
 import {
-  BackgroundImage,
   Button,
   Card,
   Flex,
-  Group,
   Input,
   Modal,
   NumberInput,
