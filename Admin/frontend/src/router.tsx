@@ -23,13 +23,14 @@ const Layout = () => {
   const toggleColorScheme = (value?: ColorScheme) =>
     setColorScheme(value || (colorScheme === "dark" ? "light" : "dark"));
   const theme = useMantineTheme();
+  console.log(colorScheme);
 
   return (
-    <MantineProvider>
-      <ColorSchemeProvider
-        colorScheme={colorScheme}
-        toggleColorScheme={toggleColorScheme}
-      >
+    <ColorSchemeProvider
+      colorScheme={colorScheme}
+      toggleColorScheme={toggleColorScheme}
+    >
+      <MantineProvider theme={{ colorScheme }}>
         <AppShell
           padding={0}
           navbar={
@@ -45,8 +46,8 @@ const Layout = () => {
         >
           <Outlet />
         </AppShell>
-      </ColorSchemeProvider>
-    </MantineProvider>
+      </MantineProvider>
+    </ColorSchemeProvider>
   );
 };
 
