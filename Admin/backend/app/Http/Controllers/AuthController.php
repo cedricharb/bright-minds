@@ -82,7 +82,7 @@ class AuthController extends Controller
      *   "created_at": "2022-12-13T22:36:44.000000Z",
      *  "updated_at": "2022-12-13T22:36:44.000000Z"
      */
-    public function logout(Request $request)
+    public function logout()
     {
         Auth::logout();
         return response()->json([
