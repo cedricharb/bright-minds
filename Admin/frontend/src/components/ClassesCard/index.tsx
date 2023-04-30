@@ -2,11 +2,13 @@ import {
   Button,
   Card,
   Flex,
+  Input,
   Modal,
   Text,
   useMantineTheme,
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
+import { useState } from "react";
 
 type Props = {
   name: string;
@@ -15,13 +17,40 @@ type Props = {
 
 const ClassesCard = ({ name, description }: Props) => {
   const theme = useMantineTheme();
-  const [opened, { open, close }] = useDisclosure(false);
+  const [isDemoModalOpen, demoModal] = useDisclosure(false);
+  const [isEditModalOpen, editModal] = useDisclosure(false);
+  const [nameInput, setNameInput] = useState<string>(name);
+  const [descInput, setDescInput] = useState<string>(description);
 
   return (
     <>
-      <Modal opened={opened} onClose={close} radius="30px" size="md" centered>
+      <Modal
+        opened={isDemoModalOpen}
+        onClose={demoModal.close}
+        radius="30px"
+        size="md"
+        centered
+      >
         <Card w="100%" h="100%">
           <Text>This is an example demo</Text>
+        </Card>
+      </Modal>
+      <Modal
+        opened={isEditModalOpen}
+        onClose={editModal.close}
+        radius="30px"
+        size="md"
+        centered
+      >
+        <Card w="100%" h="100%">
+          <Input
+            value={nameInput}
+            onChange={(event) => setNameInput(event.target.value)}
+          />
+          <Input
+            value={descInput}
+            onChange={(event) => setDescInput(event.target.value)}
+          />
         </Card>
       </Modal>
       <Card
@@ -51,7 +80,10 @@ const ClassesCard = ({ name, description }: Props) => {
           >
             Sample Exercice:
           </Text>
-          <Button color="yellow" onClick={open}>
+          <Button color="yellow" onClick={demoModal.open}>
+            Click here to try an exercice!
+          </Button>
+          <Button color="yellow" onClick={editModal.open}>
             Click here to try an exercice!
           </Button>
         </Flex>
