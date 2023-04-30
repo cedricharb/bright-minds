@@ -11,7 +11,12 @@ import {
 } from "@mantine/core";
 import ThemeButton from "../ThemeButton";
 
-const links = [{ link: "/Home", label: "Home Page" }];
+const links = [
+  { link: "/Home", label: "Home Page" },
+  { link: "/classes", label: "Classes" },
+  { link: "/faq", label: "FAQ" },
+  { link: "/camps", label: "Camps" },
+];
 
 const Navbar = () => {
   const [active, setActive] = useState(
@@ -25,20 +30,26 @@ const Navbar = () => {
       <Flex gap={5} direction="column" bg={theme.colors.gray[4]} w="100%">
         <UnstyledButton onClick={() => navigate("/home")}>
           <Group h={60} mb={20} pl={5}>
-            <IconNotebook />
-            <Text weight="bolder">Bright Minds</Text>
+            <IconNotebook color={theme.colors.yellow[4]} />
+            <Text weight="bolder" color={theme.colors.yellow[4]}>
+              Bright Minds
+            </Text>
           </Group>
         </UnstyledButton>
         {links.map((item, index) => (
           <Link to={item.link} key={index} style={{ textDecoration: "none" }}>
             <Button
               fullWidth
-              color="gray"
+              color="yellow"
               onClick={() => setActive(index)}
               variant={index === active ? "filled" : "subtle"}
               style={{ borderRadius: 5 }}
             >
-              <Text component="p" w={180}>
+              <Text
+                component="p"
+                w={180}
+                color={index === active ? "dark" : theme.colors.yellow[4]}
+              >
                 {item.label}
               </Text>
             </Button>

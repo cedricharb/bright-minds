@@ -1,5 +1,4 @@
 import { AppShell, Navbar, useMantineTheme } from "@mantine/core";
-import "./App.css";
 import LandingPage from "./pages/LandingPage";
 import {
   Route,
@@ -9,6 +8,9 @@ import {
   createRoutesFromElements,
 } from "react-router-dom";
 import NavigationBar from "./components/NavigationBar";
+import ClassesPage from "./pages/Classes";
+import FAQ from "./pages/FAQ";
+import Camps from "./pages/Camps";
 
 const Layout = () => {
   const theme = useMantineTheme();
@@ -37,9 +39,10 @@ const router = createBrowserRouter(
     <Route path="" element={<Layout />}>
       <Route path="" element={<Navigate to="/landing-page" replace />} />
       <Route path="/landing-page" element={<LandingPage />} />
-      <Route path="/classes" element={<span>Classes</span>} />
+      <Route path="/classes" element={<ClassesPage />} />
       <Route path="/tutoring" element={<span>Tutoring</span>} />
-      <Route path="/camps" element={<span>Camps</span>} />
+      <Route path="/camps" element={<Camps />} />
+      <Route path="/faq" element={<FAQ />} />
       <Route path="*" element={<>Oops</>} />
     </Route>
   )

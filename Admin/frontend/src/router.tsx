@@ -8,6 +8,7 @@ import {
 } from "@mantine/core";
 import Login from "./Pages/Login";
 import Home from "./Pages/Home";
+import Classes from "./Pages/Classes";
 import {
   Route,
   Outlet,
@@ -17,6 +18,8 @@ import {
 } from "react-router-dom";
 import NavigationBar from "./components/NavigationBar";
 import { useState } from "react";
+import FAQ from "./Pages/FAQ";
+import Camps from "./Pages/Camps";
 
 const Layout = () => {
   const [colorScheme, setColorScheme] = useState<ColorScheme>("light");
@@ -52,12 +55,17 @@ const Layout = () => {
 
 const router = createBrowserRouter(
   createRoutesFromElements(
-    <Route path="" element={<Layout />}>
-      <Route path="" element={<Navigate to="/login" replace />} />
+    <>
       <Route path="/login" element={<Login />} />
-      <Route path="/home" element={<Home />} />
-      <Route path="*" element={<>Oops</>} />
-    </Route>
+      <Route path="" element={<Layout />}>
+        <Route path="" element={<Navigate to="/home" replace />} />
+        <Route path="/home" element={<Home />} />
+        <Route path="/classes" element={<Classes />} />
+        <Route path="/faq" element={<FAQ />} />
+        <Route path="/camps" element={<Camps />} />
+        <Route path="*" element={<>Oops</>} />
+      </Route>
+    </>
   )
 );
 
