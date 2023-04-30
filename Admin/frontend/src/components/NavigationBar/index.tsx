@@ -9,7 +9,7 @@ import {
   UnstyledButton,
   useMantineTheme,
 } from "@mantine/core";
-import ThemeButton from "../ThemeButton";
+import ThemeButton from "../ThemeSwitch";
 
 const links = [
   { link: "/Home", label: "Home Page" },
@@ -26,7 +26,7 @@ const Navbar = () => {
   const theme = useMantineTheme();
 
   return (
-    <Flex direction="column" justify="space-between">
+    <Flex direction="column" justify="space-between" h="100%" p="lg">
       <Flex gap={5} direction="column" bg={theme.colors.gray[4]} w="100%">
         <UnstyledButton onClick={() => navigate("/home")}>
           <Group h={60} mb={20} pl={5}>

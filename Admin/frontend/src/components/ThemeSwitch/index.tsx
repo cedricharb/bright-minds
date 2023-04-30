@@ -6,7 +6,7 @@ import {
 } from "@mantine/core";
 import { IconSun, IconMoonStars } from "@tabler/icons-react";
 
-function ThemeButton() {
+function ThemeSwitch() {
   const { toggleColorScheme } = useMantineColorScheme();
   const theme = useMantineTheme();
 
@@ -31,4 +31,4 @@ function ThemeButton() {
   );
 }
 
-export default ThemeButton;
+export default ThemeSwitch;
