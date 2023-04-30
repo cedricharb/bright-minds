@@ -84,7 +84,7 @@ const ClassesCard = ({ name, description }: Props) => {
             Click here to try an exercice!
           </Button>
           <Button color="yellow" onClick={editModal.open}>
-            Click here to try an exercice!
+            Click here to edit this class.
           </Button>
         </Flex>
       </Card>

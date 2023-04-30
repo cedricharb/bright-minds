@@ -10,9 +10,7 @@ import {
 import NavigationBar from "./components/NavigationBar";
 import ClassesPage from "./pages/Classes";
 import FAQ from "./pages/FAQ";
-import { useState } from "react";
-import { mainDesc } from "./data/backendFodder";
-import translateAPI from "./APIs/translate";
+import Camps from "./pages/Camps";
 
 const Layout = () => {
   const theme = useMantineTheme();
@@ -43,7 +41,7 @@ const router = createBrowserRouter(
       <Route path="/landing-page" element={<LandingPage />} />
       <Route path="/classes" element={<ClassesPage />} />
       <Route path="/tutoring" element={<span>Tutoring</span>} />
-      <Route path="/camps" element={<span>Camps</span>} />
+      <Route path="/camps" element={<Camps />} />
       <Route path="/faq" element={<FAQ />} />
       <Route path="*" element={<>Oops</>} />
     </Route>
