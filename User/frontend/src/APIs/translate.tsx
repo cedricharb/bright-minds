@@ -1,27 +1,29 @@
-let fromLang = "en";
-let toLang = "fr";
-let text = "something to translate";
+type Props = {
+  from: string;
+  to: string;
+  content: string;
+};
 
-const API_KEY = [0]; //your api key instead of 0
+const translateAPI = async ({ from, to, content }: Props) => {
+  let url = `https://translation.googleapis.com/language/translate/v2?key=${process.env.REACT_APP_API_KEY}`;
+  url += "&q=" + encodeURI(content);
+  url += `&source=${from}`;
+  url += `&target=${to}`;
 
-let url = `https://translation.googleapis.com/language/translate/v2?key=${API_KEY}`;
-url += "&q=" + encodeURI(text);
-url += `&source=${fromLang}`;
-url += `&target=${toLang}`;
-
-fetch(url, {
-  method: "GET",
-  headers: {
-    "Content-Type": "application/json",
-    Accept: "application/json",
-  },
-})
-  .then((res) => res.json())
-  .then((response) => {
-    console.log("response from google: ", response);
-  })
-  .catch((error) => {
+  try {
+    const res = await fetch(url, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+    });
+    const response = await res.json();
+    return response.data.translations[0].translatedText;
+  } catch (error) {
     console.log("There was an error with the translation request: ", error);
-  });
+    return "";
+  }
+};
 
-export {};
+export default translateAPI;
