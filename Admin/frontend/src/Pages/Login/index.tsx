@@ -182,7 +182,7 @@ const Login = () => {
         </Flex>
         <Flex align="center" justify="center" p="lg">
           <Button
-            style={{ background: "#FFFF00", color: "black" }}
+            style={{ background: "#FFFF00", color: "black", marginLeft: "20px" }}
             radius="md"
             size="md"
             uppercase
@@ -192,7 +192,7 @@ const Login = () => {
             Log in
           </Button>
           <Button
-            style={{ background: "#FFFF00", color: "black" }}
+            style={{ background: "#FFFF00", color: "black", marginLeft: "20px" }}
             radius="md"
             size="md"
             uppercase
