@@ -1,15 +1,6 @@
 import React, { useState } from "react";
 import { ActionIcon, useMantineTheme } from "@mantine/core";
-import {
-  Button,
-  TextInput,
-  Card,
-  Flex,
-  Drawer,
-  Group,
-  Box,
-  ScrollArea,
-} from "@mantine/core";
+import { Button, TextInput, Card, Flex, Drawer, Group} from "@mantine/core";
 import { IconStar, IconMessage } from "@tabler/icons-react";
 import { keywords } from "../../data/backendFodder";
 import "../../styles/chatbot.css";
@@ -103,24 +94,26 @@ const Chatbot = () => {
         onClose={close}
         title="ChatBot: Ask a question"
         size="lg"
-        style={{ msOverflowY: "auto" }}
+        style={{msOverflowY:"auto"}}
       >
         {
           <Flex className="bottom-right-container">
-            <div style={{overflowY: "auto"}}>
-              <ScrollArea h="300" w="300" style={{marginRight: "5px"}}>
-                <Box w="300">
-                  
-                    {messages.map((message, index) => (
-                      <div key={index}>{message}</div>
-                    ))}
-                  
-                </Box>
-              </ScrollArea>
+            <div>
+              <Card
+                shadow="sm"
+                radius="md"
+                withBorder
+                style={{ marginBottom: theme.spacing.xs, overflowY: "auto" }}
+              >
+                {messages.map((message, index) => (
+                  <div key={-index}>{message}</div>
+                ))}
+              </Card>
+
               <Card shadow="sm" radius="md" withBorder>
                 <div style={{ display: "flex" }}>
                   <TextInput
-                    w="120%"
+                  w="120%"
                     value={inputValue}
                     onChange={handleInputChange}
                     onKeyPress={(event) => {
