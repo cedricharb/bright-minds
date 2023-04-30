@@ -25,6 +25,10 @@ const Question = ({ isQuestion, question, answer }: Props) => {
   const [newAnswer, setNewAnswer] = useState<string>("");
   const [newKeywords, setNewKeywords] = useState<Array<string>>([]);
 
+  const onSubmit = () => {
+    //call api to add the question
+  };
+
   return (
     <>
       <Modal opened={opened} onClose={close} radius="30px" size="xl" centered>
@@ -52,7 +56,7 @@ const Question = ({ isQuestion, question, answer }: Props) => {
                 setNewKeywords(event.target.value.split(", "))
               }
             />
-            <Button color="dark" w="200px">
+            <Button color="dark" w="200px" onClick={onSubmit}>
               Submit
             </Button>
           </Flex>
