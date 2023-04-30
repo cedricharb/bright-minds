@@ -58,7 +58,7 @@ const Camps = () => {
           </Text>
           <Divider my="md" color={theme.colors.dark[7]} />
         </Flex>
-        <Flex gap="md" wrap="wrap" justify="space-around">
+        <Flex gap="md" wrap="wrap">
           {previousCamps.map((camp) => (
             <CampCard
               key={camp.id}
