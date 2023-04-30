@@ -1,24 +1,55 @@
 import { Card, TextInput, PasswordInput, Button, Flex } from "@mantine/core";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { login } from "../../API/loginAPI";
-
+//import { login } from "../../API/loginAPI";
+import axios from "axios";
+interface Response {
+  access_token: string;
+}
 const Login = () => {
   const [submitted, setSubmitted] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
+  const [showPopUp, setShowPopUp] = useState(false);
 
   const navigate = useNavigate();
+
+  const handlePopUp = () => {
+    setShowPopUp(true);
+    setTimeout(() => setShowPopUp(false), 3000);
+  };
 
   const loginButton = async () => {
     if (!email || !password) {
       setSubmitted(true);
+      handlePopUp();
     } else {
       setSubmitted(false);
       setLoading(true);
-      login();
-      navigate("/Home");
+
+      //console.log(login());
+
+      const options = {
+        method: "POST",
+        url: "http://127.0.0.1:8000/api/v1/admin/auth/login",
+        params: { email: "" + email, password: "" + password },
+        headers: {},
+      };
+      axios
+        .request(options)
+        .then(function ({ data }: { data: Response }) {
+          console.log(data);
+          console.log(data.access_token);
+          navigate("/Home");
+        })
+
+        .catch(function (error: any) {
+          console.error(error);
+          setSubmitted(true);
+          handlePopUp();
+        });
+      //navigate("/Home");
       setSubmitted(true);
       setLoading(false);
     }
@@ -63,6 +94,10 @@ const Login = () => {
           >
             Log in
           </Button>
+
+          {showPopUp && (
+            <div className="pop-up">Cannot log in make sure you credentials are correct</div>
+          )}
         </Flex>
       </Card>
     </Flex>
