@@ -27,7 +27,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::prefix('v1')->group(function () {
     Route::prefix('chat')->group(function () {
         Route::get('/', [ChatbotController::class, 'openChat']);
-        Route::post('/review', [ChatbotController::class, 'sendFeedback']);
+        Route::post('/feedback', [ChatbotController::class, 'receiveFeedback']);
     });
     
 });
