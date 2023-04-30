@@ -30,6 +30,51 @@ export const classes = [
     exercises: ["Reading", "Writing", "Listening"],
   },
 ];
+export const camps = [
+  {
+    id: 1,
+    title: "Camp 1",
+    description: "Learn the basics of summer camps.",
+    isUpcoming: false,
+    endDate: new Date(),
+  },
+  {
+    id: 2,
+    title: "Camp 2",
+    description: "Learn the basics of summer camps.",
+    isUpcoming: false,
+    endDate: new Date(),
+  },
+  {
+    id: 3,
+    title: "Camp 3",
+    description: "Learn the basics of summer camps.",
+    isUpcoming: false,
+    endDate: new Date(),
+  },
+  {
+    id: 4,
+    title: "Camp 4",
+    description: "Learn the basics of summer camps.",
+    isUpcoming: false,
+    endDate: new Date(),
+  },
+  {
+    id: 5,
+    title: "Camp 5",
+    description: "Learn the basics of summer camps.",
+    isUpcoming: false,
+    endDate: new Date(),
+  },
+  {
+    id: 6,
+    title: "Camp 6",
+    description: "Learn the basics of summer camps.",
+    isUpcoming: true,
+    startDate: new Date(),
+    endDate: new Date(),
+  },
+];
 
 export const questions = [
   {
