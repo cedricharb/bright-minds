@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Http\Request;
 use App\Models\User;
@@ -16,11 +15,6 @@ use Tymon\JWTAuth\Exceptions\JWTException;
 use PHPOpenSourceSaver\JWTAuth\Contracts\JWTSubject;
 use Tymon\JWTAuth\Facades\JWTAuth;
 
-use Symfony\Component\HttpFoundation\Response;
-use Illuminate\Auth\Middleware\Authenticate as Middleware;
-use Tymon\JWTAuth\Exceptions\JWTException;
-use PHPOpenSourceSaver\JWTAuth\Contracts\JWTSubject;
-use Tymon\JWTAuth\Facades\JWTAuth;
 
 class AuthController extends Controller
 {
@@ -49,8 +43,7 @@ class AuthController extends Controller
      */
 
     //login
-    public function login(Request $request)
-    {
+
     public function login(Request $request)
     {
         try {
@@ -86,32 +79,6 @@ class AuthController extends Controller
     }
 
 
-    public function respondWithToken($token)
-    {
-            }
-            $validator = Validator::make($request->all(), [
-                'email' => 'required|email',
-                'password' => 'required|string',
-
-
-            ]);
-
-            if ($validator->fails()) { //test each input to specify
-                RateLimiter::hit(request()->ip(), 60);
-                return response()->json(["message" => "missing field/s"], 202);
-            }
-            if (!$token = auth('api')->attempt($validator->validated())) { //if not registered
-                RateLimiter::hit(request()->ip(), 60); //if invalid cred
-                return response()->json(["message" => "unAuthorized"], 200);
-            }
-
-            RateLimiter::clear(request()->ip());
-            return $this->respondWithToken($token);
-
-        } catch (\Throwable $th) {
-            throw $th;
-        }
-    }
 
 
     public function respondWithToken($token)
@@ -158,7 +125,8 @@ class AuthController extends Controller
              * verification email
              */
             $request->validate([
-                'old_password' => 'required', //to check if it matches
+                'old_password' => 'required',
+                //to check if it matches
                 'password' => 'required|string', //new password to updated
             ]);
 
@@ -218,11 +186,12 @@ class AuthController extends Controller
             ], 400);
         }
     }
-    public function check_test(Request $request){
+    public function check_test(Request $request)
+    {
         return response()->json([
             'result' => true,
             'message' => 'admin added',
-            'data' =>auth()->user()
+            'data' => auth()->user()
         ], 201);
     }
 }
