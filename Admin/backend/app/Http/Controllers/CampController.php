@@ -22,42 +22,7 @@ class CampController extends Controller
         ], 201);
 
     }
-    public function addCamper(Request $request, $camp_id)
-    {
-        /***
-        * campers {
-        campid:
-        student details: {
-        name:
-        age: 
-        class: ;
-        }
-        guardian-details: {
-        nb-guardians: 2
-        guardian1: {
-        name: Jane,
-        email: parent@mail.com,
-        number: 12/345/678,
-        relationship-to-student: mother
-        }
-        guardian2: {
-        name: Joe,
-        email: parent@mail.com,
-        number: 12/345/678
-        relationship-to-student: uncle
-        }
-        }
-        attended:
-        }*/
-        
-        $camp = new Camper;
-        $camp->title = $request->stude;
-        $camp->description = $request->description;
-        $camp->age_range = $request->age_range;
-        $camp->start_date = $request->start_date;
-        $camp->end_date = $request->end_date;
-        $camp->visibility = $request->visibility;
-    }
+
     public function addCamp(Request $request)
     {
         // add camp
@@ -99,7 +64,8 @@ class CampController extends Controller
     {
         //camp time edit
         $camp = Camp::find($id);
-        $request->validate([ //specify format in frontend
+        $request->validate([
+            //specify format in frontend
             'start_date' => 'required',
             'end_date' => 'required',
         ]);
@@ -125,10 +91,9 @@ class CampController extends Controller
         return response()->json([
             'result' => true,
             'message' => 'upcoming camps',
-            'data' => $newDate,
+            'data' => $subset_start,
         ], 201);
     }
-    //compare current date with entires in list
     public function deleteCamp(Request $request, $id = null)
     {
         //delete camp
@@ -154,7 +119,7 @@ class CampController extends Controller
     }
     public function editCampVisisbility(Request $request, $id = null)
     {
-        // edit camp visibility :: defeualt -> disabled ?? enabled
+        //edit camp visibility :: defeualt -> disabled ?? enabled
         //true=visibile
         //false=not visibil
         $camp = Camp::find($id);
@@ -180,61 +145,34 @@ class CampController extends Controller
         }
     }
 
-    public function viewRegisteredCampers()
+    public function viewRegisteredCampers($camp_id = null)
     {
         // view Registered Campers :: list registered campers
-        /**student details>
-        * guardian number
-        >gaurdian details
-        >relationship typye
-        */
-        /***
-        * campers {
-        campid:
-        student details: {
-        name:
-        age: 
-        class: ;
-        }
-        guardian-details: {
-        nb-guardians: 2
-        guardian1: {
-        name: Jane,
-        email: parent@mail.com,
-        number: 12/345/678,
-        relationship-to-student: mother
-        }
-        guardian2: {
-        name: Joe,
-        email: parent@mail.com,
-        number: 12/345/678
-        relationship-to-student: uncle
-        }
-        }
-        attended:
-        }
-        */
-        $campers = Camper::get();
+
+        $campers = Camper::where('campid', $camp_id)->get();
         return response()->json([
             'result' => true,
             'message' => 'list of campers registered',
             'data' => $campers
         ], 201);
     }
-    public function getEmailOFCampers()
+    public function getEmailOFCampers($camper_id =null)
     {
-        // send Email To campers :: get email of campers registered in specific camps
-        $camper = Camper::get();
-        $subset = $camper->map(function ($camper) {
-            return collect($camper->toArray())
-                ->only(['student_email'])
-                ->all();
-        });
+        $camper = Camper::where('campid',$camper_id)->get();
+        
+        $names = [];
+        for ($x = 0; $x <= 1; $x++) {
+            $arr[] = json_decode($camper[$x]);
+            $element = $arr[$x]->student_details->parent_email;
+            array_push($names, $element);
+
+        }
+
+
         return response()->json([
-            'result' => true,
-            'message' => 'email of campers registered',
-            'data' => $subset
-        ], 201);
+            'data' => $names
+        ]);
+        //return response();//->$camper[0]->student_details;
     }
 
 }
