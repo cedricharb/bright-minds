@@ -97,20 +97,21 @@ const Chatbot = () => {
         style={{msOverflowY:"auto"}}
       >
         {
-          <Flex className="bottom-right-container">
+          <Flex className="bottom-right-container" w= "100%">
             <div>
               <Card
+              w=" 100%"
                 shadow="sm"
                 radius="md"
                 withBorder
                 style={{ marginBottom: theme.spacing.xs, overflowY: "auto" }}
               >
                 {messages.map((message, index) => (
-                  <div key={-index}>{message}</div>
+                  <div  key={-index}>{message}</div>
                 ))}
               </Card>
 
-              <Card shadow="sm" radius="md" withBorder>
+              <Card shadow="sm" radius="md" withBorder w="100%">
                 <div style={{ display: "flex" }}>
                   <TextInput
                   w="120%"
