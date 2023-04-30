@@ -3,11 +3,18 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Validator;
 use Auth;
+
+use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Auth\Middleware\Authenticate as Middleware;
+use Tymon\JWTAuth\Exceptions\JWTException;
+use PHPOpenSourceSaver\JWTAuth\Contracts\JWTSubject;
+use Tymon\JWTAuth\Facades\JWTAuth;
 
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Auth\Middleware\Authenticate as Middleware;
@@ -29,15 +36,58 @@ class AuthController extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
 
+
+    /* public function __construct()
+    {
+    $this->middleware('auth:api', ['except' => ['login']]);
+    }*/
+
+    /**
+     * Get a JWT via given credentials.
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+
     //login
+    public function login(Request $request)
+    {
     public function login(Request $request)
     {
         try {
             if (RateLimiter::tooManyAttempts(request()->ip(), 3)) {
                 return response()->json(
                     ['message' => 'Too many fail login attempt your ip has restricted for 1 minute.'],
+                    ['message' => 'Too many fail login attempt your ip has restricted for 1 minute.'],
                     Response::HTTP_UNAUTHORIZED
                 );
+            }
+            $validator = Validator::make($request->all(), [
+                'email' => 'required|email',
+                'password' => 'required|string',
+
+
+            ]);
+
+            if ($validator->fails()) { //test each input to specify
+                RateLimiter::hit(request()->ip(), 60);
+                return response()->json(["message" => "missing field/s"], 202);
+            }
+            if (!$token = auth('api')->attempt($validator->validated())) { //if not registered
+                RateLimiter::hit(request()->ip(), 60); //if invalid cred
+                return response()->json(["message" => "unAuthorized"], 200);
+            }
+
+            RateLimiter::clear(request()->ip());
+            return $this->respondWithToken($token);
+
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+    }
+
+
+    public function respondWithToken($token)
+    {
             }
             $validator = Validator::make($request->all(), [
                 'email' => 'required|email',
@@ -82,7 +132,7 @@ class AuthController extends Controller
      *   "created_at": "2022-12-13T22:36:44.000000Z",
      *  "updated_at": "2022-12-13T22:36:44.000000Z"
      */
-    public function logout()
+    public function logout(Request $request)
     {
         Auth::logout();
         return response()->json([

@@ -9,6 +9,7 @@ import {
 } from "react-router-dom";
 import NavigationBar from "./components/NavigationBar";
 import ClassesPage from "./pages/Classes";
+import FAQ from "./pages/FAQ";
 
 const Layout = () => {
   const theme = useMantineTheme();
@@ -40,6 +41,7 @@ const router = createBrowserRouter(
       <Route path="/classes" element={<ClassesPage />} />
       <Route path="/tutoring" element={<span>Tutoring</span>} />
       <Route path="/camps" element={<span>Camps</span>} />
+      <Route path="/faq" element={<FAQ />} />
       <Route path="*" element={<>Oops</>} />
     </Route>
   )

@@ -13,6 +13,7 @@ import {
 const links = [
   { link: "/landing-page", label: "Landing Page" },
   { link: "/classes", label: "Classes" },
+  { link: "/faq", label: "FAQ" },
 ];
 
 const Navbar = () => {
