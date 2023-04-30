@@ -2,6 +2,7 @@ import axios from "axios";
 import {} from "../Pages/Login"
 interface Response {
   token: string;
+  token: string;
 }
 export function login(){
   const options = {
@@ -19,3 +20,4 @@ export function login(){
       console.error(error);
     });
 }
+

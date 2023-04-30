@@ -10,6 +10,7 @@ import {
   createRoutesFromElements,
 } from "react-router-dom";
 import NavigationBar from "./components/NavigationBar";
+import FAQ from "./Pages/FAQ";
 
 const Layout = () => {
   const theme = useMantineTheme();
@@ -40,6 +41,7 @@ const router = createBrowserRouter(
         <Route path="" element={<Navigate to="/login" replace />} />
         <Route path="/home" element={<Home />} />
         <Route path="/classes" element={<Classes />} />
+        <Route path="/faq" element={<FAQ />} />
         <Route path="*" element={<>Oops</>} />
       </Route>
     </>
