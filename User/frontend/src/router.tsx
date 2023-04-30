@@ -10,6 +10,9 @@ import {
 import NavigationBar from "./components/NavigationBar";
 import ClassesPage from "./pages/Classes";
 import FAQ from "./pages/FAQ";
+import { useState } from "react";
+import { mainDesc } from "./data/backendFodder";
+import translateAPI from "./APIs/translate";
 
 const Layout = () => {
   const theme = useMantineTheme();

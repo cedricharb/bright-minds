@@ -1,10 +1,28 @@
-import { Flex, Text, useMantineTheme } from "@mantine/core";
+import { Button, Flex, Text, useMantineTheme } from "@mantine/core";
 import CircleComponent from "../../components/CircularComponent";
-import { mainDesc } from "../../data/backendFodder";
 import BottomBar from "../../components/BottomBar";
+import { useState } from "react";
+import { mainDesc } from "../../data/backendFodder";
+import translateAPI from "../../APIs/translate";
 
 const LandingPage = () => {
   const theme = useMantineTheme();
+
+  const [isEn, setIsEn] = useState(true);
+  const [isTranslated, setIsTranslated] = useState(false);
+
+  const [frDesc, setFrDesc] = useState<string>();
+  const desc = isEn ? mainDesc : frDesc;
+
+  const translate = async () => {
+    const test = {
+      from: "en",
+      to: "fr",
+      content: mainDesc,
+    };
+    let newText = await translateAPI(test);
+    return newText;
+  };
 
   return (
     <Flex
@@ -18,6 +36,21 @@ const LandingPage = () => {
           : theme.colors.gray[4]
       }
     >
+      <Button
+        color="yellow"
+        onClick={async () => {
+          if (!isTranslated) {
+            let newText = await translate();
+            let re = /&#39;/gi;
+            setFrDesc(newText.replace(re, "'"));
+            setIsTranslated(true);
+          }
+          setIsEn(!isEn);
+        }}
+        style={{ position: "absolute", top: "15px", right: "15px" }}
+      >
+        Change Language
+      </Button>
       <Flex direction="column" align="center" gap="xl" pl="xl" pr="xl" h="100%">
         <Flex
           bg={
@@ -34,10 +67,10 @@ const LandingPage = () => {
           direction="column"
         >
           <Text weight="bolder" size={50}>
-            Insert Title Here
+            Insert title here
           </Text>
           <Text w={800} p="xl" align="center">
-            {mainDesc}
+            {desc}
           </Text>
         </Flex>
 
