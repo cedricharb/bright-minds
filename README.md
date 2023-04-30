@@ -47,16 +47,22 @@ The chatbot system is composed of the following components:
 - `ScrollArea`: A Mantine UI component used to enable scrolling on chatbot responses.
 
 ## Images
+Step 1:
 ![Step 1](chatbot1.png)
 
+Step 2:
 ![Step 2](chatbot2.png)
 
+Step 3:
 ![Step 3](chatbot3.png)
 
+Step 4:
 ![Step 4](chatbot4.png)
 
+Step 5:
 ![Step 5](chatbot5.png)
 
+Step 6:
 ![Step 6](chatbot6.png)
 
 ## Credits
