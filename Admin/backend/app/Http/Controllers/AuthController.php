@@ -43,7 +43,7 @@ class AuthController extends Controller
      */
 
     //login
-
+    
     public function login(Request $request)
     {
         try {
@@ -79,6 +79,7 @@ class AuthController extends Controller
     }
 
 
+    
 
 
     public function respondWithToken($token)
@@ -103,54 +104,53 @@ class AuthController extends Controller
     {
         Auth::logout();
         return response()->json([
-            'status' => 'success',
+            'result' => true,
             'message' => 'Successfully logged out',
         ]);
     }
 
-    public function changePassword(Request $request)
-    { //check token
-
+    public function changePassword(Request $request){
         $user = User::where('email', $request->email)->first();
-
+    
         if (!$user) { //Email isn't found in our database\
             return response()->json([
-                'success' => false,
-                'message' => 'unAuthorized',
+                'result' => false,
+                'message' => 'error',
             ], 400);
         } else {
-            /**
-             * req new password
-             * update db
-             * verification email
-             */
-            $request->validate([
-                'old_password' => 'required',
-                //to check if it matches
-                'password' => 'required|string', //new password to updated
-            ]);
+        /**
+         * req new password
+         * update db
+         * verification email
+         */
+        $request->validate([
+            'new_password' => 'required|string',
+            'old_password' => 'required|string',
+        ]);
+        
+        $new_password= $request->input('new_password'); //take input
+        if(Hash::check($request->old_password, $user->password)){
 
-            if (!Hash::check($request->old_password, $user->password)) {
-                return back()->with("message", "Old Password Doesn't match!");
-            }
-            #Update the new Password
-            User::whereId($user->id)->update([
-                'password' => Hash::make($request->new_password)
-            ]);
-            /*  $new_password = $request->input('password'); //take input
-            $user->password = bcrypt($new_password);*/
-            $user->save();
-            return response()->json([
-                'success' => true,
-                'message' => 'Success: password is changed.',
-            ], 201);
-
-        }
+        
+        $user->password = Hash::make($new_password); 
+        $user->save();
+        return response()->json([
+            'result' => true,
+            'message' => 'Success: password is changed.',
+        ], 201);
+    }else{
+        return response()->json([
+            'result' => false,
+            'message' => "Fail :incorrect old pass",
+            
+        ], 201);
     }
+    
+    }}
     public function refresh()
     {
         return response()->json([
-            'status' => 'success',
+            'result' => true,
             'user' => Auth::user(),
             'authorisation' => [
                 'token' => Auth::refresh(),
@@ -171,7 +171,7 @@ class AuthController extends Controller
         $user = new User;
         $user->name = $request->name;
         $user->email = $request->email;
-        $user->password = bcrypt($request->password);
+        $user->password =Hash::make($request->password);
 
         if ($user->save()) {
             return response()->json([
@@ -181,17 +181,16 @@ class AuthController extends Controller
             ], 201);
         } else {
             return response()->json([
-                'success' => false,
+                'result' => false,
                 'message' => 'Fail',
             ], 400);
         }
     }
-    public function check_test(Request $request)
-    {
+    public function check_test(Request $request){
         return response()->json([
             'result' => true,
             'message' => 'admin added',
-            'data' => auth()->user()
+            'data' =>auth()->user()
         ], 201);
     }
 }

@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 //import { login } from "../../API/loginAPI";
 import axios from "axios";
+import "../../data/popup.css";
 interface Response {
   access_token: string;
 }
