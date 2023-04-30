@@ -50,7 +50,6 @@ class AuthController extends Controller
             if (RateLimiter::tooManyAttempts(request()->ip(), 3)) {
                 return response()->json(
                     ['message' => 'Too many fail login attempt your ip has restricted for 1 minute.'],
-                    ['message' => 'Too many fail login attempt your ip has restricted for 1 minute.'],
                     Response::HTTP_UNAUTHORIZED
                 );
             }
@@ -63,7 +62,7 @@ class AuthController extends Controller
 
             if ($validator->fails()) { //test each input to specify
                 RateLimiter::hit(request()->ip(), 60);
-                return response()->json(["message" => "missing field/s"], 202);
+                return response()->json(["message" => "An error occured"], 202);
             }
             if (!$token = auth('api')->attempt($validator->validated())) { //if not registered
                 RateLimiter::hit(request()->ip(), 60); //if invalid cred
@@ -102,7 +101,7 @@ class AuthController extends Controller
      */
     public function logout(Request $request)
     {
-        Auth::logout();
+        Auth::logout(); //if token has expired handle error respponse in frontend
         return response()->json([
             'result' => true,
             'message' => 'Successfully logged out',

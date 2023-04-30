@@ -74,11 +74,11 @@ Route::group(['prefix' => 'v1'], function () {
             Route::get('/viewCamps', [CampController::class,'viewCamps']);
             Route::post('/addCamp', [CampController::class,'addCamp']);
             Route::post('/deleteCamp/{id}', [CampController::class,'deleteCamp']);
-            Route::post('/setCampTimings/{id}', [CampController::class,'setCampTimings']); 
+            Route::post('/setCampTimmings/{id}', [CampController::class,'setCampTimings']); 
             Route::post('/editCampVisibility/{id}', [CampController::class,'editCampVisisbility']); //allow reg for camps
             Route::get('/viewRegisteredCampers', [CampController::class,'viewRegisteredCamperss']); 
             Route::get('/getEmailOFCampers', [CampController::class,'getEmailOFCampers']); 
-           // Route::get('/viewUpcommingCamps', [CampController::class,'upCommingCamps']);
+            Route::get('/viewUpcommingCamps', [CampController::class,'upCommingCamps']);
             });      
     
 

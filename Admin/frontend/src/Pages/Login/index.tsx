@@ -6,6 +6,7 @@ import axios from "axios";
 import "../../data/popup.css";
 interface Response {
   access_token: string;
+  result :boolean;
 }
 const Login = () => {
   const [submitted, setSubmitted] = useState(false);
@@ -42,6 +43,10 @@ const Login = () => {
         .then(function ({ data }: { data: Response }) {
           console.log(data);
           console.log(data.access_token);
+          console.log(data.result)
+          if(data.result){
+            //
+          }
           navigate("/Home");
         })
 

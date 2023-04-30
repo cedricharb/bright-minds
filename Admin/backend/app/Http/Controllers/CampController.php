@@ -22,6 +22,42 @@ class CampController extends Controller
         ], 201);
 
     }
+    public function addCamper(Request $request, $camp_id)
+    {
+        /***
+        * campers {
+        campid:
+        student details: {
+        name:
+        age: 
+        class: ;
+        }
+        guardian-details: {
+        nb-guardians: 2
+        guardian1: {
+        name: Jane,
+        email: parent@mail.com,
+        number: 12/345/678,
+        relationship-to-student: mother
+        }
+        guardian2: {
+        name: Joe,
+        email: parent@mail.com,
+        number: 12/345/678
+        relationship-to-student: uncle
+        }
+        }
+        attended:
+        }*/
+        
+        $camp = new Camper;
+        $camp->title = $request->stude;
+        $camp->description = $request->description;
+        $camp->age_range = $request->age_range;
+        $camp->start_date = $request->start_date;
+        $camp->end_date = $request->end_date;
+        $camp->visibility = $request->visibility;
+    }
     public function addCamp(Request $request)
     {
         // add camp
@@ -40,9 +76,7 @@ class CampController extends Controller
         $camp->start_date = $request->start_date;
         $camp->end_date = $request->end_date;
         $camp->visibility = $request->visibility;
-
         $camp_check = Camp::where('title', $request->title)->first();
-
         if ($camp_check) {
             return response()->json([
                 'result' => false,
@@ -59,47 +93,52 @@ class CampController extends Controller
                 'result' => false,
                 'message' => 'Fail',
             ], 400);
-
         }
     }
     public function setCampTimings(Request $request, $id = null)
     {
         //camp time edit
-
-
+        $camp = Camp::find($id);
+        $request->validate([ //specify format in frontend
+            'start_date' => 'required',
+            'end_date' => 'required',
+        ]);
+        $camp->start_date = $request->start_date;
+        $camp->end_date = $request->end_date;
+        $camp->save();
     }
     public function UpCommingCamps()
     {
         //camp after now
         $currentDate = Carbon::now();
-        $formattedDate = $currentDate->format('Y-m-d H:i:s');
+        //$formattedDate = $currentDate->format('Y-m-d H:i:s');
+        $newDate = Carbon::createFromFormat('Y-m-d H:i:s', $currentDate)
+            ->format('m/d/Y');
         $old_camps = Camp::get();
-        $subset = $old_camps->map(function ($old_camps) {
+        $subset_start = $old_camps->map(function ($old_camps) {
             return collect($old_camps->toArray())
-                ->only(['start_date'])
+                ->only(['start_date',])
                 ->all();
-            //order by 
+            //order by
+
         });
         return response()->json([
             'result' => true,
             'message' => 'upcoming camps',
-            'data' => $subset
+            'data' => $newDate,
         ], 201);
     }
     //compare current date with entires in list
-
     public function deleteCamp(Request $request, $id = null)
     {
         //delete camp
         $camp = Camp::find($id);
-
         if (!$camp) {
             return response()->json([
                 'result' => false,
                 'message' => 'error ,camp does not exist',
             ], 400);
         } else {
-
             if ($camp->delete()) {
                 return response()->json([
                     'result' => true,
@@ -110,7 +149,6 @@ class CampController extends Controller
                     'result' => false,
                     'message' => 'Fail',
                 ], 400);
-
             }
         }
     }
@@ -119,7 +157,6 @@ class CampController extends Controller
         // edit camp visibility :: defeualt -> disabled ?? enabled
         //true=visibile
         //false=not visibil
-
         $camp = Camp::find($id);
         $original_visibiity = $camp->visibility;
         if ($original_visibiity) {
@@ -140,11 +177,9 @@ class CampController extends Controller
                 'result' => false,
                 'message' => 'Fail',
             ], 400);
-
         }
-
-
     }
+
     public function viewRegisteredCampers()
     {
         // view Registered Campers :: list registered campers
@@ -152,6 +187,32 @@ class CampController extends Controller
         * guardian number
         >gaurdian details
         >relationship typye
+        */
+        /***
+        * campers {
+        campid:
+        student details: {
+        name:
+        age: 
+        class: ;
+        }
+        guardian-details: {
+        nb-guardians: 2
+        guardian1: {
+        name: Jane,
+        email: parent@mail.com,
+        number: 12/345/678,
+        relationship-to-student: mother
+        }
+        guardian2: {
+        name: Joe,
+        email: parent@mail.com,
+        number: 12/345/678
+        relationship-to-student: uncle
+        }
+        }
+        attended:
+        }
         */
         $campers = Camper::get();
         return response()->json([
