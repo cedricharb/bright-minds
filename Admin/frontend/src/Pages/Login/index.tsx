@@ -35,11 +35,12 @@ const Login = () => {
           .then(function ({ data }: { data: Response }) {
             console.log(data);
             console.log(data.access_token)
+            navigate("/Home")
           })
+          
           .catch(function (error: any) {
             console.error(error);
           });
-      
       //navigate("/Home");
       setSubmitted(true);
       setLoading(false);
