@@ -34,7 +34,7 @@ const Navbar = () => {
       url: base_url + "/auth/logout",
       params: {},
       headers: {
-        Authorization: "Bearer Token",
+        Authorization: localStorage.getItem("token"),
       },
     };
     axios
