@@ -1,4 +1,5 @@
 import {
+  ActionIcon,
   Button,
   Card,
   Flex,
@@ -11,31 +12,44 @@ import {
   useMantineTheme,
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
+import { IconX } from "@tabler/icons-react";
 import { useState } from "react";
 
 type Props = {
+  id: number;
   title: string;
   description: string;
   isUpcoming?: boolean;
-  startDate?: Date;
-  endDate: Date;
+  startDate?: string;
+  endDate: string;
+  onSubmitDelete: (id: number) => void;
+  onSubmitEdit: (
+    title: string,
+    description: string,
+    start_date: string,
+    end_date: string,
+    visibility: Boolean,
+    age_range: string
+  ) => void;
 };
 
 const CampCard = ({
+  id,
   title,
   description,
   isUpcoming,
   startDate,
   endDate,
+  onSubmitDelete,
+  onSubmitEdit,
 }: Props) => {
   const theme = useMantineTheme();
   const [opened, { open, close }] = useDisclosure(false);
-  const [phoneNumber, setPhoneNumber] = useState<string>("");
-
-  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const newValue = event.target.value.replace(/\D/g, ""); // remove non-numeric characters
-    setPhoneNumber(newValue);
-  };
+  const [titleV, setTitleV] = useState(title);
+  const [descriptionV, setDescriptionV] = useState(description);
+  const [startDateV, setStartDateV] = useState(startDate);
+  const [endDateV, setEndDateV] = useState(endDate);
+  const [ageRang, setAgeRange] = useState("5-10");
 
   const openModal = () => {
     if (isUpcoming) {
@@ -54,27 +68,37 @@ const CampCard = ({
         >
           <Flex direction="column" gap="lg" align="center">
             <Text w="100%" align="center">
-              Enroll in the camp!
+              Edit the camp
             </Text>
-            <Input w="100%" placeholder="Name" />
-            <Input w="100%" placeholder="Last Name" />
-            <TextInput
+            <Input
               w="100%"
-              value={phoneNumber}
-              onChange={handleInputChange}
-              placeholder="Enter phone number"
-              maxLength={13}
-              inputMode="numeric"
-              style={{
-                color:
-                  theme.colorScheme === "dark"
-                    ? theme.colors.dark[0]
-                    : theme.black,
-              }}
+              placeholder="Title"
+              value={titleV}
+              onChange={(event) => setTitleV(event.target.value)}
             />
-
-            <Input w="100%" placeholder="Email address" />
-            <NumberInput placeholder="Age" w="100%" />
+            <Input
+              w="100%"
+              placeholder="Description"
+              value={descriptionV}
+              onChange={(event) => setDescriptionV(event.target.value)}
+            />
+            <Input
+              w="100%"
+              placeholder="Start Date"
+              value={startDateV}
+              onChange={(event) => setStartDateV(event.target.value)}
+            />
+            <Input
+              w="100%"
+              placeholder="Start Date"
+              value={endDateV}
+              onChange={(event) => setEndDateV(event.target.value)}
+            />
+            <Input
+              placeholder="Age range (example 5-10)"
+              w="100%"
+              onChange={(event) => setAgeRange(event.target.value)}
+            />
             <Button color="dark" w="200px">
               Submit
             </Button>
@@ -88,6 +112,7 @@ const CampCard = ({
             gap="md"
             style={{
               borderRadius: "30px",
+              position: "relative",
             }}
             bg="white"
             h={350}
@@ -95,6 +120,19 @@ const CampCard = ({
             p="md"
             justify="space-between"
           >
+            <ActionIcon
+              style={{
+                position: "absolute",
+                top: "10px",
+                right: "10px",
+                zIndex: 10,
+              }}
+              onClick={() => {
+                onSubmitDelete(id);
+              }}
+            >
+              <IconX color="red" size={20} />
+            </ActionIcon>
             <Text
               weight="bold"
               color={theme.colors.dark[7]}
@@ -115,7 +153,7 @@ const CampCard = ({
                   p="sm"
                 >
                   <Text>Start date:</Text>
-                  <Text>{`${startDate?.getDay()}/${startDate?.getMonth()}/${startDate?.getFullYear()}`}</Text>
+                  <Text>{startDate}</Text>
                 </Flex>
                 <Flex
                   direction="column"
@@ -124,7 +162,7 @@ const CampCard = ({
                   p="sm"
                 >
                   <Text>End date:</Text>
-                  <Text>{`${endDate.getDay()}/${endDate.getMonth()}/${endDate.getFullYear()}`}</Text>
+                  <Text>{endDate}</Text>
                 </Flex>
               </Flex>
             )) ||
@@ -137,9 +175,7 @@ const CampCard = ({
                   justify="center"
                 >
                   <Text color={theme.colors.red[6]}>Ended in:</Text>
-                  <Text
-                    color={theme.colors.red[6]}
-                  >{`${endDate.getDay()}/${endDate.getMonth()}/${endDate.getFullYear()}`}</Text>
+                  <Text color={theme.colors.red[6]}>{endDate}</Text>
                 </Flex>
               ))}
           </Flex>
