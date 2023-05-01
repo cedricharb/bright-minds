@@ -13,11 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('about', function ($collections) {
+        Schema::create('subjects', function ($collections) {
             $collections->id();
-            $collections->text('general');
-            $collections->text('mission');
-            $collections->text('vision');
+            $collections->string('title');
             $collections->timestamps();
         });
     }
@@ -29,6 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('about');
+        Schema::dropIfExists('subjects');
     }
 };
