@@ -90,7 +90,7 @@ All that is needed to do is to Ckick on the Camps card or on Camps in the naviga
 - Click on the Camps button
 - Click on the add camps button
 - Click on the edit camps button
-- Click on the delete button
+- Click on the delete camps button
 - Click on any of the Navbar pages
 - Click on any of the social media icons button
 
@@ -118,18 +118,20 @@ The camps page system is composed of the following components:
 
 ### 4- Classes
 
-This is a simple home page where the user will be able to navigate through the website from it
+This is a simple Classes page where the admin will be able to see and register in classes offered
 
 #### Usage
 
-All that is needed to do is to access the website and then the user is at the home page and then do any of these:
 
-- Click on the Classes button
-- Click on the Camps button
-- Click on the Tutoring button
-- Click on the FAQ button
-- Click on the About us button
+All that is needed to do is to Ckick on the classes card or on classes in the navigation bar to access the page where you'll be able to do any of these:
+
+- Click on the classes button
+- Click on the add classes button
+- Click on the edit classes button
+- Click on the delete classes button
+- Click on any of the Navbar pages
 - Click on any of the social media icons button
+- Click on the "Click to try an exercise buttons and a popup with a mock exercise will appear
 
 #### Dependencies
 
@@ -141,12 +143,14 @@ All that is needed to do is to access the website and then the user is at the ho
 
 #### Components
 
-The chatbot system is composed of the following components:
+The classes page system is composed of the following components:
 
 - `Navbar`: The navbar component that groups items on the side of the screen.
 - `Card`: A Mantine UI component used to display other pages on interest.
 - `Flex`: A Mantine UI component used to position components.
 - `Icon`: A Tabler UI component used to enable scrolling on chatbot responses.
+- `Button`: A Mantine UI component used to include functionality
+- `Modal`: A Mantine UI component used to include elements in a popup
 
 #### Images
 
