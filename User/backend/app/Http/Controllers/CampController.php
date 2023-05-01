@@ -25,4 +25,29 @@ class CampController extends Controller
             "prev" => $prev_camps
         ], 200);
     }
+
+    public function getPrevCamp($id)
+    {
+        $camp = Camp::find($id);
+        if ($camp) {
+            $upcoming_camp = Camp::latest()->firstOrFail();
+            if ($camp == $upcoming_camp) {
+                return response()->json([
+                    "result" => true,
+                    "message" => 'this camp is not a previous camp',
+                    "camp" => $camp
+                ]);
+            } else {
+                return response()->json([
+                    "result" => true,
+                    "camp" => $camp
+                ]);
+            }
+        } else {
+            return response()->json([
+                "result" => false,
+                "message" => 'camp not found'
+            ]);
+        }
+    }
 }
