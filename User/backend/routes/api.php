@@ -41,5 +41,7 @@ Route::prefix('v1')->group(function () {
         Route::get('/prev-camp', [CampController::class, 'getPrevCamp']);
         Route::post('/registration', [CampController::class, 'registerCamp']);
     });
-
+    Route::prefix('faq')->group(function () {
+        Route::get('/', [InfoController::class, 'getFaqs']);
+    });
 });
