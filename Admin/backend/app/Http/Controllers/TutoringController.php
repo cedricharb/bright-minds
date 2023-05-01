@@ -77,13 +77,7 @@ class TutoringController extends Controller
         }
         /*************schedual**************/
     }
-    /* public  function add_tutoring_time($time,$request){
-    //take input, create entity ,add to array
-    $from= $request->input('from'); //take input
-    $to= $request->input('to'); //take input
-    $timings = array($from, $to);
-    return $timings;
-    }*/
+   
 
     public function addTutoringSchedule(Request $request)
     {
