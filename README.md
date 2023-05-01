@@ -292,6 +292,9 @@ Step 6:
 ## Credits
 
 - `Frontend`: - Mourad El-Rahi
+
               - Cedric Harb
-- `Backend`: - Larissa Abboud
-             - Hoda Mawlawi
+
+- `Backend`:  - Larissa Abboud
+
+              - Hoda Mawlawi
