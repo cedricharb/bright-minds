@@ -10,6 +10,7 @@ import {
   useMantineTheme,
 } from "@mantine/core";
 import ThemeButton from "../ThemeSwitch";
+import axios from "axios";
 
 const links = [
   { link: "/home", label: "Home Page" },
@@ -25,6 +26,30 @@ const Navbar = () => {
   );
   const navigate = useNavigate();
   const theme = useMantineTheme();
+
+  const logout = () => {
+    const base_url = "http://127.0.0.1:8000/api/v1/admin";
+    const options = {
+      method: "POST",
+      url: base_url + "/auth/logout",
+      params: {},
+      headers: {
+        Authorization: "Bearer Token",
+      },
+    };
+    axios
+      .request(options)
+      .then(function ({ data }) {
+        console.log(data);
+
+        if (data.result) {
+          localStorage.setItem("token", "");
+        }
+      })
+      .catch(function (error: any) {
+        console.error(error);
+      });
+  };
 
   return (
     <Flex direction="column" justify="space-between" h="100%" p="lg">
@@ -57,7 +82,12 @@ const Navbar = () => {
           </Link>
         ))}
       </Flex>
-      <ThemeButton />
+      <Flex gap="md" direction="column" w="100%">
+        <Button color="yellow" onClick={logout} w="100%">
+          Logout
+        </Button>
+        <ThemeButton />
+      </Flex>
     </Flex>
   );
 };

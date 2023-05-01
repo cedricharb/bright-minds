@@ -15,6 +15,7 @@ use Tymon\JWTAuth\Exceptions\JWTException;
 use PHPOpenSourceSaver\JWTAuth\Contracts\JWTSubject;
 use Tymon\JWTAuth\Facades\JWTAuth;
 
+
 class AuthController extends Controller
 {
 
@@ -29,7 +30,20 @@ class AuthController extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
 
+
+    /* public function __construct()
+    {
+    $this->middleware('auth:api', ['except' => ['login']]);
+    }*/
+
+    /**
+     * Get a JWT via given credentials.
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+
     //login
+    
     public function login(Request $request)
     {
         try {
@@ -48,7 +62,7 @@ class AuthController extends Controller
 
             if ($validator->fails()) { //test each input to specify
                 RateLimiter::hit(request()->ip(), 60);
-                return response()->json(["message" => "missing field/s"], 202);
+                return response()->json(["message" => "An error occured"], 202);
             }
             if (!$token = auth('api')->attempt($validator->validated())) { //if not registered
                 RateLimiter::hit(request()->ip(), 60); //if invalid cred
@@ -64,9 +78,13 @@ class AuthController extends Controller
     }
 
 
+    
+
+
     public function respondWithToken($token)
     {
         return response()->json([
+            'result'=>true,
             'access_token' => $token,
             'user' => Auth::user(),
             'token_type' => 'bearer',
@@ -84,55 +102,55 @@ class AuthController extends Controller
      */
     public function logout(Request $request)
     {
-        Auth::logout();
-        return response()->json([
-            'status' => 'success',
-            'message' => 'Successfully logged out',
-        ]);
+        if (Auth::check()) {
+            Auth::logout();
+            return response()->json(['message' => 'Logged out successfully']);
+        }
+        return response()->json(['message' => 'No user to log out'], 401);
     }
 
-    public function changePassword(Request $request)
-    { //check token
-
+    public function changePassword(Request $request){
         $user = User::where('email', $request->email)->first();
-
+    
         if (!$user) { //Email isn't found in our database\
             return response()->json([
-                'success' => false,
-                'message' => 'unAuthorized',
-            ], 400);
+                'result' => false,
+                'message' => 'error',
+            ], 200);
         } else {
-            /**
-             * req new password
-             * update db
-             * verification email
-             */
-            $request->validate([
-                'old_password' => 'required', //to check if it matches
-                'password' => 'required|string', //new password to updated
-            ]);
+        /**
+         * req new password
+         * update db
+         * verification email
+         */
+        $request->validate([
+            'new_password' => 'required|string',
+            'old_password' => 'required|string',
+        ]);
+        
+        $new_password= $request->input('new_password'); //take input
+        if(Hash::check($request->old_password, $user->password)){
 
-            if (!Hash::check($request->old_password, $user->password)) {
-                return back()->with("message", "Old Password Doesn't match!");
-            }
-            #Update the new Password
-            User::whereId($user->id)->update([
-                'password' => Hash::make($request->new_password)
-            ]);
-            /*  $new_password = $request->input('password'); //take input
-            $user->password = bcrypt($new_password);*/
-            $user->save();
-            return response()->json([
-                'success' => true,
-                'message' => 'Success: password is changed.',
-            ], 201);
-
-        }
+        
+        $user->password = Hash::make($new_password); 
+        $user->save();
+        return response()->json([
+            'result' => true,
+            'message' => 'Success: password is changed.',
+        ], 201);
+    }else{
+        return response()->json([
+            'result' => false,
+            'message' => "Fail :incorrect old pass",
+            
+        ], 201);
     }
+    
+    }}
     public function refresh()
     {
         return response()->json([
-            'status' => 'success',
+            'result' => true,
             'user' => Auth::user(),
             'authorisation' => [
                 'token' => Auth::refresh(),
@@ -153,7 +171,7 @@ class AuthController extends Controller
         $user = new User;
         $user->name = $request->name;
         $user->email = $request->email;
-        $user->password = bcrypt($request->password);
+        $user->password =Hash::make($request->password);
 
         if ($user->save()) {
             return response()->json([
@@ -163,9 +181,9 @@ class AuthController extends Controller
             ], 201);
         } else {
             return response()->json([
-                'success' => false,
+                'result' => false,
                 'message' => 'Fail',
-            ], 400);
+            ], 200);
         }
     }
     public function check_test(Request $request){
