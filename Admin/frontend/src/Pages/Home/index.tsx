@@ -10,6 +10,7 @@ interface Response  {
   mission: string;
   vision: string;
 };
+//add in .env var ,git ignore
 const base_url = "http://127.0.0.1:8000/api/v1/admin";
 const Home = () => {
   const theme = useMantineTheme();
@@ -35,19 +36,20 @@ const Home = () => {
          */
         if(data.result){
           //handle data
+          return data;
         }
       })
       .catch(function (error: any) {
         console.error(error);
       });
   }
-  const editAbout = async () => {
+  const editAbout = async (general:string) => {
 
 
     const options = {
       method: 'POST',
       url: base_url + "/about/editAbout",
-      params: {general: ""}, //add input
+      params: {general: "" +general}, //add input
       headers: {
 
       },

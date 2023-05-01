@@ -100,7 +100,7 @@ class CampController extends Controller
 
         });
         $dates = [];
-        for ($x = 0; $x <= $counter-1; $x++) {
+        for ($x = 0; $x <= 1; $x++) {
             $arr[] = $subset_start[$x];
             $element = $arr[$x];
 

@@ -37,7 +37,7 @@ const Login = () => {
     setTimeout(() => setShowPopUp(false), 3000);
   };
 
-  const loginButton = async () => {
+  const loginButton = async (email:string ,old_password:string) => {
     if (!email || !old_password) {
       setSubmitted(true);
       handlePopUp();
@@ -82,7 +82,7 @@ const Login = () => {
     }
   };
 
-  const changePassword = async () => {
+  const changePassword = async (confirm_email:string ,old_password:string ,new_password:string  ) => {
     if (confirm_email === "" || old_password === "" || new_password === "") {
       handlePopUp();
     } else {
@@ -100,7 +100,7 @@ const Login = () => {
         .request(options)
         .then(function ({ data }: { data: Response }) {
           console.log(data);
-          if (!data.result_pass) {
+          if (!data.result_pass) { // email format
             handlePopUp();
           } else {
             navigate("/login");
@@ -158,7 +158,7 @@ const Login = () => {
             radius="md"
             size="md"
             uppercase
-            onClick={changePassword}
+            onClick={()=>changePassword}
           >
             Save
           </Button>
@@ -201,7 +201,7 @@ const Login = () => {
             size="md"
             uppercase
             loading={loading}
-            onClick={loginButton}
+            onClick={() => {loginButton}}
           >
             Log in
           </Button>

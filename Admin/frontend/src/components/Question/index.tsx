@@ -20,7 +20,6 @@ type Props = {
 };
 interface Response {
   //add
-  access_token: string;
   result: boolean;
 
 
@@ -36,8 +35,8 @@ const Question = ({ isQuestion, question, answer }: Props) => {
   const onSubmit = () => {
     //call api to add the question
     //seperate keyword into json format
-    const addFAQ = async () => {
-      if (!newQuestion || !newAnswer) {
+    const addFAQ = async (question :string  ,keys:{ key1: string, key2: string, key3: string} , answer:string) => {
+      if (!question || !answer) {
         //setSubmitted(true);
         // handlePopUp();
       } else {
@@ -49,7 +48,7 @@ const Question = ({ isQuestion, question, answer }: Props) => {
         const options = {
           method: "POST",
           url: base_url + "/FAQ/addFAQ",
-          params: { question: "" + newQuestion, answer: "" + newAnswer, newKeywords: { "key": "" } },
+          params: { question:  + question, answer: answer, newKeywords: +keys },
           headers: {},
         };
         axios
@@ -61,9 +60,9 @@ const Question = ({ isQuestion, question, answer }: Props) => {
             if (data.result) {
               //added casses  
               console.log(data.result)
-
+              return data;
             }
-            //popu to indicate :
+            //poputo indicate :
             /**
              * unauthorized
              * incorrect newQuestion format
@@ -87,8 +86,8 @@ const Question = ({ isQuestion, question, answer }: Props) => {
    * 
    * 
    *******************/
-  const deleteFAQ = async () => {
-    if (!newQuestion) {
+  const deleteFAQ = async (question:string) => {
+    if (!question) {
       //setSubmitted(true);
       // handlePopUp();
     } else {
@@ -100,7 +99,7 @@ const Question = ({ isQuestion, question, answer }: Props) => {
       const options = {
         method: 'POST',
         url: base_url + "/FAQ/deleteFAQ",
-        params: { question: "" + newQuestion }, //question of slected question to delete
+        params: { question: "" + question }, //question of slected question to delete
         headers: {
 
         },
@@ -114,6 +113,7 @@ const Question = ({ isQuestion, question, answer }: Props) => {
           if (data.result) {
             //added casses  
             console.log(data.result)
+            return data;
 
           }
           //popu to indicate :
@@ -139,7 +139,7 @@ const Question = ({ isQuestion, question, answer }: Props) => {
    * 
    * 
    *******************/
-  const viewFAQ = async () => {
+  const viewFAQ = async () => {// extract keywords
 
 
     const options = {
@@ -154,6 +154,8 @@ const Question = ({ isQuestion, question, answer }: Props) => {
       .request(options)
       .then(function ({ data }: { data: Response }) {
         console.log(data);
+        //handle data
+        return data;
       })
       .catch(function (error: any) {
         console.error(error);
