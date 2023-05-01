@@ -4,6 +4,7 @@ import BottomBar from "../../components/BottomBar";
 import { useState } from "react";
 import { mainDesc } from "../../data/backendFodder";
 import translateAPI from "../../APIs/translate";
+import Chatbot from "../../components/Chatbot";
 
 const LandingPage = () => {
   const theme = useMantineTheme();
@@ -36,6 +37,7 @@ const LandingPage = () => {
           : theme.colors.gray[4]
       }
     >
+      <Chatbot />
       <Button
         color="yellow"
         onClick={async () => {
@@ -51,6 +53,7 @@ const LandingPage = () => {
       >
         Change Language
       </Button>
+
       <Flex direction="column" align="center" gap="xl" pl="xl" pr="xl" h="100%">
         <Flex
           bg={

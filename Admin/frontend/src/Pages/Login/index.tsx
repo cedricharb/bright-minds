@@ -45,8 +45,6 @@ const Login = () => {
       setSubmitted(false);
       setLoading(true);
 
-      //console.log(login());
-
       const options = {
         method: "POST",
         url: base_url+"/auth/login",
@@ -58,17 +56,7 @@ const Login = () => {
         .then(function ({ data }: { data: Response }) {
           console.log(data);
           console.log(data.access_token);
-          
-          if(data.result){
-            //added casses  
-            console.log(data.result)
-            navigate("/Home");
-          }
-          //popu to indicate :
-          /**
-           * unauthorized
-           * incorrect email format
-           */
+          navigate("/home");
         })
 
         .catch(function (error: any) {
@@ -215,7 +203,17 @@ const Login = () => {
             Change Password
           </Button>
           {showPopUp && (
-            <div className="pop-up">
+            <div
+              style={{
+                position: "absolute",
+                top: "50%",
+                left: "50%",
+                transform: "translate(-50%, -50%)",
+                backgroundColor: "lightgray",
+                padding: "10px",
+                borderRadius: "5px",
+              }}
+            >
               Cannot log in make sure you credentials are correct
             </div>
           )}
