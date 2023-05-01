@@ -289,4 +289,9 @@ Step 5:
 Step 6:
 ![Step 6](Readmepictures/chatbot6.png)
 
+## Credits
 
+- `Frontend`: - Mourad El-Rahi
+              - Cedric Harb
+- `Backend`: - Larissa Abboud
+             - Hoda Mawlawi
