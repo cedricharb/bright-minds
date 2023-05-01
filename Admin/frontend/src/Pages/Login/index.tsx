@@ -38,7 +38,7 @@ const Login = () => {
   };
 
   const loginButton = async (email:string ,old_password:string) => {
-    if (false) {
+    if (!email || !old_password) {
       setSubmitted(true);
       handlePopUp();
     } else {
@@ -56,7 +56,10 @@ const Login = () => {
         .then(function ({ data }: { data: Response }) {
           console.log(data);
           console.log(data.access_token);
-          navigate("/home");
+          if(data.result){
+            navigate("/home");
+          }
+          
         })
 
         .catch(function (error: any) {
@@ -138,7 +141,7 @@ const Login = () => {
             set_new_Password(event.currentTarget.value);
             console.log(new_password);
           }}
-          value={old_password}
+          value={new_password}
         />
         <Flex align="center" justify="center" p="lg">
           <Button
@@ -146,7 +149,7 @@ const Login = () => {
             radius="md"
             size="md"
             uppercase
-            onClick={()=>changePassword}
+            onClick={()=>changePassword(email ,old_password,new_password)}
           >
             Save
           </Button>
@@ -189,7 +192,7 @@ const Login = () => {
             size="md"
             uppercase
             loading={loading}
-            onClick={() => {loginButton}}
+            onClick={() => {loginButton(email , old_password)}}
           >
             Log in
           </Button>
