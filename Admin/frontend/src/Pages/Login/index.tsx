@@ -18,9 +18,8 @@ interface Response {
   access_token: string;
   result: boolean;
   result_pass: boolean;
-  
 }
-const base_url ="http://127.0.0.1:8000/api/v1/admin";
+const base_url = "http://127.0.0.1:8000/api/v1/admin";
 const Login = () => {
   const [submitted, setSubmitted] = useState(false);
   const [email, setEmail] = useState("");
@@ -37,7 +36,7 @@ const Login = () => {
     setTimeout(() => setShowPopUp(false), 3000);
   };
 
-  const loginButton = async (email:string ,old_password:string) => {
+  const loginButton = async (email: string, old_password: string) => {
     if (!email || !old_password) {
       setSubmitted(true);
       handlePopUp();
@@ -47,7 +46,7 @@ const Login = () => {
 
       const options = {
         method: "POST",
-        url: base_url+"/auth/login",
+        url: base_url + "/auth/login",
         params: { email: "" + email, password: "" + old_password },
         headers: {},
       };
@@ -56,10 +55,10 @@ const Login = () => {
         .then(function ({ data }: { data: Response }) {
           console.log(data);
           console.log(data.access_token);
-          if(data.result){
+          if (data.result) {
+            localStorage.setItem("token", data.access_token);
             navigate("/home");
           }
-          
         })
 
         .catch(function (error: any) {
@@ -73,13 +72,17 @@ const Login = () => {
     }
   };
 
-  const changePassword = async (confirm_email:string ,old_password:string ,new_password:string  ) => {
+  const changePassword = async (
+    confirm_email: string,
+    old_password: string,
+    new_password: string
+  ) => {
     if (confirm_email === "" || old_password === "" || new_password === "") {
       handlePopUp();
     } else {
       const options = {
         method: "POST",
-        url: base_url+"/auth/changePassword",
+        url: base_url + "/auth/changePassword",
         params: {
           old_password: "" + old_password,
           new_password: "" + new_password,
@@ -91,7 +94,8 @@ const Login = () => {
         .request(options)
         .then(function ({ data }: { data: Response }) {
           console.log(data);
-          if (!data.result_pass) { // email format
+          if (!data.result_pass) {
+            // email format
             handlePopUp();
           } else {
             navigate("/login");
@@ -149,7 +153,7 @@ const Login = () => {
             radius="md"
             size="md"
             uppercase
-            onClick={()=>changePassword(email ,old_password,new_password)}
+            onClick={() => changePassword(email, old_password, new_password)}
           >
             Save
           </Button>
@@ -187,17 +191,27 @@ const Login = () => {
         </Flex>
         <Flex align="center" justify="center" p="lg">
           <Button
-            style={{ background: "#FFFF00", color: "black", marginLeft: "20px" }}
+            style={{
+              background: "#FFFF00",
+              color: "black",
+              marginLeft: "20px",
+            }}
             radius="md"
             size="md"
             uppercase
             loading={loading}
-            onClick={() => {loginButton(email , old_password)}}
+            onClick={() => {
+              loginButton(email, old_password);
+            }}
           >
             Log in
           </Button>
           <Button
-            style={{ background: "#FFFF00", color: "black", marginLeft: "20px" }}
+            style={{
+              background: "#FFFF00",
+              color: "black",
+              marginLeft: "20px",
+            }}
             radius="md"
             size="md"
             uppercase
