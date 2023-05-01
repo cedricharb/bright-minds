@@ -28,27 +28,7 @@ const Navbar = () => {
   const theme = useMantineTheme();
 
   const logout = () => {
-    const base_url = "http://127.0.0.1:8000/api/v1/admin";
-    const options = {
-      method: "POST",
-      url: base_url + "/auth/logout",
-      params: {},
-      headers: {
-        Authorization: localStorage.getItem("token"),
-      },
-    };
-    axios
-      .request(options)
-      .then(function ({ data }) {
-        console.log(data);
-
-        if (data.result) {
-          localStorage.setItem("token", "");
-        }
-      })
-      .catch(function (error: any) {
-        console.error(error);
-      });
+    localStorage.setItem("token", "");
   };
 
   return (
