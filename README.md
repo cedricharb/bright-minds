@@ -230,7 +230,7 @@ The classes page system is composed of the following components:
 
 ## User
 
-### 2-Chatbot System
+### 1-Chatbot System
 
 This is a simple chatbot system implemented in React using the Mantine UI library. The chatbot can respond to certain keywords and provide basic information, as well as receive star ratings from users.
 
@@ -271,22 +271,22 @@ The chatbot system is composed of the following components:
 - `ScrollArea`: A Mantine UI component used to enable scrolling on chatbot responses.
 
 #### Images
-Step 1:
+            Step 1:
 ![Step 1](Readmepictures/chatbot1.png)
 
-Step 2:
+            Step 2:
 ![Step 2](Readmepictures/chatbot2.png)
 
-Step 3:
+            Step 3:
 ![Step 3](Readmepictures/chatbot3.png)
 
-Step 4:
+            Step 4:
 ![Step 4](Readmepictures/chatbot4.png)
 
-Step 5:
+            Step 5:
 ![Step 5](Readmepictures/chatbot5.png)
 
-Step 6:
+            Step 6:
 ![Step 6](Readmepictures/chatbot6.png)
 
 ## Credits
