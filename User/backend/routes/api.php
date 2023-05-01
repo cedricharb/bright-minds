@@ -22,25 +22,24 @@ use App\Http\Controllers\ChatController;
 Route::prefix('v1')->group(function () {
     Route::prefix('chat')->group(function () {
         Route::get('/', [ChatController::class, 'openChat']);
-        Route::post('/feedback', [ChatController::class, 'sendFeedback']);
+        Route::post('/feedback', [ChatController::class, 'receiveFeedback']); ///////////
     });
     Route::prefix('about')->group(function () {
         Route::get('/', [InfoController::class, 'getInfo']);
-        Route::put('/edit', [InfoController::class, 'updateInfo']);
     });
     Route::prefix('tutoring')->group(function () {
-        Route::get('/', [TutoringController::class, 'getSubjects']);
+        Route::get('/', [TutoringController::class, 'getSubjects']); //////////////
         Route::get('/schedule', [TutoringController::class, 'getSchedule']);
-        Route::post('/session', [TutoringController::class, 'postSession']);
+        Route::post('/session', [TutoringController::class, 'postSession']); /////////////
     });
     Route::prefix('class')->group(function () {
-        Route::get('/', [ClassController::class, 'getClasses']);
-        Route::get('/details', [ClassController::class, 'getClassDetails']);
+        Route::get('/', [ClassController::class, 'getClasses']); 
+        Route::get('/details/{id}', [ClassController::class, 'getClassDetails']);
     });
     Route::prefix('camp')->group(function () {
-        Route::get('/', [CampController::class, 'getUpcomingCamp']);
-        Route::get('/prev-camp', [CampController::class, 'getPrevCamp']);
-        Route::post('/registration', [CampController::class, 'registerCamp']);
+        Route::get('/', [CampController::class, 'getCamps']);
+        Route::get('/prev-camp/{id}', [CampController::class, 'getPrevCamp']);
+        Route::post('/registration/{id}', [CampController::class, 'register']); ////////////
     });
     Route::prefix('faq')->group(function () {
         Route::get('/', [InfoController::class, 'getFaqs']);
