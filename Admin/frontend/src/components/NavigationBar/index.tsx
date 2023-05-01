@@ -13,6 +13,8 @@ import {
 const links = [
   { link: "/Home", label: "Home Page" },
   { link: "/classes", label: "Classes" },
+  { link: "/faq", label: "FAQ" },
+  { link: "/camps", label: "Camps" },
 ];
 
 const Navbar = () => {
