@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\About;
+use App\Models\FAQ;
 
 class InfoController extends Controller
 {
@@ -15,5 +16,13 @@ class InfoController extends Controller
             "mission" => $about->mission,
             "vision" => $about->vision
         ]);
+    }
+
+    public function getFAQs()
+    {
+        $faqs = FAQ::all();
+        return response()->json([
+            "result" => true,
+            "FAQs" => $faqs]);
     }
 }
