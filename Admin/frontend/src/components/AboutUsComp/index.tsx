@@ -20,7 +20,7 @@ type Props = {
 const AboutUsComp = ({ title, description }: Props) => {
   const [titleS, setTitleS] = useState(title);
   const [descriptionS, setDescriptionS] = useState(description);
-  const isEmpty = !(title && description);
+  const [isEmpty, setIsEmpty] = useState(!(title && description));
 
   const [isEditModalOpen, editModal] = useDisclosure(false);
 
