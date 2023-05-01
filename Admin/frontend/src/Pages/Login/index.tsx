@@ -144,7 +144,17 @@ const Login = () => {
           </Button>
 
           {showPopUp && (
-            <div className="pop-up">
+            <div
+              style={{
+                position: "absolute",
+                top: "50%",
+                left: "50%",
+                transform: "translate(-50%, -50%)",
+                backgroundColor: "lightgray",
+                padding: "10px",
+                borderRadius: "5px",
+              }}
+            >
               Cannot log in make sure you credentials are correct
             </div>
           )}
