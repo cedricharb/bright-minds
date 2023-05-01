@@ -24,8 +24,16 @@ const Camps = () => {
   const hasUpcomingCamps = upcomingCamps.length > 0;
 
   /***********************start of api************************ */
-  const addClass = async (title :string , description: string , age:number) => {
-    if (!title || !description || !age)  {
+  /**
+   * "title":"summer camp 2023",
+	"start_date": "6/25/2023",
+	"end_date": "6/30/2023",
+	"description":"camp desc",
+	"age_range":"5-10",
+    "visibility":true
+   */
+  const addCamp = async (title :string , description: string , start_date:string ,end_date:string ,visibility:Boolean,age_range:string) => {
+    if (!title || !description || !start_date|| !end_date|| !visibility)  {
       //setSubmitted(true);
       // handlePopUp();
     } else {
@@ -36,10 +44,13 @@ const Camps = () => {
 
       const options = {
         method: "POST",
-        url: base_url + "/class/addClass",
-        params: {title: +title,
-        description: +description,
-        age_range: +age },
+        url: base_url + "/camp/addCamp",
+        params: {title:  title,
+        start_date: start_date,
+        end_date:  end_date,
+        description:description,
+        age_range:age_range,
+          visibility: visibility},
         headers: {},
       };
       axios
@@ -70,8 +81,8 @@ const Camps = () => {
       //setLoading(false);
     }
   };
-  const editClass = async (title :string , description: string , age:number) => {
-    if (!title || !description || !age)  {
+  const editCamp = async (title :string , description: string , start_date:string ,end_date:string ,visibility:Boolean,age_range:string) => {
+    if (!title || !description || !start_date|| !end_date|| !visibility) {
       //setSubmitted(true);
       // handlePopUp();
     } else {
@@ -82,10 +93,13 @@ const Camps = () => {
 
       const options = {
         method: "POST",
-        url: base_url + "/class/addClass",
-        params: {title: +title,
-        description: +description,
-        age_range: +age },
+        url: base_url + "/camp/editCamp",
+        params: {title:  title,
+          start_date: start_date,
+          end_date:  end_date,
+          description:description,
+          age_range:age_range,
+            visibility: visibility},
         headers: {},
       };
       axios
@@ -121,7 +135,7 @@ const Camps = () => {
 
       const options = {
         method: 'GET',
-        url: base_url + "/class/deleteClass/"+ id,
+        url: base_url + "/camp/deleteCamp/"+ id,
         params: { }, 
         headers: {
 
@@ -150,12 +164,12 @@ const Camps = () => {
       //setSubmitted(true);
       //setLoading(false);
     }
-    const viewClasses = async ( ) => {
+    const viewCamps = async ( ) => {
     
 
       const options = {
         method: 'GET',
-        url: base_url + "/class/viewClasses",
+        url: base_url + "/camp/viewCamps",
         params: { }, 
         headers: {
 

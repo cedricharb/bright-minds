@@ -27,9 +27,9 @@ const ClassesPage = () => {
       const options = {
         method: "POST",
         url: base_url + "/class/addClass",
-        params: {title: +title,
-        description: +description,
-        age_range: +age },
+        params: {title: title,
+        description: description,
+        age_range: age },
         headers: {},
       };
       axios
@@ -73,9 +73,9 @@ const ClassesPage = () => {
       const options = {
         method: "POST",
         url: base_url + "/class/editClass",
-        params: {title: +title,
-        description: +description,
-        age_range: +age },
+        params: {title: title,
+        description: description,
+        age_range: age },
         headers: {},
       };
       axios
