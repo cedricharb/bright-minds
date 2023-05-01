@@ -6,6 +6,7 @@ use App\Http\Controllers\InfoController;
 use App\Http\Controllers\TutoringController;
 use App\Http\Controllers\ClassController;
 use App\Http\Controllers\CampController;
+use App\Http\Controllers\ChatController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,8 +21,8 @@ use App\Http\Controllers\CampController;
 
 Route::prefix('v1')->group(function () {
     Route::prefix('chat')->group(function () {
-        Route::get('/', [ChatbotController::class, 'openChat']);
-        Route::post('/feedback', [ChatbotController::class, 'sendFeedback']);
+        Route::get('/', [ChatController::class, 'openChat']);
+        Route::post('/feedback', [ChatController::class, 'sendFeedback']);
     });
     Route::prefix('about')->group(function () {
         Route::get('/', [InfoController::class, 'getInfo']);
