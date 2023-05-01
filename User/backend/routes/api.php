@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ChatbotController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,3 +15,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::prefix('v1')->group(function () {
+    Route::prefix('chat')->group(function () {
+        Route::get('/', [ChatbotController::class, 'openChat']);
+        Route::post('/review', [ChatbotController::class, 'sendFeedback']);
+    });
+
+});
