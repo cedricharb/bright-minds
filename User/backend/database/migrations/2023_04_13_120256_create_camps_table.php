@@ -15,6 +15,12 @@ return new class extends Migration
     {
         Schema::create('camps', function ($collections) {
             $collections->id();
+            $collections->string('title');
+            $collections->dateTime('start_date');
+            $collections->dateTime('end_date');
+            $collections->text('description');
+            $collections->string('age_range');
+            $collections->json('reviews');
             $collections->timestamps();
         });
     }
