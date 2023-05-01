@@ -33,7 +33,7 @@ const Login = () => {
     setTimeout(() => setShowPopUp(false), 3000);
   };
 
-  const loginButton = async () => {
+  const loginButton = async (email: string , old_password : string) => {
     if (!email || !old_password) {
       setSubmitted(true);
       handlePopUp();
@@ -185,7 +185,7 @@ const Login = () => {
             size="md"
             uppercase
             loading={loading}
-            onClick={loginButton}
+            onClick={() => loginButton(email,old_password)}
           >
             Log in
           </Button>
