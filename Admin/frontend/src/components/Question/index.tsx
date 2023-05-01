@@ -25,7 +25,7 @@ interface Response {
 
 
 }
-const base_url = "";
+const base_url = "http://127.0.0.1:8000/api/v1/admin";
 const Question = ({ isQuestion, question, answer }: Props) => {
   const theme = useMantineTheme();
   const [opened, { open, close }] = useDisclosure(false);
@@ -86,7 +86,7 @@ const Question = ({ isQuestion, question, answer }: Props) => {
    * delete faq api
    * 
    * 
-   */
+   *******************/
   const deleteFAQ = async () => {
     if (!newQuestion) {
       //setSubmitted(true);
@@ -133,6 +133,12 @@ const Question = ({ isQuestion, question, answer }: Props) => {
       //setLoading(false);
     }
   };
+  /********************
+   * 
+   *view faqsapi
+   * 
+   * 
+   *******************/
   const viewFAQ = async () => {
 
 

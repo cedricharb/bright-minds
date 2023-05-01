@@ -2,10 +2,45 @@ import { Flex, Text, useMantineTheme } from "@mantine/core";
 import CircleComponent from "../../components/CircularComponent";
 import { mainDesc } from "../../data/backendFodder";
 import BottomBar from "../../components/BottomBar";
-
+import axios from "axios";
+interface Response  {
+  access_token: string;
+  result :boolean;
+  general: string;
+  mission: string;
+  vision: string;
+};
+const base_url = "http://127.0.0.1:8000/api/v1/admin";
 const Home = () => {
   const theme = useMantineTheme();
+  const viewAbout = async () => {
 
+
+    const options = {
+      method: 'GET',
+      url: base_url + "/about/viewAbout",
+      params: {},
+      headers: {
+
+      },
+    };
+    axios
+      .request(options)
+      .then(function ({ data }: { data: Response }) {
+        console.log(data);
+        /**
+         * general 
+         * mission
+         * vision
+         */
+        if(data.result){
+          //handle data
+        }
+      })
+      .catch(function (error: any) {
+        console.error(error);
+      });
+  }
   return (
     <Flex
       direction="column"
