@@ -29,7 +29,7 @@ const base_url = "http://127.0.0.1:8000/api/v1/admin";
 const AboutUsComp = ({ title, description }: Props) => {
   const [titleS, setTitleS] = useState(title);
   const [descriptionS, setDescriptionS] = useState(description);
-  const isEmpty = !(title && description);
+  const [isEmpty, setIsEmpty] = useState(!(title && description));
 
   const [isEditModalOpen, editModal] = useDisclosure(false);
 
