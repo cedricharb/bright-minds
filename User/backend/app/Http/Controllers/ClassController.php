@@ -27,7 +27,7 @@ class ClassController extends Controller
         if ($class && $class!=[]) {
             return response()->json([
                 "result"=>true,
-                "class-titles"->$class
+                "class-details"->$class
             ]);
         } else {
             return response()->json([
