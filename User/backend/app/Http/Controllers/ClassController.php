@@ -20,4 +20,19 @@ class ClassController extends Controller
             'class_titles' => $class_titles
         ], 200);
     }
+
+    public function getClassDetails($id = null)
+    {
+        $class = EduClass::find($id);
+        if ($class && $class!=[]) {
+            return response()->json([
+                "result"=>true,
+                "class-titles"->$class
+            ]);
+        } else {
+            return response()->json([
+                "result"=>false
+            ]);
+        }
+    }
 }
