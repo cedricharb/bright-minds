@@ -10,19 +10,28 @@ class CampController extends Controller
 {
     public function getCamps()
     {
-        $upcoming_camp = Camp::latest()->firstOrFail();
-        $prev = Camp::latest()->skip(1);
-        $prev_camps = $prev->map(function ($prev) {
-            return collect($prev->toArray())
-                ->only(['title'])
-                ->all();
+        $current_date = Carbon::now();
+        $date = Carbon::createFromFormat('Y-m-d H:i:s', $current_date)->format('Y-m-d');
+
+        $camps = Camp::get();
+        $counter = $camps->count();
+        $camp_arr = $camps->map(function ($camps) {
+            return collect($camps->toArray())->all();
         });
 
+        $prev_camps = []; $upcoming_camp = [];
+        for ($x = 0; $x <= $counter-1; $x++) {
+            if($camp_arr[$x]->start_date > $date) {
+                array_push($prev_camps, $camp_arr[$x]);
+            }
+            if ($camp_arr[$x]->start_date < $date) {
+                $upcoming_camp = $camp_arr[$x];
+            }
+        }
         return response()->json([
-            "result" => true,
-            "message" => 'upcoming camp and previous camp titles',
-            "upcoming" => $upcoming_camp,
-            "prev" => $prev_camps
+            'result' => true,
+            'upcoming camp' => $upcoming_camp,
+            'prev camp titles' => $prev_camps
         ], 200);
     }
 
