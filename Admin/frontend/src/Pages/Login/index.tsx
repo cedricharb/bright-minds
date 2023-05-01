@@ -45,9 +45,14 @@ const Login = () => {
           console.log(data.access_token);
           console.log(data.result)
           if(data.result){
-            //
+            //added casses  
+            navigate("/Home");
           }
-          navigate("/Home");
+          //popu to indicate :
+          /**
+           * unauthorized
+           * incorrect email format
+           */
         })
 
         .catch(function (error: any) {
