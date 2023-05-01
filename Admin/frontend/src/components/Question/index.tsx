@@ -81,7 +81,58 @@ const Question = ({ isQuestion, question, answer }: Props) => {
       }
     };
   };
+/********************
+ * 
+ * delete faq api
+ * 
+ * 
+ */
+const deleteFAQ = async () => {
+  if (!newQuestion ) {
+    //setSubmitted(true);
+   // handlePopUp();
+  } else {
+   // setSubmitted(false);
+    //setLoading(true);
 
+    //console.log(login());
+    
+    const options = {
+      method: 'POST',
+      url: base_url +"/FAQ/deleteFAQ" ,
+      params: {question: "" + newQuestion}, //question of slected question to delete
+      headers: {
+        
+      },
+    };
+    axios
+      .request(options)
+      .then(function ({ data }: { data: Response }) {
+        console.log(data);
+
+        
+        if(data.result){
+          //added casses  
+          console.log(data.result)
+         
+        }
+        //popu to indicate :
+        /**
+         * unauthorized
+         * incorrect newQuestion format
+         */
+      })
+
+      .catch(function (error: any) {
+        console.error(error);
+       // setSubmitted(true);
+        //handlePopUp();
+      });
+    
+    //setSubmitted(true);
+    //setLoading(false);
+  }
+};
   return (
     <>
       <Modal opened={opened} onClose={close} radius="30px" size="xl" centered>
