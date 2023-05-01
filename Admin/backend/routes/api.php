@@ -78,6 +78,7 @@ Route::group(['prefix' => 'v1'], function () {
             Route::get('/viewRegisteredCampers/{id}', [CampController::class,'viewRegisteredCampers']); 
             Route::get('/getEmailOFCampers/{id}', [CampController::class,'getEmailOFCampers']); 
             Route::get('/viewUpcommingCamps', [CampController::class,'upCommingCamps']);
+            Route::get('/prevCamp', [CampController::class,'prevCamp']);
             });      
     
 

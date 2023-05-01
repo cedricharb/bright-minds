@@ -92,6 +92,7 @@ class CampController extends Controller
         $newDate = Carbon::createFromFormat('Y-m-d H:i:s', $currentDate)
             ->format('Y-m-d');
         $old_camps = Camp::get();
+        $counter = $old_camps->count();
         $subset_start = $old_camps->map(function ($old_camps) {
             return collect($old_camps->toArray())
                 ->all();
@@ -99,7 +100,7 @@ class CampController extends Controller
 
         });
         $dates = [];
-        for ($x = 0; $x <= 1; $x++) {
+        for ($x = 0; $x <= $counter-1; $x++) {
             $arr[] = $subset_start[$x];
             $element = $arr[$x];
 
@@ -113,6 +114,41 @@ class CampController extends Controller
         return response()->json([
             'result' => true,
             'message' => 'upcoming camps',
+            'data' => $dates,
+        ],200);
+    }
+    public function prevCamp()
+    {
+        
+
+        $currentDate = Carbon::now();
+        $newDate = Carbon::createFromFormat('Y-m-d H:i:s', $currentDate)
+            ->format('Y-m-d');
+        $old_camps = Camp::get();
+        $counter = $old_camps->count();
+        $subset_start = $old_camps->map(function ($old_camps) {
+            return collect($old_camps->toArray())
+
+                ->all();
+            //order by
+
+        });
+        $dates = [];//count
+        for ($x = 0; $x <= $counter-1; $x++) {
+            $arr[] = $subset_start[$x];
+            $element = $arr[$x];
+
+            if($element['start_date'] <  $newDate){
+               // $arr[] = json_decode($dates[0]);
+                //$element = $arr[0]->title;
+
+                array_push($dates, $element['title']);
+            }
+
+        }
+        return response()->json([
+            'result' => true,
+            'message' => 'prev camps',
             'data' => $dates,
         ],200);
     }
