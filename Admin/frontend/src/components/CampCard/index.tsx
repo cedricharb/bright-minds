@@ -127,7 +127,8 @@ const CampCard = ({
                 right: "10px",
                 zIndex: 10,
               }}
-              onClick={() => {
+              onClick={(e) => {
+                e.stopPropagation();
                 onSubmitDelete(id);
               }}
             >

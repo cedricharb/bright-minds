@@ -110,7 +110,8 @@ const Question = ({
                 style={{ position: "absolute", top: "5px", right: "5px" }}
                 color="red"
                 size={10}
-                onClick={() => {
+                onClick={(e) => {
+                  e.stopPropagation();
                   onSubmitDelete(question || "");
                 }}
               />
