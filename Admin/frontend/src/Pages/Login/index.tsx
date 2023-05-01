@@ -38,7 +38,7 @@ const Login = () => {
   };
 
   const loginButton = async (email:string ,old_password:string) => {
-    if (!email || !old_password) {
+    if (false) {
       setSubmitted(true);
       handlePopUp();
     } else {
