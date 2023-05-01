@@ -1,5 +1,4 @@
 import {
-  ActionIcon,
   Button,
   Card,
   Flex,
@@ -101,9 +100,6 @@ const ClassesCard = ({ name, description, id, onSubmitDelete }: Props) => {
           </Button>
           <Button color="yellow" onClick={editModal.open}>
             Click here to edit this class.
-          </Button>
-          <Button color="yellow" onClick={() => onSubmitDelete(id)}>
-            Click here to delete this class.
           </Button>
         </Flex>
       </Card>
