@@ -5,6 +5,7 @@ use App\Http\Controllers\ChatbotController;
 use App\Http\Controllers\InfoController;
 use App\Http\Controllers\TutoringController;
 use App\Http\Controllers\ClassController;
+use App\Http\Controllers\CampController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,4 +36,10 @@ Route::prefix('v1')->group(function () {
         Route::get('/', [ClassController::class, 'getClasses']);
         Route::get('/details', [ClassController::class, 'getClassDetails']);
     });
+    Route::prefix('camp')->group(function () {
+        Route::get('/', [CampController::class, 'getUpcomingCamp']);
+        Route::get('/prev-camp', [CampController::class, 'getPrevCamp']);
+        Route::post('/registration', [CampController::class, 'registerCamp']);
+    });
+
 });
