@@ -10,14 +10,14 @@ class ChatController extends Controller
 {
     public function openChat() {
         $faqs = FAQ::all();
-        $faq_details = $faqs->map(function($faqs) {
+        $faq_details = $faqs->map(function ($faqs) {
             return collect($faqs->toArray())
                 ->only(['id', 'answer', 'keywords'])
                 ->all();
         });
         return response()->json([
             'result'=>true,
-            'message' => "faqs",
+            'message' => "faqs: id, answer, and keywords",
             'data' => $faq_details
         ], 200);
     }
@@ -34,7 +34,7 @@ class ChatController extends Controller
             ], 200);
         } else {
             return response()->json([
-                'result' => false, 
+                'result' => false,
                 'message' => 'chat feedback not saved.'
             ]);
         }
