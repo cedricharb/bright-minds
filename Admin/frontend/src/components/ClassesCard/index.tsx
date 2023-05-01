@@ -1,4 +1,5 @@
 import {
+  ActionIcon,
   Button,
   Card,
   Flex,
@@ -8,6 +9,7 @@ import {
   useMantineTheme,
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
+import { IconX } from "@tabler/icons-react";
 import { useState } from "react";
 
 type Props = {
@@ -61,11 +63,21 @@ const ClassesCard = ({ name, description, id, onSubmitDelete }: Props) => {
         style={{
           borderRadius: "30px",
           boxShadow: "0 4px 12px rgba(0, 0, 0, 0.1)",
+          position: "relative",
         }}
         bg={theme.colors.dark[7]}
         p="xl"
         w={350}
       >
+        <IconX
+          color="red"
+          size={20}
+          style={{ position: "absolute", top: "15px", right: "15px" }}
+          onClick={(e) => {
+            e.stopPropagation();
+            onSubmitDelete(id);
+          }}
+        />
         <Flex align="center" direction="column" gap="md">
           <Text
             weight={500}

@@ -49,7 +49,7 @@ const CampCard = ({
   const [descriptionV, setDescriptionV] = useState(description);
   const [startDateV, setStartDateV] = useState(startDate);
   const [endDateV, setEndDateV] = useState(endDate);
-  const [ageRang, setAgeRange] = useState("5-10");
+  const [ageRange, setAgeRange] = useState("5-10");
 
   const openModal = () => {
     if (isUpcoming) {
@@ -97,6 +97,7 @@ const CampCard = ({
             <Input
               placeholder="Age range (example 5-10)"
               w="100%"
+              value={ageRange}
               onChange={(event) => setAgeRange(event.target.value)}
             />
             <Button color="dark" w="200px">
@@ -120,6 +121,15 @@ const CampCard = ({
             p="md"
             justify="space-between"
           >
+            <ActionIcon
+              style={{ position: "absolute", top: "10px", right: "10px" }}
+              onClick={(e) => {
+                e.stopPropagation();
+                onSubmitDelete(id);
+              }}
+            >
+              <IconX color="red" size={20} />
+            </ActionIcon>
             <Text
               weight="bold"
               color={theme.colors.dark[7]}
