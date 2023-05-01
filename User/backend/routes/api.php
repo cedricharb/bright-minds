@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ChatbotController;
 use App\Http\Controllers\InfoController;
 use App\Http\Controllers\TutoringController;
+use App\Http\Controllers\ClassController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,5 +30,9 @@ Route::prefix('v1')->group(function () {
         Route::get('/', [TutoringController::class, 'getSubjects']);
         Route::get('/schedule', [TutoringController::class, 'getSchedule']);
         Route::post('/session', [TutoringController::class, 'postSession']);
+    });
+    Route::prefix('class')->group(function () {
+        Route::get('/', [ClassController::class, 'getClasses']);
+        Route::get('/details', [ClassController::class, 'getClassDetails']);
     });
 });
