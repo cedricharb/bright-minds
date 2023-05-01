@@ -1,0 +1,11 @@
+.bottom-right-container {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+}
+.chatbot-button {
+  bottom: 20%;
+  right: 20%;
+  color: black;
+  background-color: yellow;
+}

@@ -39,8 +39,6 @@ const Login = () => {
       setSubmitted(false);
       setLoading(true);
 
-      //console.log(login());
-
       const options = {
         method: "POST",
         url: "http://127.0.0.1:8000/api/v1/admin/auth/login",
@@ -52,7 +50,7 @@ const Login = () => {
         .then(function ({ data }: { data: Response }) {
           console.log(data);
           console.log(data.access_token);
-          navigate("/Home");
+          navigate("/home");
         })
 
         .catch(function (error: any) {
