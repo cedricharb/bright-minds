@@ -26,6 +26,33 @@ class CampController extends Controller
         ], 200);
     }
 
+    public function register(Request $request, $id)
+    {
+        $camp = Camp::find($id);
+        if (!$camp) {
+            return response()->json([
+                "result" => false,
+                "message" => 'camp not found'
+            ]);
+        }
+        $camper = new Camper;
+        $camper->$name = $request->$name;
+        $camper->$age = $request->$age;
+        $camper->$class = $request->$class;
+        $camper->$parent_email = $request->$parent_email;
+        $camper->$parent_phone_nb = $request->$parent_phone_nb;
+        if ($camper->save) {
+            return response()->json([
+                "result" => true
+            ], 200);
+        } else {
+            return response()->json([
+                "result" => false,
+                "message" => 'Camper not saved.'
+            ]);
+        }
+    }
+
     public function getPrevCamp($id)
     {
         $camp = Camp::find($id);
