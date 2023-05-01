@@ -1,16 +1,50 @@
-# Chatbot System
+# Bright champs
+
+## User
+
+### 1- Home
+
+This is a simple home page where the user will be able to navigate through the website from it
+
+#### Usage
+
+All that is needed to do is to access the website and then the user is at the home page and then do any of these:
+
+- Click on the Classes button
+- Click on the Camps button
+- Click on the Tutoring button
+- Click on the FAQ button
+- Click on the About us button
+- Click on any of the social media icons button
+
+#### Dependencies
+
+- `React`
+- `Mantine`
+- `Tabler Icons`
+- `@mantine/hooks`
+
+
+#### Components
+
+The chatbot system is composed of the following components:
+
+- `Navbar`: The navbar component that groups items on the side of the screen.
+- `Card`: A Mantine UI component used to display other pages on interest.
+- `Flex`: A Mantine UI component used to position components.
+- `Icon`: A Tabler UI component used to enable scrolling on chatbot responses.
+
+#### Images
+
+![HomePage](home.png)
+
+
+
+### 2-Chatbot System
 
 This is a simple chatbot system implemented in React using the Mantine UI library. The chatbot can respond to certain keywords and provide basic information, as well as receive star ratings from users.
 
-## Installation
-
-To run the chatbot system, you'll need to have npm installed on your system. Once you've cloned the repository, navigate to the project directory in your terminal and run the following command to install dependencies: npm install
-
-
-## Usage
-
-To start the development server, run the following command: npm start
-This will start the chatbot system on your local machine
+#### Usage
 
 Once in the website follow these steps:
 
@@ -25,14 +59,14 @@ Once in the website follow these steps:
 5-After getting a reply star icons will show up click on the one that represents the accuracy of the answer
 
 
-## Dependencies
+#### Dependencies
 - `React`
 - `Mantine`
 - `Tabler Icons`
 - `@mantine/hooks`
 
 
-## Components
+#### Components
 
 The chatbot system is composed of the following components:
 
@@ -46,7 +80,7 @@ The chatbot system is composed of the following components:
 - `Box`: A Mantine UI component used to wrap chatbot responses.
 - `ScrollArea`: A Mantine UI component used to enable scrolling on chatbot responses.
 
-## Images
+#### Images
 Step 1:
 ![Step 1](chatbot1.png)
 
@@ -65,5 +99,4 @@ Step 5:
 Step 6:
 ![Step 6](chatbot6.png)
 
-## Credits
-This chatbot system was created by Mourad Rahi using React and the Mantine UI library.
+
