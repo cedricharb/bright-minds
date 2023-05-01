@@ -32,7 +32,7 @@ if he clicked on the change password button then a pop up will appear and they w
 
 #### Components
 
-The chatbot system is composed of the following components:
+The Log in page system is composed of the following components:
 
 - `Modal`: The Modal component is the pop up that contains the change password elements
 - `Card`: A Mantine UI component used to display other Login information.
@@ -68,7 +68,7 @@ All that is needed to do is to access the website through logging in and then th
 
 #### Components
 
-The chatbot system is composed of the following components:
+The Home page system is composed of the following components:
 
 - `Navbar`: The navbar component that groups items on the side of the screen.
 - `Card`: A Mantine UI component used to display other pages on interest.
@@ -81,17 +81,17 @@ The chatbot system is composed of the following components:
 
 ### 3- Camps
 
-This is a simple home page where the user will be able to navigate through the website from it
+This is a simple camps page where the admin will be able to see and register in camps
 
 #### Usage
 
-All that is needed to do is to access the website and then the user is at the home page and then do any of these:
+All that is needed to do is to Ckick on the Camps card or on Camps in the navigation bar to access the page where you'll be able to do any of these:
 
-- Click on the Classes button
 - Click on the Camps button
-- Click on the Tutoring button
-- Click on the FAQ button
-- Click on the About us button
+- Click on the add camps button
+- Click on the edit camps button
+- Click on the delete button
+- Click on any of the Navbar pages
 - Click on any of the social media icons button
 
 #### Dependencies
@@ -104,12 +104,13 @@ All that is needed to do is to access the website and then the user is at the ho
 
 #### Components
 
-The chatbot system is composed of the following components:
+The camps page system is composed of the following components:
 
 - `Navbar`: The navbar component that groups items on the side of the screen.
 - `Card`: A Mantine UI component used to display other pages on interest.
 - `Flex`: A Mantine UI component used to position components.
 - `Icon`: A Tabler UI component used to enable scrolling on chatbot responses.
+- `Button`: A Mantine UI component used to include functionality
 
 #### Images
 
