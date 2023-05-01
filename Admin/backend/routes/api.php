@@ -39,7 +39,7 @@ Route::group(['prefix' => 'v1'], function () {
      * Secure? ✓
      * Scalable? ✓
      * Compact? ✓
-     * JSON? ✓
+     * 
      */
        });   
     Route::group(['prefix' => 'classes'], function () {
@@ -63,8 +63,7 @@ Route::group(['prefix' => 'v1'], function () {
             Route::post('/addTutoringSession', [TutoringController::class,'addTutoringSession']);
             Route::post('/deleteTutoringSession', [TutoringController::class,'deleteTutoringSession']);
             Route::post('/setTutoringSession', [TutoringController::class,'setTutoringSession']); 
-            //get id of session to edit
-            //confirm tutoring session ??
+            
     
  
         });
@@ -94,11 +93,7 @@ Route::group(['prefix' => 'v1'], function () {
      
  
     });
-    Route::group(['prefix' => 'chatbot'], function () {
-     Route::post('/addChatbotFAQ', [InfoController::class,'addChatbotFAQ']);
-     
-
-   });
+  
  });
   
 });

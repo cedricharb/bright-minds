@@ -9,7 +9,7 @@ use App\Models\Chatbot;
 
 class InfoController extends Controller
 {
-    
+
     public function viewFAQ()
     {
         // list
@@ -105,11 +105,6 @@ class InfoController extends Controller
         // view about content
         $about = About::all()->firstorFail();
 
-        // $data->$general =$about->general;
-        //$data->$mission =$about->mission;
-        //$data->$vision =$about->vision;
-        //$myData = json_encode($data);
-
         return response()->json([
             'result' => true,
             'general' => $about->general,
@@ -139,16 +134,7 @@ class InfoController extends Controller
         ], 201);
     }
 
-    /******chatbot ***** */
-    public function addChatbotFAQ()
-    {
-        //record chatbot answer/question to be added to faq section
-        /**
-         * return keywords as a list
-         * obtain keyword as a list 
-         */
-
-    }
+/******chatbot ***** */
 
 
 }
