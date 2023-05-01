@@ -4,6 +4,7 @@ import { camps } from "../../data/backendFodder";
 import { useState } from "react";
 import BottomBar from "../../components/BottomBar";
 import axios from "axios";
+import { Navigate } from "react-router-dom";
 interface Response {
   //add
 
@@ -414,37 +415,63 @@ const Camps = () => {
     //setLoading(false);
   };
   /*************************end fo api************** */
+
+  const token = localStorage.getItem("token");
+
   return (
-    <Flex direction="column" bg={theme.colors.gray[4]}>
-      <Flex
-        direction="column"
-        gap="lg"
-        h="100%"
-        bg={theme.colors.gray[4]}
-        p="md"
-        pb={100}
-      >
-        <Flex direction="column">
-          <Text weight="bolder" size={40} align="center" p="md">
-            Take a look at our camps!
-          </Text>
-        </Flex>
-        {hasUpcomingCamps && (
-          <>
+    <>
+      {(token !== "" || token !== undefined || token !== null) && (
+        <Flex direction="column" bg={theme.colors.gray[4]}>
+          <Flex
+            direction="column"
+            gap="lg"
+            h="100%"
+            bg={theme.colors.gray[4]}
+            p="md"
+            pb={100}
+          >
+            <Flex direction="column">
+              <Text weight="bolder" size={40} align="center" p="md">
+                Take a look at our camps!
+              </Text>
+            </Flex>
+            {hasUpcomingCamps && (
+              <>
+                <Flex direction="column">
+                  <Text weight="bold" size="xl" p="md">
+                    Upcoming Camps
+                  </Text>
+                  <Divider my="md" color={theme.colors.dark[7]} />
+                </Flex>
+                <Flex gap="md" wrap="wrap" h={380}>
+                  {upcomingCamps.map((camp) => (
+                    <CampCard
+                      key={camp.id}
+                      title={camp.title}
+                      description={camp.description}
+                      isUpcoming
+                      startDate={camp.startDate}
+                      endDate={camp.endDate}
+                      onSubmitDelete={onSubmitDelete}
+                      id={camp.id}
+                      onSubmitEdit={onSubmitEdit}
+                    />
+                  ))}
+                </Flex>
+              </>
+            )}
             <Flex direction="column">
               <Text weight="bold" size="xl" p="md">
-                Upcoming Camps
+                Previous Camps
               </Text>
               <Divider my="md" color={theme.colors.dark[7]} />
             </Flex>
-            <Flex gap="md" wrap="wrap" h={380}>
-              {upcomingCamps.map((camp) => (
+            <Flex gap="md" wrap="wrap" justify="space-around">
+              {previousCamps.map((camp) => (
                 <CampCard
                   key={camp.id}
                   title={camp.title}
                   description={camp.description}
-                  isUpcoming
-                  startDate={camp.startDate}
                   endDate={camp.endDate}
                   onSubmitDelete={onSubmitDelete}
                   id={camp.id}
@@ -452,30 +479,14 @@ const Camps = () => {
                 />
               ))}
             </Flex>
-          </>
-        )}
-        <Flex direction="column">
-          <Text weight="bold" size="xl" p="md">
-            Previous Camps
-          </Text>
-          <Divider my="md" color={theme.colors.dark[7]} />
+          </Flex>
+          <BottomBar />
         </Flex>
-        <Flex gap="md" wrap="wrap" justify="space-around">
-          {previousCamps.map((camp) => (
-            <CampCard
-              key={camp.id}
-              title={camp.title}
-              description={camp.description}
-              endDate={camp.endDate}
-              onSubmitDelete={onSubmitDelete}
-              id={camp.id}
-              onSubmitEdit={onSubmitEdit}
-            />
-          ))}
-        </Flex>
-      </Flex>
-      <BottomBar />
-    </Flex>
+      )}
+      {(token === "" || token === undefined || token === null) && (
+        <Navigate to="/login" replace />
+      )}
+    </>
   );
 };
 

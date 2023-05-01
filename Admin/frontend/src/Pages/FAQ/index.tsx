@@ -3,6 +3,7 @@ import Question from "../../components/Question";
 import BottomBar from "../../components/BottomBar";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { Navigate } from "react-router-dom";
 
 interface Response {
   //add
@@ -113,33 +114,46 @@ const FAQ = () => {
     viewFAQ();
   }, []);
 
+  const token = localStorage.getItem("token");
+
   return (
-    <Flex bg={theme.colors.gray[4]} direction="column" justify="space-between">
-      <Flex w="100%" direction="column" gap="lg" mih="100vh">
-        <Flex w="100%">
-          <Text size={40} weight="bolder" w="100%" align="center">
-            Frequently Asked Questions
-          </Text>
+    <>
+      {(token !== "" || token !== undefined || token !== null) && (
+        <Flex
+          bg={theme.colors.gray[4]}
+          direction="column"
+          justify="space-between"
+        >
+          <Flex w="100%" direction="column" gap="lg" mih="100vh">
+            <Flex w="100%">
+              <Text size={40} weight="bolder" w="100%" align="center">
+                Frequently Asked Questions
+              </Text>
+            </Flex>
+            <Flex direction="column" gap="md" p="xl">
+              {questions?.map((question) => (
+                <Question
+                  isQuestion
+                  question={question.question}
+                  answer={question.answer.toString()}
+                  onSubmitAdd={onSubmitAdd}
+                  onSubmitDelete={onSubmitDelete}
+                />
+              ))}
+              <Question
+                isQuestion={false}
+                onSubmitAdd={onSubmitAdd}
+                onSubmitDelete={onSubmitDelete}
+              />
+            </Flex>
+          </Flex>
+          <BottomBar />
         </Flex>
-        <Flex direction="column" gap="md" p="xl">
-          {questions?.map((question) => (
-            <Question
-              isQuestion
-              question={question.question}
-              answer={question.answer.toString()}
-              onSubmitAdd={onSubmitAdd}
-              onSubmitDelete={onSubmitDelete}
-            />
-          ))}
-          <Question
-            isQuestion={false}
-            onSubmitAdd={onSubmitAdd}
-            onSubmitDelete={onSubmitDelete}
-          />
-        </Flex>
-      </Flex>
-      <BottomBar />
-    </Flex>
+      )}
+      {(token === "" || token === undefined || token === null) && (
+        <Navigate to="/login" replace />
+      )}
+    </>
   );
 };
 

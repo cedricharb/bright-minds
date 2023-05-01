@@ -3,6 +3,7 @@ import BottomBar from "../../components/BottomBar";
 import ClassesCard from "../../components/ClassesCard";
 import { classes } from "../../data/backendFodder";
 import axios from "axios";
+import { Navigate } from "react-router-dom";
 interface Response {
   //add
 
@@ -159,35 +160,45 @@ const ClassesPage = () => {
     //setSubmitted(true);
     //setLoading(false);
   };
+
+  const token = localStorage.getItem("token");
+
   return (
-    <Flex bg={theme.colors.gray[4]} direction="column">
-      <Flex
-        bg={theme.colors.gray[4]}
-        p="lg"
-        direction="column"
-        gap="md"
-        h="100vh"
-      >
-        <Flex direction="column">
-          <Text size="xl" weight="bold" color={theme.colors.yellow[4]}>
-            Classes
-          </Text>
-          <Divider my="md" color="dark" />
+    <>
+      {(token !== "" || token !== undefined || token !== null) && (
+        <Flex bg={theme.colors.gray[4]} direction="column">
+          <Flex
+            bg={theme.colors.gray[4]}
+            p="lg"
+            direction="column"
+            gap="md"
+            h="100vh"
+          >
+            <Flex direction="column">
+              <Text size="xl" weight="bold" color={theme.colors.yellow[4]}>
+                Classes
+              </Text>
+              <Divider my="md" color="dark" />
+            </Flex>
+            <Flex gap="lg" justify="space-around" wrap="wrap">
+              {classes.map((cls) => (
+                <ClassesCard
+                  id={cls.id}
+                  key={cls.id}
+                  name={cls.name}
+                  description={cls.description}
+                  onSubmitDelete={onSubmitDelete}
+                />
+              ))}
+            </Flex>
+          </Flex>
+          <BottomBar />
         </Flex>
-        <Flex gap="lg" justify="space-around" wrap="wrap">
-          {classes.map((cls) => (
-            <ClassesCard
-              id={cls.id}
-              key={cls.id}
-              name={cls.name}
-              description={cls.description}
-              onSubmitDelete={onSubmitDelete}
-            />
-          ))}
-        </Flex>
-      </Flex>
-      <BottomBar />
-    </Flex>
+      )}
+      {(token === "" || token === undefined || token === null) && (
+        <Navigate to="/login" replace />
+      )}
+    </>
   );
 };
 export default ClassesPage;
