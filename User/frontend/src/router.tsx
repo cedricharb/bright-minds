@@ -11,6 +11,7 @@ import NavigationBar from "./components/NavigationBar";
 import ClassesPage from "./pages/Classes";
 import FAQ from "./pages/FAQ";
 import Camps from "./pages/Camps";
+import AboutUs from "./pages/AboutUs";
 
 const Layout = () => {
   const theme = useMantineTheme();
@@ -43,6 +44,7 @@ const router = createBrowserRouter(
       <Route path="/tutoring" element={<span>Tutoring</span>} />
       <Route path="/camps" element={<Camps />} />
       <Route path="/faq" element={<FAQ />} />
+      <Route path="/about-us" element={<AboutUs />} />
       <Route path="*" element={<>Oops</>} />
     </Route>
   )

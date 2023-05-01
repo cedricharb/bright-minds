@@ -43,14 +43,16 @@ const ClassesCard = ({ name, description }: Props) => {
         centered
       >
         <Card w="100%" h="100%">
-          <Input
-            value={nameInput}
-            onChange={(event) => setNameInput(event.target.value)}
-          />
-          <Input
-            value={descInput}
-            onChange={(event) => setDescInput(event.target.value)}
-          />
+          <Flex direction="column" justify="center" gap="lg">
+            <Input
+              value={nameInput}
+              onChange={(event) => setNameInput(event.target.value)}
+            />
+            <Input
+              value={descInput}
+              onChange={(event) => setDescInput(event.target.value)}
+            />
+          </Flex>
         </Card>
       </Modal>
       <Card

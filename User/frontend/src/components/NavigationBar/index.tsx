@@ -15,6 +15,7 @@ const links = [
   { link: "/classes", label: "Classes" },
   { link: "/faq", label: "FAQ" },
   { link: "/camps", label: "Camps" },
+  { link: "/about-us", label: "About Us" },
 ];
 
 const Navbar = () => {
