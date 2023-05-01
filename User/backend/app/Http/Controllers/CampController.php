@@ -3,12 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\FAQ;
+use App\Models\Camp;
 
 class CampController extends Controller
 {
-    public function openChat() {
-        $faqs = FAQ::all();
-        return response()->json($faqs);
-    }
+    //
 }

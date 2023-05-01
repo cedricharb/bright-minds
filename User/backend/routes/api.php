@@ -21,7 +21,7 @@ use App\Http\Controllers\CampController;
 Route::prefix('v1')->group(function () {
     Route::prefix('chat')->group(function () {
         Route::get('/', [ChatbotController::class, 'openChat']);
-        Route::post('/review', [ChatbotController::class, 'sendFeedback']);
+        Route::post('/feedback', [ChatbotController::class, 'sendFeedback']);
     });
     Route::prefix('about')->group(function () {
         Route::get('/', [InfoController::class, 'getInfo']);
