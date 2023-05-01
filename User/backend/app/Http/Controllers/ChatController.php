@@ -21,6 +21,7 @@ class ChatController extends Controller
             'data' => $faq_details
         ], 200);
     }
+    
     public function receiveFeedback(Request $request) {
         $faq = FAQ::find($request->id);
         $new_chat = new Chatbot;
