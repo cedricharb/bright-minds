@@ -10,157 +10,42 @@ import {
   useMantineTheme,
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
-import axios from "axios";
 import { useState } from "react";
+import { IconX } from "@tabler/icons-react";
 
 type Props = {
   isQuestion: boolean;
   question?: string;
   answer?: string;
+  onSubmitAdd: (
+    question: string,
+    keys: { key1: string; key2: string; key3: string },
+    answer: string
+  ) => void;
+  onSubmitDelete: (question: string) => void;
 };
-interface Response {
-  //add
-  result: boolean;
 
-
-}
-const base_url = "http://127.0.0.1:8000/api/v1/admin";
-const Question = ({ isQuestion, question, answer }: Props) => {
+const Question = ({
+  isQuestion,
+  question,
+  answer,
+  onSubmitAdd,
+  onSubmitDelete,
+}: Props) => {
   const theme = useMantineTheme();
   const [opened, { open, close }] = useDisclosure(false);
   const [newQuestion, setNewQuestion] = useState<string>("");
   const [newAnswer, setNewAnswer] = useState<string>("");
-  const [newKeywords, setNewKeywords] = useState<Array<string>>([]);
+  const [newKeywords, setNewKeywords] = useState<{
+    key1: string;
+    key2: string;
+    key3: string;
+  }>({
+    key1: "",
+    key2: "",
+    key3: "",
+  });
 
-  const onSubmit = () => {
-    //call api to add the question
-    //seperate keyword into json format
-    const addFAQ = async (question :string  ,keys:{ key1: string, key2: string, key3: string} , answer:string) => {
-      if (!question || !answer) {
-        //setSubmitted(true);
-        // handlePopUp();
-      } else {
-        // setSubmitted(false);
-        //setLoading(true);
-
-        //console.log(login());
-
-        const options = {
-          method: "POST",
-          url: base_url + "/FAQ/addFAQ",
-          params: { question:  + question, answer: answer, newKeywords: +keys },
-          headers: {},
-        };
-        axios
-          .request(options)
-          .then(function ({ data }: { data: Response }) {
-            console.log(data);
-
-
-            if (data.result) {
-              //added casses  
-              console.log(data.result)
-              return data;
-            }
-            //poputo indicate :
-            /**
-             * unauthorized
-             * incorrect newQuestion format
-             */
-          })
-
-          .catch(function (error: any) {
-            console.error(error);
-            // setSubmitted(true);
-            //handlePopUp();
-          });
-
-        //setSubmitted(true);
-        //setLoading(false);
-      }
-    };
-  };
-  /********************
-   * 
-   * delete faq api
-   * 
-   * 
-   *******************/
-  const deleteFAQ = async (question:string) => {
-    if (!question) {
-      //setSubmitted(true);
-      // handlePopUp();
-    } else {
-      // setSubmitted(false);
-      //setLoading(true);
-
-      //console.log(login());
-
-      const options = {
-        method: 'POST',
-        url: base_url + "/FAQ/deleteFAQ",
-        params: { question: "" + question }, //question of slected question to delete
-        headers: {
-
-        },
-      };
-      axios
-        .request(options)
-        .then(function ({ data }: { data: Response }) {
-          console.log(data);
-
-
-          if (data.result) {
-            //added casses  
-            console.log(data.result)
-            return data;
-
-          }
-          //popu to indicate :
-          /**
-           * unauthorized
-           * incorrect newQuestion format
-           */
-        })
-
-        .catch(function (error: any) {
-          console.error(error);
-          // setSubmitted(true);
-          //handlePopUp();
-        });
-
-      //setSubmitted(true);
-      //setLoading(false);
-    }
-  };
-  /********************
-   * 
-   *view faqsapi
-   * 
-   * 
-   *******************/
-  const viewFAQ = async () => {// extract keywords
-
-
-    const options = {
-      method: 'GET',
-      url: base_url + "/FAQ/viewFAQ",
-      params: {},
-      headers: {
-
-      },
-    };
-    axios
-      .request(options)
-      .then(function ({ data }: { data: Response }) {
-        console.log(data);
-        //handle data
-        return data;
-      })
-      .catch(function (error: any) {
-        console.error(error);
-      });
-  }
   return (
     <>
       <Modal opened={opened} onClose={close} radius="30px" size="xl" centered>
@@ -184,18 +69,29 @@ const Question = ({ isQuestion, question, answer }: Props) => {
             <Input
               w="100%"
               placeholder="Keywords (separated by ', ')"
-              onChange={(event) =>
-                setNewKeywords(event.target.value.split(", "))
-              }
+              onChange={(event) => {
+                let bigKeyword = event.target.value.split(", ");
+                setNewKeywords({
+                  key1: bigKeyword[0] || "",
+                  key2: bigKeyword[1] || "",
+                  key3: bigKeyword[2] || "",
+                });
+              }}
             />
-            <Button color="dark" w="200px" onClick={onSubmit}>
+            <Button
+              color="dark"
+              w="200px"
+              onClick={() => {
+                onSubmitAdd(newQuestion, newKeywords, newAnswer);
+              }}
+            >
               Submit
             </Button>
           </Flex>
         </Card>
       </Modal>
       <Paper bg={theme.colors.dark[7]} radius="lg" w="100%" p="lg">
-        <Flex direction="column">
+        <Flex direction="column" style={{ position: "relative" }}>
           {!isQuestion && (
             <UnstyledButton w="100%" h="100%" onClick={open}>
               <Text
@@ -210,6 +106,14 @@ const Question = ({ isQuestion, question, answer }: Props) => {
           )}
           {isQuestion && (
             <>
+              <IconX
+                style={{ position: "absolute", top: "5px", right: "5px" }}
+                color="red"
+                size={10}
+                onClick={() => {
+                  onSubmitDelete(question || "");
+                }}
+              />
               <Text color={theme.colors.yellow[4]} weight="bolder" w="100%">
                 {question}
               </Text>
