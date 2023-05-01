@@ -93,8 +93,27 @@ export const questions = [
     answer: "We plead the 5th.",
   },
 ];
+export const aboutUsParts = [
+  {
+    id: 1,
+    title: "Camps",
+    description:
+      "These camps are seasonal and we teach so many good things and make cool activities for kids!",
+  },
+  {
+    id: 2,
+    title: "Classes",
+    description:
+      "Classes are made for all grades and very interresting way to help students!",
+  },
+  {
+    id: 3,
+    title: "Tutoring",
+    description:
+      "We offer the best tutoring services around, all you have to do is contact us.",
+  },
+];
 
-// export const mainDesc = "This is a test description don't mind me";
 export const mainDesc =
   "The afterschool organization is dedicated to providing comprehensive educational services to students of all ages and backgrounds. Their mission is to help students achieve their full potential by providing them with the tools and support they need to succeed academically. One of the core offerings of this organization is tutoring. They have a team of highly qualified tutors who work with students one-on-one or in small groups to provide personalized support in a range of subjects, including math, science, English, social studies, and more. These tutors are skilled at identifying each student's unique learning style and adapting their approach to meet the student's specific needs. In addition to tutoring, this organization also offers classes in a variety of subjects. These classes are designed to be engaging and interactive, with hands-on activities and opportunities for students to explore and experiment.";
 

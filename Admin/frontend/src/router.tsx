@@ -20,6 +20,7 @@ import NavigationBar from "./components/NavigationBar";
 import { useState } from "react";
 import FAQ from "./Pages/FAQ";
 import Camps from "./Pages/Camps";
+import AboutUs from "./Pages/AboutUs";
 
 const Layout = () => {
   const [colorScheme, setColorScheme] = useState<ColorScheme>("light");
@@ -63,6 +64,7 @@ const router = createBrowserRouter(
         <Route path="/classes" element={<Classes />} />
         <Route path="/faq" element={<FAQ />} />
         <Route path="/camps" element={<Camps />} />
+        <Route path="/about-us" element={<AboutUs />} />
         <Route path="*" element={<>Oops</>} />
       </Route>
     </>
