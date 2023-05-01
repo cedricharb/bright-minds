@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { ActionIcon, useMantineTheme } from "@mantine/core";
-import { Button, TextInput, Card, Flex, Drawer, Group} from "@mantine/core";
+import { Button, TextInput, Card, Flex, Drawer, Group } from "@mantine/core";
 import { IconStar, IconMessage } from "@tabler/icons-react";
 import { keywords } from "../../data/backendFodder";
 import "../../styles/chatbot.css";
@@ -94,27 +94,29 @@ const Chatbot = () => {
         onClose={close}
         title="ChatBot: Ask a question"
         size="lg"
-        style={{msOverflowY:"auto"}}
+        style={{ msOverflowY: "auto" }}
+        position="right"
+        padding="md"
       >
         {
-          <Flex className="bottom-right-container" w= "100%">
-            <div>
+          <Flex style={{ position: "fixed", bottom: 0, right: 0 }} w="100%">
+            <div style={{ width: "100%", padding: "15px" }}>
               <Card
-              w=" 100%"
+                w=" 100%"
                 shadow="sm"
                 radius="md"
                 withBorder
                 style={{ marginBottom: theme.spacing.xs, overflowY: "auto" }}
               >
                 {messages.map((message, index) => (
-                  <div  key={-index}>{message}</div>
+                  <div key={-index}>{message}</div>
                 ))}
               </Card>
 
               <Card shadow="sm" radius="md" withBorder w="100%">
                 <div style={{ display: "flex" }}>
                   <TextInput
-                  w="120%"
+                    w="120%"
                     value={inputValue}
                     onChange={handleInputChange}
                     onKeyPress={(event) => {
@@ -147,7 +149,15 @@ const Chatbot = () => {
       </Drawer>
 
       <Group position="center">
-        <Button onClick={open} className="chatbot-button">
+        <Button
+          onClick={open}
+          style={{
+            right: "20%",
+            bottom: "20%",
+            color: "black",
+            backgroundColor: "yellow",
+          }}
+        >
           <IconMessage />
         </Button>
       </Group>
