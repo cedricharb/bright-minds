@@ -13,14 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('sessions', function ($collections) {
+        Schema::create('subjects', function ($collections) {
             $collections->id();
-            $collections->subject();
-            $collections->date_time();
-            $collections->json('student_details');
-            $collections->json('guardian_details');
-            $collections->more_info();
-            $collections->is_accepted();
+            $collections->string('title');
             $collections->timestamps();
         });
     }
@@ -32,6 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('sessions');
+        Schema::dropIfExists('subjects');
     }
 };
