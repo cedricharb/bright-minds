@@ -195,20 +195,17 @@ The classes page system is composed of the following components:
 
 ### 6- About us
 
-This is a simple Classes page where the admin will be able to see and register in classes offered
+This is a simple about page where the admin will be able to edit and see the details of the company
 
 #### Usage
 
 
-All that is needed to do is to Ckick on the classes card or on classes in the navigation bar to access the page where you'll be able to do any of these:
+All that is needed to do is to Ckick on the on about us in the navigation bar to access the page where you'll be able to do any of these:
 
-- Click on the classes button
-- Click on the add classes button
-- Click on the edit classes button
-- Click on the delete classes button
+- Click on the edit about us button
 - Click on any of the Navbar pages
 - Click on any of the social media icons button
-- Click on the "Click to try an exercise buttons and a popup with a mock exercise will appear
+- Look through the the company information
 
 #### Dependencies
 
@@ -226,8 +223,6 @@ The classes page system is composed of the following components:
 - `Card`: A Mantine UI component used to display other pages on interest.
 - `Flex`: A Mantine UI component used to position components.
 - `Icon`: A Tabler UI component used to enable scrolling on chatbot responses.
-- `Button`: A Mantine UI component used to include functionality
-- `Modal`: A Mantine UI component used to include elements in a popup
 
 #### Images
 
