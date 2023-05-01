@@ -1,0 +1,36 @@
+.pop-up {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(0, 0, 0, 0.8);
+  color: white;
+  border-radius: 20px;
+  padding: 16px;
+  max-width: 90%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  animation: fadein 0.5s, fadeout 0.5s linear 2.5s;
+  }
+  @keyframes fadein {
+    from {
+      bottom: 0;
+      opacity: 0;
+    }
+    to {
+      bottom: 20px;
+      opacity: 1;
+    }
+  }
+  
+  @keyframes fadeout {
+    from {
+      bottom: 20px;
+      opacity: 1;
+    }
+    to {
+      bottom: 0;
+      opacity: 0;
+    }
+  }

@@ -8,4 +8,6 @@ use Jenssegers\Mongodb\Eloquent\Model;
 class Schedule extends Model
 {
     use HasFactory;
+    protected $collection ="schedules";
+
 }

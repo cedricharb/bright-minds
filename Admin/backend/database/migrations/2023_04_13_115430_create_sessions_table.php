@@ -20,6 +20,9 @@ return new class extends Migration
             $collections->more_info();
             $collections->is_accepted();
             $collections->timestamps();
+            //student
+            //guardian of student+details
+
         });
     }
 
