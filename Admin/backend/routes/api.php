@@ -18,8 +18,3 @@ use App\Http\Controllers\InfoController;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
-
-Route::prefix('about')->group(function () {
-    Route::get('/', [InfoController::class, 'getInfo']);
-    Route::put('/edit', [InfoController::class, 'updateInfo']);
-});
