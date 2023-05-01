@@ -1,9 +1,7 @@
 import {
-  BackgroundImage,
   Button,
   Card,
   Flex,
-  Group,
   Input,
   Modal,
   NumberInput,
@@ -48,7 +46,12 @@ const CampCard = ({
   return (
     <>
       <Modal opened={opened} onClose={close} radius="30px" size="md" centered>
-        <Card w="100%" h="100%" padding="md">
+        <Card
+          w="100%"
+          h="100%"
+          padding="md"
+          bg={theme.colorScheme === "dark" ? theme.colors.dark[7] : "white"}
+        >
           <Flex direction="column" gap="lg" align="center">
             <Text w="100%" align="center">
               Enroll in the camp!
