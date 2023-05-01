@@ -13,9 +13,11 @@ import { useState } from "react";
 type Props = {
   name: string;
   description: string;
+  id: number;
+  onSubmitDelete: (id: number) => void;
 };
 
-const ClassesCard = ({ name, description }: Props) => {
+const ClassesCard = ({ name, description, id, onSubmitDelete }: Props) => {
   const theme = useMantineTheme();
   const [isDemoModalOpen, demoModal] = useDisclosure(false);
   const [isEditModalOpen, editModal] = useDisclosure(false);
@@ -87,6 +89,9 @@ const ClassesCard = ({ name, description }: Props) => {
           </Button>
           <Button color="yellow" onClick={editModal.open}>
             Click here to edit this class.
+          </Button>
+          <Button color="yellow" onClick={() => onSubmitDelete(id)}>
+            Click here to delete this class.
           </Button>
         </Flex>
       </Card>

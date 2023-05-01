@@ -120,20 +120,6 @@ const CampCard = ({
             p="md"
             justify="space-between"
           >
-            <ActionIcon
-              style={{
-                position: "absolute",
-                top: "10px",
-                right: "10px",
-                zIndex: 10,
-              }}
-              onClick={(e) => {
-                e.stopPropagation();
-                onSubmitDelete(id);
-              }}
-            >
-              <IconX color="red" size={20} />
-            </ActionIcon>
             <Text
               weight="bold"
               color={theme.colors.dark[7]}
