@@ -14,35 +14,7 @@ interface Response  {
 const base_url = "http://127.0.0.1:8000/api/v1/admin";
 const Home = () => {
   const theme = useMantineTheme();
-  const viewAbout = async () => {
 
-
-    const options = {
-      method: 'GET',
-      url: base_url + "/about/viewAbout",
-      params: {},
-      headers: {
-
-      },
-    };
-    axios
-      .request(options)
-      .then(function ({ data }: { data: Response }) {
-        console.log(data);
-        /**
-         * general 
-         * mission
-         * vision
-         */
-        if(data.result){
-          //handle data
-          return data;
-        }
-      })
-      .catch(function (error: any) {
-        console.error(error);
-      });
-  }
   const editAbout = async (general:string) => {
 
 

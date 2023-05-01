@@ -74,7 +74,7 @@ class CampController extends Controller
         if($camp->save()){
         return response()->json([
             'result' => true,
-            'message' => 'upcoming camps',
+            'message' => ' camps dates updated',
         ], 200);}
         else{
             return response()->json([

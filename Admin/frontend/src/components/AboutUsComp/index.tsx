@@ -16,7 +16,16 @@ type Props = {
   title?: string;
   description?: string;
 };
-
+import axios from "axios";
+interface Response  {
+  access_token: string;
+  result :boolean;
+  general: string;
+  mission: string;
+  vision: string;
+};
+//add in .env var ,git ignore
+const base_url = "http://127.0.0.1:8000/api/v1/admin";
 const AboutUsComp = ({ title, description }: Props) => {
   const [titleS, setTitleS] = useState(title);
   const [descriptionS, setDescriptionS] = useState(description);
@@ -28,6 +37,35 @@ const AboutUsComp = ({ title, description }: Props) => {
 
   const submit = () => {
     //do the api call here to add/edit
+    const viewAbout = async () => {
+
+
+      const options = {
+        method: 'GET',
+        url: base_url + "/about/viewAbout",
+        params: {},
+        headers: {
+  
+        },
+      };
+      axios
+        .request(options)
+        .then(function ({ data }: { data: Response }) {
+          console.log(data);
+          /**
+           * general 
+           * mission
+           * vision
+           */
+          if(data.result){
+            //handle data
+            return data;
+          }
+        })
+        .catch(function (error: any) {
+          console.error(error);
+        });
+    }
   };
 
   return (
@@ -80,6 +118,7 @@ const AboutUsComp = ({ title, description }: Props) => {
         </UnstyledButton>
       )}
       {!isEmpty && (
+        <UnstyledButton onClick={editModal.open}>
         <Flex
           direction="column"
           gap="md"
@@ -100,6 +139,7 @@ const AboutUsComp = ({ title, description }: Props) => {
           </Text>
           <Text>{descriptionS}</Text>
         </Flex>
+        </UnstyledButton>
       )}
     </>
   );
