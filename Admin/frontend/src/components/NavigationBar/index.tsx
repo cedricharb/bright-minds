@@ -41,6 +41,7 @@ const Navbar = () => {
       .request(options)
       .then(function ({ data }) {
         console.log(data);
+        console.log(localStorage.getItem("token"))
 
         if (data.result) {
           localStorage.setItem("token", "");
