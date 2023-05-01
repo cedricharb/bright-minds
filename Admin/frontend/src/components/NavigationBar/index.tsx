@@ -37,6 +37,7 @@ const Navbar = () => {
         Authorization: localStorage.getItem("token"),
       },
     };
+    
     axios
       .request(options)
       .then(function ({ data }) {
