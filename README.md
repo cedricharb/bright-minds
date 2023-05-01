@@ -1,8 +1,85 @@
 # Bright champs
 
-## User
+## Admin
 
-### 1- Home
+### 1- Log in
+
+This is a simple log in page where the admin will be able to log in to the admin side of the website
+
+#### Usage
+
+All that is needed to do is to access the website and then the admin will be at the log in page where he can do a series of things:
+
+- Enter an email
+- Enter a password
+- Click on the log in button
+- Click on the Change password button
+
+if he clicked on the change password button then a pop up will appear and they will be asked to do the following:
+
+- Enter email
+- Enter old password
+- enter new password
+- Save
+
+#### Dependencies
+
+- `React`
+- `Mantine`
+- `Tabler Icons`
+- `@mantine/hooks`
+
+
+#### Components
+
+The chatbot system is composed of the following components:
+
+- `Modal`: The Modal component is the pop up that contains the change password elements
+- `Card`: A Mantine UI component used to display other Login information.
+- `Flex`: A Mantine UI component used to position components.
+- `Button`: A Mntine UI component used to link fuctionality to the website.
+
+#### Images
+
+![HomePage](Readmepictures/login.png)
+
+### 2- Home
+
+This is a simple home page where the admin will be able to navigate through the website from it
+
+#### Usage
+
+All that is needed to do is to access the website through logging in and then the admin is at the home page and then do any of these:
+
+- Click on the Classes button
+- Click on the Camps button
+- Click on the Tutoring button
+- Click on the FAQ button
+- Click on the About us button
+- Click on any of the social media icons button
+
+#### Dependencies
+
+- `React`
+- `Mantine`
+- `Tabler Icons`
+- `@mantine/hooks`
+
+
+#### Components
+
+The chatbot system is composed of the following components:
+
+- `Navbar`: The navbar component that groups items on the side of the screen.
+- `Card`: A Mantine UI component used to display other pages on interest.
+- `Flex`: A Mantine UI component used to position components.
+- `Icon`: A Tabler UI component used to display social media icons that are linked to the company social media.
+
+#### Images
+
+![HomePage](Readmepictures/home.png)
+
+### 3- Camps
 
 This is a simple home page where the user will be able to navigate through the website from it
 
@@ -36,9 +113,117 @@ The chatbot system is composed of the following components:
 
 #### Images
 
-![HomePage](home.png)
+![HomePage](Readmepictures/camps.png)
+
+### 4- Classes
+
+This is a simple home page where the user will be able to navigate through the website from it
+
+#### Usage
+
+All that is needed to do is to access the website and then the user is at the home page and then do any of these:
+
+- Click on the Classes button
+- Click on the Camps button
+- Click on the Tutoring button
+- Click on the FAQ button
+- Click on the About us button
+- Click on any of the social media icons button
+
+#### Dependencies
+
+- `React`
+- `Mantine`
+- `Tabler Icons`
+- `@mantine/hooks`
 
 
+#### Components
+
+The chatbot system is composed of the following components:
+
+- `Navbar`: The navbar component that groups items on the side of the screen.
+- `Card`: A Mantine UI component used to display other pages on interest.
+- `Flex`: A Mantine UI component used to position components.
+- `Icon`: A Tabler UI component used to enable scrolling on chatbot responses.
+
+#### Images
+
+![HomePage](Readmepictures/classes.png)
+
+### 5- FAQ
+
+This is a simple home page where the user will be able to navigate through the website from it
+
+#### Usage
+
+All that is needed to do is to access the website and then the user is at the home page and then do any of these:
+
+- Click on the Classes button
+- Click on the Camps button
+- Click on the Tutoring button
+- Click on the FAQ button
+- Click on the About us button
+- Click on any of the social media icons button
+
+#### Dependencies
+
+- `React`
+- `Mantine`
+- `Tabler Icons`
+- `@mantine/hooks`
+
+
+#### Components
+
+The chatbot system is composed of the following components:
+
+- `Navbar`: The navbar component that groups items on the side of the screen.
+- `Card`: A Mantine UI component used to display other pages on interest.
+- `Flex`: A Mantine UI component used to position components.
+- `Icon`: A Tabler UI component used to enable scrolling on chatbot responses.
+
+#### Images
+
+![HomePage](Readmepictures/FAQ.png)
+
+### 6- About us
+
+This is a simple home page where the user will be able to navigate through the website from it
+
+#### Usage
+
+All that is needed to do is to access the website and then the user is at the home page and then do any of these:
+
+- Click on the Classes button
+- Click on the Camps button
+- Click on the Tutoring button
+- Click on the FAQ button
+- Click on the About us button
+- Click on any of the social media icons button
+
+#### Dependencies
+
+- `React`
+- `Mantine`
+- `Tabler Icons`
+- `@mantine/hooks`
+
+
+#### Components
+
+The chatbot system is composed of the following components:
+
+- `Navbar`: The navbar component that groups items on the side of the screen.
+- `Card`: A Mantine UI component used to display other pages on interest.
+- `Flex`: A Mantine UI component used to position components.
+- `Icon`: A Tabler UI component used to enable scrolling on chatbot responses.
+
+#### Images
+
+![HomePage](Readmepictures/about us.png)
+
+## User
 
 ### 2-Chatbot System
 
@@ -82,21 +267,21 @@ The chatbot system is composed of the following components:
 
 #### Images
 Step 1:
-![Step 1](chatbot1.png)
+![Step 1](Readmepictures/chatbot1.png)
 
 Step 2:
-![Step 2](chatbot2.png)
+![Step 2](Readmepictures/chatbot2.png)
 
 Step 3:
-![Step 3](chatbot3.png)
+![Step 3](Readmepictures/chatbot3.png)
 
 Step 4:
-![Step 4](chatbot4.png)
+![Step 4](Readmepictures/chatbot4.png)
 
 Step 5:
-![Step 5](chatbot5.png)
+![Step 5](Readmepictures/chatbot5.png)
 
 Step 6:
-![Step 6](chatbot6.png)
+![Step 6](Readmepictures/chatbot6.png)
 
 
