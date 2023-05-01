@@ -12,11 +12,14 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../../data/popup.css";
 import axios from "axios";
+import "../../data/popup.css";
 interface Response {
   //add
   access_token: string;
   result: boolean;
+  result_pass: boolean;
 }
+const base_url = "http://127.0.0.1:8000/api/v1/admin";
 const Login = () => {
   const [submitted, setSubmitted] = useState(false);
   const [email, setEmail] = useState("");
@@ -33,7 +36,7 @@ const Login = () => {
     setTimeout(() => setShowPopUp(false), 3000);
   };
 
-  const loginButton = async () => {
+  const loginButton = async (email: string, old_password: string) => {
     if (!email || !old_password) {
       setSubmitted(true);
       handlePopUp();
@@ -43,7 +46,7 @@ const Login = () => {
 
       const options = {
         method: "POST",
-        url: "http://127.0.0.1:8000/api/v1/admin/auth/login",
+        url: base_url + "/auth/login",
         params: { email: "" + email, password: "" + old_password },
         headers: {},
       };
@@ -52,7 +55,10 @@ const Login = () => {
         .then(function ({ data }: { data: Response }) {
           console.log(data);
           console.log(data.access_token);
-          navigate("/home");
+          if (data.result) {
+            localStorage.setItem("token", data.access_token);
+            navigate("/home");
+          }
         })
 
         .catch(function (error: any) {
@@ -66,16 +72,20 @@ const Login = () => {
     }
   };
 
-  const changePassword = async () => {
+  const changePassword = async (
+    confirm_email: string,
+    old_password: string,
+    new_password: string
+  ) => {
     if (confirm_email === "" || old_password === "" || new_password === "") {
       handlePopUp();
     } else {
       const options = {
         method: "POST",
-        url: "http://127.0.0.1:8000/api/v1/admin/auth/changePassword",
+        url: base_url + "/auth/changePassword",
         params: {
           old_password: "" + old_password,
-          new__password: "" + new_password,
+          new_password: "" + new_password,
           email: "" + email,
         },
         headers: {},
@@ -84,7 +94,8 @@ const Login = () => {
         .request(options)
         .then(function ({ data }: { data: Response }) {
           console.log(data);
-          if (!data.result) {
+          if (!data.result_pass) {
+            // email format
             handlePopUp();
           } else {
             navigate("/login");
@@ -134,7 +145,7 @@ const Login = () => {
             set_new_Password(event.currentTarget.value);
             console.log(new_password);
           }}
-          value={old_password}
+          value={new_password}
         />
         <Flex align="center" justify="center" p="lg">
           <Button
@@ -142,7 +153,7 @@ const Login = () => {
             radius="md"
             size="md"
             uppercase
-            onClick={changePassword}
+            onClick={() => changePassword(email, old_password, new_password)}
           >
             Save
           </Button>
@@ -180,17 +191,27 @@ const Login = () => {
         </Flex>
         <Flex align="center" justify="center" p="lg">
           <Button
-            style={{ background: "#FFFF00", color: "black", marginLeft: "20px" }}
+            style={{
+              background: "#FFFF00",
+              color: "black",
+              marginLeft: "20px",
+            }}
             radius="md"
             size="md"
             uppercase
             loading={loading}
-            onClick={loginButton}
+            onClick={() => {
+              loginButton(email, old_password);
+            }}
           >
             Log in
           </Button>
           <Button
-            style={{ background: "#FFFF00", color: "black", marginLeft: "20px" }}
+            style={{
+              background: "#FFFF00",
+              color: "black",
+              marginLeft: "20px",
+            }}
             radius="md"
             size="md"
             uppercase

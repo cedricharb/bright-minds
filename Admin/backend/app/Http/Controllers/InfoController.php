@@ -9,45 +9,7 @@ use App\Models\Chatbot;
 
 class InfoController extends Controller
 {
-    /* public function getInfo()
-    {
-    $about = About::find('643ef5c7ed89046e426aa1c2');
-    return response()->json([
-    "result" => true,
-    "general" => $about->general,
-    "mission" => $about->mission,
-    "vision" => $about->vision
-    ]);
-    }
-    public function updateInfo(Request $request)
-    {
-    $about = About::find('643ef5c7ed89046e426aa1c2');
-    $result;
-    switch ($request) {
-    case 1:
-    $about->general = $request->editedText;
-    $about->save;
-    $result = true;
-    break;
-    case 2:
-    $about->mission = $request->editedText;
-    $about->save;
-    $result = true;
-    break;
-    case 3:
-    $about->vision = $request->editedText;
-    $about->save;
-    $result = true;
-    break;
-    default:
-    $result = false;
-    break;
-    }
-    return response()->json([
-    "result" => $result
-    ]);
-    }*/
-    //
+
     public function viewFAQ()
     {
         // list
@@ -124,7 +86,7 @@ class InfoController extends Controller
             if ($faq->delete()) {
                 return response()->json([
                     'result' => true,
-                    'message' => 'camp is deleted',
+                    'message' => 'faq is deleted',
                 ], 201);
             } else {
                 return response()->json([
@@ -142,11 +104,6 @@ class InfoController extends Controller
     {
         // view about content
         $about = About::all()->firstorFail();
-
-        // $data->$general =$about->general;
-        //$data->$mission =$about->mission;
-        //$data->$vision =$about->vision;
-        //$myData = json_encode($data);
 
         return response()->json([
             'result' => true,
@@ -177,16 +134,7 @@ class InfoController extends Controller
         ], 201);
     }
 
-    /******chatbot ***** */
-    public function addChatbotFAQ()
-    {
-        //record chatbot answer/question to be added to faq section
-        /**
-         * return keywords as a list
-         * obtain keyword as a list 
-         */
-
-    }
+/******chatbot ***** */
 
 
 }

@@ -11,23 +11,40 @@ import {
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { useState } from "react";
+import { IconX } from "@tabler/icons-react";
 
 type Props = {
   isQuestion: boolean;
   question?: string;
   answer?: string;
+  onSubmitAdd: (
+    question: string,
+    keys: { key1: string; key2: string; key3: string },
+    answer: string
+  ) => void;
+  onSubmitDelete: (question: string) => void;
 };
 
-const Question = ({ isQuestion, question, answer }: Props) => {
+const Question = ({
+  isQuestion,
+  question,
+  answer,
+  onSubmitAdd,
+  onSubmitDelete,
+}: Props) => {
   const theme = useMantineTheme();
   const [opened, { open, close }] = useDisclosure(false);
   const [newQuestion, setNewQuestion] = useState<string>("");
   const [newAnswer, setNewAnswer] = useState<string>("");
-  const [newKeywords, setNewKeywords] = useState<Array<string>>([]);
-
-  const onSubmit = () => {
-    //call api to add the question
-  };
+  const [newKeywords, setNewKeywords] = useState<{
+    key1: string;
+    key2: string;
+    key3: string;
+  }>({
+    key1: "",
+    key2: "",
+    key3: "",
+  });
 
   return (
     <>
@@ -52,18 +69,29 @@ const Question = ({ isQuestion, question, answer }: Props) => {
             <Input
               w="100%"
               placeholder="Keywords (separated by ', ')"
-              onChange={(event) =>
-                setNewKeywords(event.target.value.split(", "))
-              }
+              onChange={(event) => {
+                let bigKeyword = event.target.value.split(", ");
+                setNewKeywords({
+                  key1: bigKeyword[0] || "",
+                  key2: bigKeyword[1] || "",
+                  key3: bigKeyword[2] || "",
+                });
+              }}
             />
-            <Button color="dark" w="200px" onClick={onSubmit}>
+            <Button
+              color="dark"
+              w="200px"
+              onClick={() => {
+                onSubmitAdd(newQuestion, newKeywords, newAnswer);
+              }}
+            >
               Submit
             </Button>
           </Flex>
         </Card>
       </Modal>
       <Paper bg={theme.colors.dark[7]} radius="lg" w="100%" p="lg">
-        <Flex direction="column">
+        <Flex direction="column" style={{ position: "relative" }}>
           {!isQuestion && (
             <UnstyledButton w="100%" h="100%" onClick={open}>
               <Text
@@ -78,6 +106,15 @@ const Question = ({ isQuestion, question, answer }: Props) => {
           )}
           {isQuestion && (
             <>
+              <IconX
+                style={{ position: "absolute", top: "5px", right: "5px" }}
+                color="red"
+                size={10}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onSubmitDelete(question || "");
+                }}
+              />
               <Text color={theme.colors.yellow[4]} weight="bolder" w="100%">
                 {question}
               </Text>

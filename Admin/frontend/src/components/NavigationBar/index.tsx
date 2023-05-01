@@ -10,6 +10,7 @@ import {
   useMantineTheme,
 } from "@mantine/core";
 import ThemeButton from "../ThemeSwitch";
+import axios from "axios";
 
 const links = [
   { link: "/home", label: "Home Page" },
@@ -25,6 +26,10 @@ const Navbar = () => {
   );
   const navigate = useNavigate();
   const theme = useMantineTheme();
+
+  const logout = () => {
+    localStorage.setItem("token", "");
+  };
 
   return (
     <Flex direction="column" justify="space-between" h="100%" p="lg">
@@ -57,7 +62,12 @@ const Navbar = () => {
           </Link>
         ))}
       </Flex>
-      <ThemeButton />
+      <Flex gap="md" direction="column" w="100%">
+        <Button color="yellow" onClick={logout} w="100%">
+          Logout
+        </Button>
+        <ThemeButton />
+      </Flex>
     </Flex>
   );
 };
