@@ -3,7 +3,15 @@ import CampCard from "../../components/CampCard";
 import { camps } from "../../data/backendFodder";
 import { useState } from "react";
 import BottomBar from "../../components/BottomBar";
-
+import axios from "axios";
+interface Response {
+  //add
+ 
+  result: boolean;
+ 
+  
+}
+const base_url ="http://127.0.0.1:8000/api/v1/admin";
 const Camps = () => {
   const theme = useMantineTheme();
   const [upcomingCamps, setupcomingCamps] = useState(
@@ -15,6 +23,169 @@ const Camps = () => {
 
   const hasUpcomingCamps = upcomingCamps.length > 0;
 
+  /***********************start of api************************ */
+  const addClass = async (title :string , description: string , age:number) => {
+    if (!title || !description || !age)  {
+      //setSubmitted(true);
+      // handlePopUp();
+    } else {
+      // setSubmitted(false);
+      //setLoading(true);
+
+      //console.log(login());
+
+      const options = {
+        method: "POST",
+        url: base_url + "/class/addClass",
+        params: {title: +title,
+        description: +description,
+        age_range: +age },
+        headers: {},
+      };
+      axios
+        .request(options)
+        .then(function ({ data }: { data: Response }) {
+          console.log(data);
+
+
+          if (data.result) {
+            //added casses  
+            console.log(data.result)
+            return data;
+          }
+          //poputo indicate :
+          /**
+           * unauthorized
+           * incorrect newQuestion format
+           */
+        })
+
+        .catch(function (error: any) {
+          console.error(error);
+          // setSubmitted(true);
+          //handlePopUp();
+        });
+
+      //setSubmitted(true);
+      //setLoading(false);
+    }
+  };
+  const editClass = async (title :string , description: string , age:number) => {
+    if (!title || !description || !age)  {
+      //setSubmitted(true);
+      // handlePopUp();
+    } else {
+      // setSubmitted(false);
+      //setLoading(true);
+
+      //console.log(login());
+
+      const options = {
+        method: "POST",
+        url: base_url + "/class/addClass",
+        params: {title: +title,
+        description: +description,
+        age_range: +age },
+        headers: {},
+      };
+      axios
+        .request(options)
+        .then(function ({ data }: { data: Response }) {
+          console.log(data);
+
+
+          if (data.result) {
+            //added casses  
+            console.log(data.result)
+            return data;
+          }
+          //poputo indicate :
+          /**
+           * unauthorized
+           * incorrect newQuestion format
+           */
+        })
+
+        .catch(function (error: any) {
+          console.error(error);
+          // setSubmitted(true);
+          //handlePopUp();
+        });
+
+      //setSubmitted(true);
+      //setLoading(false);
+    }
+  };
+  const deleteClass = async (id:number ) => {
+    
+
+      const options = {
+        method: 'GET',
+        url: base_url + "/class/deleteClass/"+ id,
+        params: { }, 
+        headers: {
+
+        },
+      };
+      axios
+        .request(options)
+        .then(function ({ data }: { data: Response }) {
+          console.log(data);
+
+
+          if (data.result) {
+            //added casses  
+            console.log(data.result)
+            return data;
+
+          }
+        })
+
+        .catch(function (error: any) {
+          console.error(error);
+          // setSubmitted(true);
+          //handlePopUp();
+        });
+
+      //setSubmitted(true);
+      //setLoading(false);
+    }
+    const viewClasses = async ( ) => {
+    
+
+      const options = {
+        method: 'GET',
+        url: base_url + "/class/viewClasses",
+        params: { }, 
+        headers: {
+
+        },
+      };
+      axios
+        .request(options)
+        .then(function ({ data }: { data: Response }) {
+          console.log(data);
+
+
+          if (data.result) {
+            //added casses  
+            console.log(data.result)
+            return data;
+
+          }
+        })
+
+        .catch(function (error: any) {
+          console.error(error);
+          // setSubmitted(true);
+          //handlePopUp();
+        });
+
+      //setSubmitted(true);
+      //setLoading(false);
+    } 
+
+  /*************************end fo api************** */
   return (
     <Flex direction="column" bg={theme.colors.gray[4]}>
       <Flex

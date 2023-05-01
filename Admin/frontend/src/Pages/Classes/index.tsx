@@ -14,7 +14,7 @@ const base_url ="http://127.0.0.1:8000/api/v1/admin";
 const ClassesPage = () => {
   const theme = useMantineTheme();
   
-  const addClass = async (title :string , description: string , age:BigInteger) => {
+  const addClass = async (title :string , description: string , age:number) => {
     if (!title || !description || !age)  {
       //setSubmitted(true);
       // handlePopUp();
@@ -27,6 +27,52 @@ const ClassesPage = () => {
       const options = {
         method: "POST",
         url: base_url + "/class/addClass",
+        params: {title: +title,
+        description: +description,
+        age_range: +age },
+        headers: {},
+      };
+      axios
+        .request(options)
+        .then(function ({ data }: { data: Response }) {
+          console.log(data);
+
+
+          if (data.result) {
+            //added casses  
+            console.log(data.result)
+            return data;
+          }
+          //poputo indicate :
+          /**
+           * unauthorized
+           * incorrect newQuestion format
+           */
+        })
+
+        .catch(function (error: any) {
+          console.error(error);
+          // setSubmitted(true);
+          //handlePopUp();
+        });
+
+      //setSubmitted(true);
+      //setLoading(false);
+    }
+  };
+  const editClass = async (title :string , description: string , age:number) => {
+    if (!title || !description || !age)  {
+      //setSubmitted(true);
+      // handlePopUp();
+    } else {
+      // setSubmitted(false);
+      //setLoading(true);
+
+      //console.log(login());
+
+      const options = {
+        method: "POST",
+        url: base_url + "/class/editClass",
         params: {title: +title,
         description: +description,
         age_range: +age },
