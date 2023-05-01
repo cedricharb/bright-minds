@@ -19,7 +19,7 @@ class CampController extends Controller
             'result' => true,
             'message' => 'Camp listed',
             'data' => $camp,
-        ], 201);
+        ],200);
 
     }
 
@@ -52,7 +52,7 @@ class CampController extends Controller
                 'result' => true,
                 'message' => 'Camp added',
                 //'data' => $camp
-            ], 201);
+            ],200);
         } else {
             return response()->json([
                 'result' => false,
@@ -71,7 +71,18 @@ class CampController extends Controller
         ]);
         $camp->start_date = $request->start_date;
         $camp->end_date = $request->end_date;
-        $camp->save();
+        if($camp->save()){
+        return response()->json([
+            'result' => true,
+            'message' => 'upcoming camps',
+        ], 200);}
+        else{
+            return response()->json([
+                'result' => false,
+                'message' => 'Fail',
+            ], 400);  
+        }
+        
     }
     public function UpCommingCamps()
     {
@@ -79,20 +90,31 @@ class CampController extends Controller
         $currentDate = Carbon::now();
         //$formattedDate = $currentDate->format('Y-m-d H:i:s');
         $newDate = Carbon::createFromFormat('Y-m-d H:i:s', $currentDate)
-            ->format('m/d/Y');
+            ->format('Y-m-d');
         $old_camps = Camp::get();
         $subset_start = $old_camps->map(function ($old_camps) {
             return collect($old_camps->toArray())
-                ->only(['start_date',])
                 ->all();
             //order by
 
         });
+        $dates = [];
+        for ($x = 0; $x <= 1; $x++) {
+            $arr[] = $subset_start[$x];
+            $element = $arr[$x];
+
+            if($element['start_date'] >  $newDate){
+                if($element['visibility']){
+                    array_push($dates, $element);
+                }
+            }
+
+        }
         return response()->json([
             'result' => true,
             'message' => 'upcoming camps',
-            'data' => $subset_start,
-        ], 201);
+            'data' => $dates,
+        ],200);
     }
     public function deleteCamp(Request $request, $id = null)
     {
@@ -108,7 +130,7 @@ class CampController extends Controller
                 return response()->json([
                     'result' => true,
                     'message' => 'camp is deleted',
-                ], 201);
+                ],200);
             } else {
                 return response()->json([
                     'result' => false,
@@ -136,7 +158,7 @@ class CampController extends Controller
                 'result' => true,
                 'message' => 'changed visibility',
                 'data' => $camp
-            ], 201);
+            ],200);
         } else {
             return response()->json([
                 'result' => false,
@@ -154,25 +176,25 @@ class CampController extends Controller
             'result' => true,
             'message' => 'list of campers registered',
             'data' => $campers
-        ], 201);
+        ],200);
     }
     public function getEmailOFCampers($camper_id =null)
     {
         $camper = Camper::where('campid',$camper_id)->get();
         
-        $names = [];
+        $emails = [];
         for ($x = 0; $x <= 1; $x++) {
             $arr[] = json_decode($camper[$x]);
             $element = $arr[$x]->student_details->parent_email;
-            array_push($names, $element);
+            array_push($emails, $element);
 
         }
 
 
         return response()->json([
-            'data' => $names
+            'data' => $emails
         ]);
-        //return response();//->$camper[0]->student_details;
+        
     }
 
 }
