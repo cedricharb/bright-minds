@@ -198,7 +198,222 @@ const Camps = () => {
       //setSubmitted(true);
       //setLoading(false);
     } 
+    const viewRegisteredCampers = async ( id:number) => {
+    
 
+      const options = {
+        method: 'GET',
+        url: base_url + "/camp/viewRegisteredCampers/"+ id,
+        params: { }, 
+        headers: {
+
+        },
+      };
+      axios
+        .request(options)
+        .then(function ({ data }: { data: Response }) {
+          console.log(data);
+
+
+          if (data.result) {
+            //added casses  
+            console.log(data.result)
+            return data;
+
+          }
+        })
+
+        .catch(function (error: any) {
+          console.error(error);
+          // setSubmitted(true);
+          //handlePopUp();
+        });
+
+      //setSubmitted(true);
+      //setLoading(false);
+    } 
+    
+    const getEmailOfCampers = async (id:number ) => { //camp id number
+    
+
+      const options = {
+        method: 'GET',
+        url: base_url + "/camp/getEmailOFCampers/"+id,
+        params: { }, 
+        headers: {
+
+        },
+      };
+      axios
+        .request(options)
+        .then(function ({ data }: { data: Response }) {
+          console.log(data);
+
+
+          if (data.result) {
+            //added casses  
+            console.log(data.result)
+            return data;
+
+          }
+        })
+
+        .catch(function (error: any) {
+          console.error(error);
+          // setSubmitted(true);
+          //handlePopUp();
+        });
+
+      //setSubmitted(true);
+      //setLoading(false);
+    }
+    const editCampVisibility = async (id:number) => {
+      //it will update it, opposite of previous visibility
+        const options = {
+          method: "POST",
+          url: base_url + "/camp/editCampVisibility/"+id,
+          params: {},
+          headers: {},
+        };
+        axios
+          .request(options)
+          .then(function ({ data }: { data: Response }) {
+            console.log(data);
+  
+  
+            if (data.result) {
+              //added casses  
+              console.log(data.result)
+              return data;
+            }
+            //poputo indicate :
+            /**
+             * unauthorized
+             * incorrect newQuestion format
+             */
+          })
+  
+          .catch(function (error: any) {
+            console.error(error);
+            // setSubmitted(true);
+            //handlePopUp();
+          });
+  
+        //setSubmitted(true);
+        //setLoading(false);
+      
+    };
+    const getUpcomingCamps = async () => {
+      //it will update it, opposite of previous visibility
+        const options = {
+          method: "GET",
+          url: base_url + "/camp/viewUpcommingCamps",
+          params: {},
+          headers: {},
+        };
+        axios
+          .request(options)
+          .then(function ({ data }: { data: Response }) {
+            console.log(data);
+  
+  
+            if (data.result) {
+              //added casses  
+              console.log(data.result)
+              return data;
+            }
+            //poputo indicate :
+            /**
+             * unauthorized
+             * incorrect newQuestion format
+             */
+          })
+  
+          .catch(function (error: any) {
+            console.error(error);
+            // setSubmitted(true);
+            //handlePopUp();
+          });
+  
+        //setSubmitted(true);
+        //setLoading(false);
+      
+    }; 
+    const getPrevCampTitles = async () => {
+      //it will update it, opposite of previous visibility
+        const options = {
+          method: "GET",
+          url: base_url + "/camp/prevCamp",
+          params: {},
+          headers: {},
+        };
+        axios
+          .request(options)
+          .then(function ({ data }: { data: Response }) {
+            console.log(data);
+  
+  
+            if (data.result) {
+              //added casses  
+              console.log(data.result)
+              return data;
+            }
+            //poputo indicate :
+            /**
+             * unauthorized
+             * incorrect newQuestion format
+             */
+          })
+  
+          .catch(function (error: any) {
+            console.error(error);
+            // setSubmitted(true);
+            //handlePopUp();
+          });
+  
+        //setSubmitted(true);
+        //setLoading(false);
+      
+    }; 
+    const setCampTimings = async (id:number ,start_date:string ,end_date:string) => {
+      
+        const options = {
+          method: "POST",
+          url: base_url + "/camp/setCampTimmings/"+id,
+          params: {
+            start_date: start_date,
+            end_date:  end_date
+          },
+          headers: {},
+        };
+        axios
+          .request(options)
+          .then(function ({ data }: { data: Response }) {
+            console.log(data);
+  
+  
+            if (data.result) {
+              //added casses  
+              console.log(data.result)
+              return data;
+            }
+            //poputo indicate :
+            /**
+             * unauthorized
+             * incorrect newQuestion format
+             */
+          })
+  
+          .catch(function (error: any) {
+            console.error(error);
+            // setSubmitted(true);
+            //handlePopUp();
+          });
+  
+        //setSubmitted(true);
+        //setLoading(false);
+      
+    }; 
   /*************************end fo api************** */
   return (
     <Flex direction="column" bg={theme.colors.gray[4]}>
