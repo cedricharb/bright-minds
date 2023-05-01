@@ -3,7 +3,6 @@ import { ActionIcon, useMantineTheme } from "@mantine/core";
 import { Button, TextInput, Card, Flex, Drawer, Group } from "@mantine/core";
 import { IconStar, IconMessage } from "@tabler/icons-react";
 import { keywords } from "../../data/backendFodder";
-import "../../styles/chatbot.css";
 import { useDisclosure } from "@mantine/hooks";
 
 const Chatbot = () => {
