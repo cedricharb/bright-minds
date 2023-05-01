@@ -52,7 +52,9 @@ const Login = () => {
         .then(function ({ data }: { data: Response }) {
           console.log(data);
           console.log(data.access_token);
-          navigate("/home");
+          if(data.result){
+            navigate("/home");
+          }
         })
 
         .catch(function (error: any) {
