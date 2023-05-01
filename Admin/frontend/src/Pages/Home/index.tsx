@@ -41,6 +41,30 @@ const Home = () => {
         console.error(error);
       });
   }
+  const editAbout = async () => {
+
+
+    const options = {
+      method: 'POST',
+      url: base_url + "/about/editAbout",
+      params: {general: ""}, //add input
+      headers: {
+
+      },
+    };
+    axios
+      .request(options)
+      .then(function ({ data }: { data: Response }) {
+        console.log(data);
+  
+        if(data.result){
+          //handle data
+        }
+      })
+      .catch(function (error: any) {
+        console.error(error);
+      });
+  }
   return (
     <Flex
       direction="column"
