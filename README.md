@@ -1,4 +1,4 @@
-# Bright champs
+# Bright minds
 
 ## Admin
 
