@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ChatbotController;
+use App\Http\Controllers\InfoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,5 +20,8 @@ Route::prefix('v1')->group(function () {
         Route::get('/', [ChatbotController::class, 'openChat']);
         Route::post('/review', [ChatbotController::class, 'sendFeedback']);
     });
-
+    Route::prefix('about')->group(function () {
+        Route::get('/', [InfoController::class, 'getInfo']);
+        Route::put('/edit', [InfoController::class, 'updateInfo']);
+    });
 });
