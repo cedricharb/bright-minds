@@ -84,6 +84,7 @@ class AuthController extends Controller
     public function respondWithToken($token)
     {
         return response()->json([
+            'result'=>true,
             'access_token' => $token,
             'user' => Auth::user(),
             'token_type' => 'bearer',
@@ -101,11 +102,11 @@ class AuthController extends Controller
      */
     public function logout(Request $request)
     {
-        Auth::logout(); //if token has expired handle error respponse in frontend
-        return response()->json([
-            'result' => true,
-            'message' => 'Successfully logged out',
-        ]);
+        if (Auth::check()) {
+            Auth::logout();
+            return response()->json(['message' => 'Logged out successfully']);
+        }
+        return response()->json(['message' => 'No user to log out'], 401);
     }
 
     public function changePassword(Request $request){
@@ -115,7 +116,7 @@ class AuthController extends Controller
             return response()->json([
                 'result' => false,
                 'message' => 'error',
-            ], 400);
+            ], 200);
         } else {
         /**
          * req new password
@@ -182,7 +183,7 @@ class AuthController extends Controller
             return response()->json([
                 'result' => false,
                 'message' => 'Fail',
-            ], 400);
+            ], 200);
         }
     }
     public function check_test(Request $request){

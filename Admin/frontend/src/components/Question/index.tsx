@@ -10,6 +10,7 @@ import {
   useMantineTheme,
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
+import axios from "axios";
 import { useState } from "react";
 
 type Props = {
@@ -17,7 +18,14 @@ type Props = {
   question?: string;
   answer?: string;
 };
-
+interface Response {
+  //add
+  access_token: string;
+  result: boolean;
+  
+  
+}
+const base_url ="";
 const Question = ({ isQuestion, question, answer }: Props) => {
   const theme = useMantineTheme();
   const [opened, { open, close }] = useDisclosure(false);
@@ -27,6 +35,51 @@ const Question = ({ isQuestion, question, answer }: Props) => {
 
   const onSubmit = () => {
     //call api to add the question
+    //seperate keyword into json format
+    const addFAQ = async () => {
+      if (!newQuestion || !newAnswer) {
+        //setSubmitted(true);
+       // handlePopUp();
+      } else {
+       // setSubmitted(false);
+        //setLoading(true);
+  
+        //console.log(login());
+  
+        const options = {
+          method: "POST",
+          url: base_url+"/FAQ/addFAQ",
+          params: {question: "" + newQuestion, answer: "" + newAnswer ,newKeywords:{"key": ""}},
+          headers: {},
+        };
+        axios
+          .request(options)
+          .then(function ({ data }: { data: Response }) {
+            console.log(data);
+  
+            
+            if(data.result){
+              //added casses  
+              console.log(data.result)
+             
+            }
+            //popu to indicate :
+            /**
+             * unauthorized
+             * incorrect newQuestion format
+             */
+          })
+  
+          .catch(function (error: any) {
+            console.error(error);
+           // setSubmitted(true);
+            //handlePopUp();
+          });
+        
+        //setSubmitted(true);
+        //setLoading(false);
+      }
+    };
   };
 
   return (

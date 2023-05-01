@@ -17,7 +17,10 @@ interface Response {
   //add
   access_token: string;
   result: boolean;
+  result_pass: boolean;
+  
 }
+const base_url ="http://127.0.0.1:8000/api/v1/admin";
 const Login = () => {
   const [submitted, setSubmitted] = useState(false);
   const [email, setEmail] = useState("");
@@ -46,7 +49,7 @@ const Login = () => {
 
       const options = {
         method: "POST",
-        url: "http://127.0.0.1:8000/api/v1/admin/auth/login",
+        url: base_url+"/auth/login",
         params: { email: "" + email, password: "" + old_password },
         headers: {},
       };
@@ -55,9 +58,10 @@ const Login = () => {
         .then(function ({ data }: { data: Response }) {
           console.log(data);
           console.log(data.access_token);
-          console.log(data.result)
+          
           if(data.result){
             //added casses  
+            console.log(data.result)
             navigate("/Home");
           }
           //popu to indicate :
@@ -84,10 +88,10 @@ const Login = () => {
     } else {
       const options = {
         method: "POST",
-        url: "http://127.0.0.1:8000/api/v1/admin/auth/changePassword",
+        url: base_url+"/auth/changePassword",
         params: {
           old_password: "" + old_password,
-          new__password: "" + new_password,
+          new_password: "" + new_password,
           email: "" + email,
         },
         headers: {},
@@ -96,7 +100,7 @@ const Login = () => {
         .request(options)
         .then(function ({ data }: { data: Response }) {
           console.log(data);
-          if (!data.result) {
+          if (!data.result_pass) {
             handlePopUp();
           } else {
             navigate("/login");

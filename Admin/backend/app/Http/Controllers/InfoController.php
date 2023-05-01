@@ -86,7 +86,7 @@ class InfoController extends Controller
             if ($faq->delete()) {
                 return response()->json([
                     'result' => true,
-                    'message' => 'camp is deleted',
+                    'message' => 'faq is deleted',
                 ], 201);
             } else {
                 return response()->json([
