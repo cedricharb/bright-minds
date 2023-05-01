@@ -12,7 +12,7 @@ import {
 import ThemeButton from "../ThemeSwitch";
 
 const links = [
-  { link: "/Home", label: "Home Page" },
+  { link: "/home", label: "Home Page" },
   { link: "/classes", label: "Classes" },
   { link: "/faq", label: "FAQ" },
   { link: "/camps", label: "Camps" },
