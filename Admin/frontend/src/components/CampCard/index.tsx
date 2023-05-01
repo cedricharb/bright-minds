@@ -84,13 +84,13 @@ const CampCard = ({
             />
             <Input
               w="100%"
-              placeholder="Start Date"
+              placeholder="Start Date (year/month/day)"
               value={startDateV}
               onChange={(event) => setStartDateV(event.target.value)}
             />
             <Input
               w="100%"
-              placeholder="Start Date"
+              placeholder="End Date (year/month/day)"
               value={endDateV}
               onChange={(event) => setEndDateV(event.target.value)}
             />
