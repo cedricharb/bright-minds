@@ -134,7 +134,7 @@ const Login = () => {
             set_new_Password(event.currentTarget.value);
             console.log(new_password);
           }}
-          value={old_password}
+          value={new_password}
         />
         <Flex align="center" justify="center" p="lg">
           <Button
