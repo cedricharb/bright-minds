@@ -18,19 +18,13 @@ class TutoringController extends Controller
                 ->only(['subject_name'])
                 ->all();
         });
-        if ($subject->save()) {
+        
             return response()->json([
                 'success' => true,
                 'message' => 'Success',
                 'data' => $subset
             ], 201);
-        } else {
-            return response()->json([
-                'success' => false,
-                'message' => 'Fail',
-            ], 400);
-
-        }
+        
 
     }
     public function addTutoringSubject(Request $request)
@@ -52,8 +46,7 @@ class TutoringController extends Controller
         } elseif ($subject->save()) {
             return response()->json([
                 'success' => true,
-                'message' => 'Success',
-                'data' => $subject
+                'message' => 'Success'
             ], 201);
         } else {
             return response()->json([
@@ -84,13 +77,7 @@ class TutoringController extends Controller
         }
         /*************schedual**************/
     }
-    /* public  function add_tutoring_time($time,$request){
-    //take input, create entity ,add to array
-    $from= $request->input('from'); //take input
-    $to= $request->input('to'); //take input
-    $timings = array($from, $to);
-    return $timings;
-    }*/
+   
 
     public function addTutoringSchedule(Request $request)
     {

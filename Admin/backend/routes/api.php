@@ -23,7 +23,7 @@ use App\Http\Controllers\TutoringController;
 Route::group(['prefix' => 'v1'], function () {
     Route::group(['prefix' => 'admin'], function () {
       Route::group([
-       // 'middleware' => 'api',
+       'middleware' => 'api',
         'prefix' => 'auth'], function () {
         /* Authentication Routes */
         Route::post('/refresh', [AuthController::class,'refresh']);
@@ -39,7 +39,7 @@ Route::group(['prefix' => 'v1'], function () {
      * Secure? ✓
      * Scalable? ✓
      * Compact? ✓
-     * JSON? ✓
+     * 
      */
        });   
     Route::group(['prefix' => 'classes'], function () {
@@ -63,8 +63,7 @@ Route::group(['prefix' => 'v1'], function () {
             Route::post('/addTutoringSession', [TutoringController::class,'addTutoringSession']);
             Route::post('/deleteTutoringSession', [TutoringController::class,'deleteTutoringSession']);
             Route::post('/setTutoringSession', [TutoringController::class,'setTutoringSession']); 
-            //get id of session to edit
-            //confirm tutoring session ??
+            
     
  
         });
@@ -74,11 +73,12 @@ Route::group(['prefix' => 'v1'], function () {
             Route::get('/viewCamps', [CampController::class,'viewCamps']);
             Route::post('/addCamp', [CampController::class,'addCamp']);
             Route::post('/deleteCamp/{id}', [CampController::class,'deleteCamp']);
-            Route::post('/setCampTimings/{id}', [CampController::class,'setCampTimings']); 
+            Route::post('/setCampTimmings/{id}', [CampController::class,'setCampTimings']); 
             Route::post('/editCampVisibility/{id}', [CampController::class,'editCampVisisbility']); //allow reg for camps
-            Route::get('/viewRegisteredCampers', [CampController::class,'viewRegisteredCamperss']); 
-            Route::get('/getEmailOFCampers', [CampController::class,'getEmailOFCampers']); 
-           // Route::get('/viewUpcommingCamps', [CampController::class,'upCommingCamps']);
+            Route::get('/viewRegisteredCampers/{id}', [CampController::class,'viewRegisteredCampers']); 
+            Route::get('/getEmailOFCampers/{id}', [CampController::class,'getEmailOFCampers']); 
+            Route::get('/viewUpcommingCamps', [CampController::class,'upCommingCamps']);
+            Route::get('/prevCamp', [CampController::class,'prevCamp']);
             });      
     
 
@@ -94,11 +94,7 @@ Route::group(['prefix' => 'v1'], function () {
      
  
     });
-    Route::group(['prefix' => 'chatbot'], function () {
-     Route::post('/addChatbotFAQ', [InfoController::class,'addChatbotFAQ']);
-     
-
-   });
+  
  });
   
 });

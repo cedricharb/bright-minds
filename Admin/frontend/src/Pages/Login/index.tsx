@@ -5,16 +5,21 @@ import {
   Button,
   Flex,
   Title,
+  Modal,
 } from "@mantine/core";
+import { useDisclosure } from "@mantine/hooks";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../../data/popup.css";
 import axios from "axios";
+import "../../data/popup.css";
 interface Response {
   //add
   access_token: string;
   result: boolean;
+  result_pass: boolean;
 }
+const base_url = "http://127.0.0.1:8000/api/v1/admin";
 const Login = () => {
   const [submitted, setSubmitted] = useState(false);
   const [email, setEmail] = useState("");
@@ -31,7 +36,7 @@ const Login = () => {
     setTimeout(() => setShowPopUp(false), 3000);
   };
 
-  const loginButton = async () => {
+  const loginButton = async (email: string, old_password: string) => {
     if (!email || !old_password) {
       setSubmitted(true);
       handlePopUp();
@@ -39,11 +44,9 @@ const Login = () => {
       setSubmitted(false);
       setLoading(true);
 
-      //console.log(login());
-
       const options = {
         method: "POST",
-        url: "http://127.0.0.1:8000/api/v1/admin/auth/login",
+        url: base_url + "/auth/login",
         params: { email: "" + email, password: "" + old_password },
         headers: {},
       };
@@ -52,7 +55,10 @@ const Login = () => {
         .then(function ({ data }: { data: Response }) {
           console.log(data);
           console.log(data.access_token);
-          navigate("/Home");
+          if (data.result) {
+            localStorage.setItem("token", data.access_token);
+            navigate("/home");
+          }
         })
 
         .catch(function (error: any) {
@@ -66,43 +72,93 @@ const Login = () => {
     }
   };
 
-  const changePassword = async () => {
-
-    if(confirm_email === "" || old_password=== "" ||new_password==="" ){
+  const changePassword = async (
+    confirm_email: string,
+    old_password: string,
+    new_password: string
+  ) => {
+    if (confirm_email === "" || old_password === "" || new_password === "") {
       handlePopUp();
-    }
-    else{
-    const options = {
-      method: "POST",
-      url: "http://127.0.0.1:8000/api/v1/admin/auth/changePassword",
-      params: {
-        old_password: "" + old_password,
-        new__password: "" + new_password,
-        email: "" + email,
-      },
-      headers: {},
-    };
-    axios
-      .request(options)
-      .then(function ({ data }: { data: Response }) {
-        console.log(data);
-        if (!data.result) {
-          handlePopUp();
-        } else {
-          navigate("/login");
-        }
-      })
+    } else {
+      const options = {
+        method: "POST",
+        url: base_url + "/auth/changePassword",
+        params: {
+          old_password: "" + old_password,
+          new_password: "" + new_password,
+          email: "" + email,
+        },
+        headers: {},
+      };
+      axios
+        .request(options)
+        .then(function ({ data }: { data: Response }) {
+          console.log(data);
+          if (!data.result_pass) {
+            // email format
+            handlePopUp();
+          } else {
+            navigate("/login");
+          }
+        })
 
-      .catch(function (error: any) {
-        console.error(error);
-        setSubmitted(true);
-        handlePopUp();
-      });
+        .catch(function (error: any) {
+          console.error(error);
+          setSubmitted(true);
+          handlePopUp();
+        });
     }
   };
-
+  const [opened, { open, close }] = useDisclosure(false);
   return (
     <Flex align="center" justify="center" h="100vh">
+      <Modal opened={opened} onClose={close} title="Change Password">
+        <TextInput
+          placeholder="Email"
+          label="Email"
+          error={submitted ? " " : ""}
+          radius="md"
+          onChange={(event) => {
+            setEmail(event.currentTarget.value);
+            setConfirmEmail(event.currentTarget.value);
+            console.log(email);
+          }}
+          value={email}
+        />
+        <PasswordInput
+          placeholder="Old Password"
+          label="Old Password"
+          error={submitted ? " " : ""}
+          radius="md"
+          onChange={(event) => {
+            set_Old_Password(event.currentTarget.value);
+            console.log(old_password);
+          }}
+          value={old_password}
+        />
+        <PasswordInput
+          placeholder="New Password"
+          label="New Password"
+          error={submitted ? " " : ""}
+          radius="md"
+          onChange={(event) => {
+            set_new_Password(event.currentTarget.value);
+            console.log(new_password);
+          }}
+          value={new_password}
+        />
+        <Flex align="center" justify="center" p="lg">
+          <Button
+            style={{ background: "#FFFF00", color: "black" }}
+            radius="md"
+            size="md"
+            uppercase
+            onClick={() => changePassword(email, old_password, new_password)}
+          >
+            Save
+          </Button>
+        </Flex>
+      </Modal>
       <Card style={{ background: "grey", minHeight: "250px" }} w="30%">
         <Title align="center" fz="xl">
           Log in
@@ -135,18 +191,46 @@ const Login = () => {
         </Flex>
         <Flex align="center" justify="center" p="lg">
           <Button
-            style={{ background: "#FFFF00", color: "black" }}
+            style={{
+              background: "#FFFF00",
+              color: "black",
+              marginLeft: "20px",
+            }}
             radius="md"
             size="md"
             uppercase
             loading={loading}
-            onClick={loginButton}
+            onClick={() => {
+              loginButton(email, old_password);
+            }}
           >
             Log in
           </Button>
-
+          <Button
+            style={{
+              background: "#FFFF00",
+              color: "black",
+              marginLeft: "20px",
+            }}
+            radius="md"
+            size="md"
+            uppercase
+            onClick={open}
+          >
+            Change Password
+          </Button>
           {showPopUp && (
-            <div className="pop-up">
+            <div
+              style={{
+                position: "absolute",
+                top: "50%",
+                left: "50%",
+                transform: "translate(-50%, -50%)",
+                backgroundColor: "lightgray",
+                padding: "10px",
+                borderRadius: "5px",
+              }}
+            >
               Cannot log in make sure you credentials are correct
             </div>
           )}

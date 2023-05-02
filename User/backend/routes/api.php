@@ -1,7 +1,12 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ChatbotController;
+use App\Http\Controllers\InfoController;
+use App\Http\Controllers\TutoringController;
+use App\Http\Controllers\ClassController;
+use App\Http\Controllers\CampController;
+use App\Http\Controllers\ChatController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,6 +19,29 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::prefix('v1')->group(function () {
+    Route::prefix('chat')->group(function () {
+        Route::get('/', [ChatController::class, 'openChat']);
+        Route::post('/feedback', [ChatController::class, 'receiveFeedback']); ///////////
+    });
+    Route::prefix('about')->group(function () {
+        Route::get('/', [InfoController::class, 'getInfo']);
+    });
+    Route::prefix('tutoring')->group(function () {
+        Route::get('/', [TutoringController::class, 'getSubjects']); //////////////
+        Route::get('/schedule', [TutoringController::class, 'getSchedule']);
+        Route::post('/session', [TutoringController::class, 'postSession']); /////////////
+    });
+    Route::prefix('class')->group(function () {
+        Route::get('/', [ClassController::class, 'getClasses']); 
+        Route::get('/details/{id}', [ClassController::class, 'getClassDetails']);
+    });
+    Route::prefix('camp')->group(function () {
+        Route::get('/', [CampController::class, 'getCamps']);
+        Route::get('/prev-camp/{id}', [CampController::class, 'getPrevCamp']);
+        Route::post('/registration/{id}', [CampController::class, 'register']); ////////////
+    });
+    Route::prefix('faq')->group(function () {
+        Route::get('/', [InfoController::class, 'getFaqs']);
+    });
 });

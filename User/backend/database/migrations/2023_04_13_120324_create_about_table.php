@@ -15,6 +15,9 @@ return new class extends Migration
     {
         Schema::create('about', function ($collections) {
             $collections->id();
+            $collections->text('general');
+            $collections->text('mission');
+            $collections->text('vision');
             $collections->timestamps();
         });
     }

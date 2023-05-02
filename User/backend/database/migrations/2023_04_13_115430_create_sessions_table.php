@@ -15,8 +15,10 @@ return new class extends Migration
     {
         Schema::create('sessions', function ($collections) {
             $collections->id();
-            $collections->subject_nb();
+            $collections->subject();
             $collections->date_time();
+            $collections->json('student_details');
+            $collections->json('guardian_details');
             $collections->more_info();
             $collections->is_accepted();
             $collections->timestamps();

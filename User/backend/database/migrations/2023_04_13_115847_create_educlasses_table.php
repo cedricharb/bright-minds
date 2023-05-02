@@ -15,6 +15,9 @@ return new class extends Migration
     {
         Schema::create('educlasses', function ($collections) {
             $collections->id();
+            $collections->string('title');
+            $collections->text('description');
+            $collections->string('age-range');
             $collections->timestamps();
         });
     }
