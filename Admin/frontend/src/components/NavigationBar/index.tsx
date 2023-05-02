@@ -28,9 +28,33 @@ const Navbar = () => {
   const theme = useMantineTheme();
 
   const logout = () => {
-    localStorage.setItem("token", "");
-  };
+    const base_url = "http://127.0.0.1:8000/api/v1/admin";
+    const options = {
+      method: "POST",
+      url: base_url + "/auth/logout",
+      params: {},
+      headers: {
+        Authorization :'Bearer' + localStorage.getItem("token"),
+      },
+    };
 
+    axios
+      .request(options)
+      .then(function ({ data }) {
+        console.log(data);
+        //console.log(localStorage.getItem("token"))
+
+        if (data.result) {
+          localStorage.setItem("token", "");
+         navigate("/login");
+        }
+      })
+      .catch(function (error: any) {
+        console.error(error);
+      });
+      //localStorage.setItem("token", "");
+     // navigate("/login");
+  };
   return (
     <Flex direction="column" justify="space-between" h="100%" p="lg">
       <Flex gap={5} direction="column" bg={theme.colors.gray[4]} w="100%">

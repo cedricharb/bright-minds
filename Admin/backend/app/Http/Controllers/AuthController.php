@@ -104,9 +104,9 @@ class AuthController extends Controller
     {
         if (Auth::check()) {
             Auth::logout();
-            return response()->json(['message' => 'Logged out successfully']);
+            return response()->json(['message' => 'Logged out successfully','result'=>true]);
         }
-        return response()->json(['message' => 'No user to log out'], 401);
+        return response()->json(['message' => 'No user to log out','result'=>false], 401);
     }
 
     public function changePassword(Request $request){
