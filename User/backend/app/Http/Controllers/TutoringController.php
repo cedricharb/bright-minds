@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Subject;
 use App\Models\Schedule;
+use App\Models\Session;
 
 class TutoringController extends Controller
 {
@@ -29,7 +30,7 @@ class TutoringController extends Controller
         if ($schedule && $schedule!=[]) {
             return response()->json([
                 "result" => true,
-                "subjects"=> $schedule
+                "schedule"=> $schedule
             ]);
         } else {
             return response()->json([
@@ -47,7 +48,7 @@ class TutoringController extends Controller
         $session->student_details = $request->student_details;
         $session->guardian_details = $request->guardian_details;
 
-        if ($session->save) {
+        if ($session->save()) {
             return response()->json([
                 "result"=>true
             ]);

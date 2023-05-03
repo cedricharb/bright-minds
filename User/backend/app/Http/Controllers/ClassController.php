@@ -21,13 +21,13 @@ class ClassController extends Controller
         ], 200);
     }
 
-    public function getClassDetails($id = null)
+    public function getClassDetails($id)
     {
         $class = EduClass::find($id);
         if ($class && $class!=[]) {
             return response()->json([
                 "result"=>true,
-                "class-details"->$class
+                "class-details"=>$class
             ]);
         } else {
             return response()->json([

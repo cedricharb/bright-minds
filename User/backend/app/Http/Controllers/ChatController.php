@@ -36,7 +36,7 @@ class ChatController extends Controller
         $new_chat->answer = $faq->answer;
         $new_chat->question = $request->question;
         $new_chat->review = $request->review;
-        if ($new_chat->save) {
+        if ($new_chat->save()) {
             return response()->json([
                 'result' => true
             ], 200);

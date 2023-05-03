@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Camp;
+use App\Models\Camper;
 use Illuminate\Support\Carbon;
 
 class CampController extends Controller
@@ -12,20 +13,15 @@ class CampController extends Controller
     {
         $current_date = Carbon::now();
         $date = Carbon::createFromFormat('Y-m-d H:i:s', $current_date)->format('Y-m-d');
-
         $camps = Camp::get();
         $counter = $camps->count();
-        $camp_arr = $camps->map(function ($camps) {
-            return collect($camps->toArray())->all();
-        });
-
         $prev_camps = []; $upcoming_camp = [];
         for ($x = 0; $x <= $counter-1; $x++) {
-            if($camp_arr[$x]->start_date > $date) {
-                array_push($prev_camps, $camp_arr[$x]);
+            if ($camps[$x]->start_date > $date) {
+                array_push($prev_camps, $camps[$x]);
             }
-            if ($camp_arr[$x]->start_date < $date) {
-                $upcoming_camp = $camp_arr[$x];
+            if ($camps[$x]->start_date < $date) {
+                $upcoming_camp = $camps[$x];
             }
         }
         return response()->json([
@@ -45,12 +41,12 @@ class CampController extends Controller
             ]);
         }
         $camper = new Camper;
-        $camper->$name = $request->$name;
-        $camper->$age = $request->$age;
-        $camper->$class = $request->$class;
-        $camper->$parent_email = $request->$parent_email;
-        $camper->$parent_phone_nb = $request->$parent_phone_nb;
-        if ($camper->save) {
+        $camper->name = $request->name;
+        $camper->age = $request->age;
+        $camper->class = $request->class;
+        $camper->parent_email = $request->parent_email;
+        $camper->parent_phone_nb = $request->parent_phone_nb;
+        if ($camper->save()) {
             return response()->json([
                 "result" => true
             ], 200);
